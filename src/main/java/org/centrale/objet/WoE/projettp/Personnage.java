@@ -41,6 +41,8 @@ public class Personnage {
         this.pageAtt = perso.pageAtt;
         this.pagePar = perso.pagePar;
         this.distAttMax = perso.distAttMax;
+        this.pos=new Point2D (perso.pos);
+        
     }
     public Personnage(){
         
