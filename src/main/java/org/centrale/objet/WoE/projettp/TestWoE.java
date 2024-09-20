@@ -19,6 +19,7 @@ public class TestWoE {
         //génération du monde
         w.creeMondeAlea();
         w.getRobin().affiche();
+        w.getGuillaumeT().affiche();
         w.getPeon().affiche();
         w.getRoger().affiche();
         w.getBugs().affiche();
@@ -29,5 +30,6 @@ public class TestWoE {
         w.getPeon().affiche();
         w.getRobin().deplace(0);
         w.getRobin().affiche();
+        w.getGuillaumeT().affiche();
     }
 }
