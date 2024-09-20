@@ -4,22 +4,26 @@
  */
 package org.centrale.objet.WoE.projettp;
 import java.util.Random;
-import org.centrale.objet.WoE.projettp.Archer;
-import org.centrale.objet.WoE.projettp.Lapin;
 /**
  *
  * @author clesp
  */
 public class World {
     public Archer robin;
+    public Archer guillaumeT;
     public Paysan peon;
     public Lapin bugs;
     public Lapin roger;
     public World (Archer a,Paysan p, Lapin l1,Lapin l2){
         this.robin=new Archer(a);
+        this.guillaumeT=new Archer(this.robin);
         this.peon=new Paysan(p);
         this.bugs=new Lapin(l1);
         this.roger=new Lapin(l2);
+    }
+
+    public Archer getGuillaumeT() {
+        return guillaumeT;
     }
 
     public Archer getRobin() {
@@ -43,6 +47,7 @@ public class World {
        Random r=new Random();
        //Archer
        this.robin.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
+       this.guillaumeT.setPos(new Point2D (this.robin.getPos().getX(),this.robin.getPos().getY()));
        Point2D p1=this.robin.getPos();
        //Paysan
        this.peon.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
