@@ -50,7 +50,7 @@ public class Creature {
         this.ptPar = crea.ptPar;
         this.pageAtt = crea.pageAtt;
         this.pagePar = crea.pagePar;
-        this.pos=crea.pos;
+        this.pos=new Point2D(crea.pos);
         
     }
     
