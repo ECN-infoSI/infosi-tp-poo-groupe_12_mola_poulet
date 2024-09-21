@@ -10,6 +10,11 @@ package org.centrale.objet.WoE.projettp;
  * @author clesp
  */
 public class TestPoint2D {
+
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args){
         //création d'objets Point2D
         Point2D p1=new Point2D(1 ,7);

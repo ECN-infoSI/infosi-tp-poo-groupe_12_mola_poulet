@@ -9,11 +9,39 @@ import java.util.Random;
  * @author clesp
  */
 public class World {
+
+    /**
+     *
+     */
     public Archer robin;
+
+    /**
+     *
+     */
     public Archer guillaumeT;
+
+    /**
+     *
+     */
     public Paysan peon;
+
+    /**
+     *
+     */
     public Lapin bugs;
+
+    /**
+     *
+     */
     public Lapin roger;
+
+    /**
+     *
+     * @param a Un archer
+     * @param p Un paysan
+     * @param l1 Un lapin
+     * @param l2 Un lapin
+     */
     public World (Archer a,Paysan p, Lapin l1,Lapin l2){
         this.robin=new Archer(a);
         this.guillaumeT=new Archer(this.robin);
@@ -22,27 +50,51 @@ public class World {
         this.roger=new Lapin(l2);
     }
 
+    /**
+     *
+     * @return
+     */
     public Archer getGuillaumeT() {
         return guillaumeT;
     }
 
+    /**
+     *
+     * @return
+     */
     public Archer getRobin() {
         return robin;
     }
 
+    /**
+     *
+     * @return
+     */
     public Paysan getPeon() {
         return peon;
     }
 
+    /**
+     *
+     * @return
+     */
     public Lapin getBugs() {
         return bugs;
     }
 
+    /**
+     *
+     * @return
+     */
     public Lapin getRoger() {
         return roger;
     }
     
     // création des positions initiales aléatoires
+
+    /**
+     * Créer le monde en générant des positions aléatoires (sur différentes cases)
+     */
    public void creeMondeAlea(){
        Random r=new Random();
        //Archer

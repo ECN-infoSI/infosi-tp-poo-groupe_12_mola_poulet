@@ -15,12 +15,12 @@ public class Monstre extends Creature {
 
     /**
      *
-     * @param pV
-     * @param dA
-     * @param pPar
-     * @param paAtt
-     * @param paPar
-     * @param p
+     * @param pV Points de vie
+     * @param dA Points d'attaque
+     * @param pPar Points de parade
+     * @param paAtt Pourcentage de réussite attaque
+     * @param paPar Pourcentage de réussite parade
+     * @param p Position
      */
     public Monstre (int pV, int dA, int pPar, int paAtt,int paPar, Point2D p){
         super(pV, dA, pPar, paAtt, paPar, p);
@@ -29,7 +29,7 @@ public class Monstre extends Creature {
 
     /**
      *
-     * @param m
+     * @param m Copie d'un monstre
      */
     public Monstre(Monstre m){
         super((Creature) m);

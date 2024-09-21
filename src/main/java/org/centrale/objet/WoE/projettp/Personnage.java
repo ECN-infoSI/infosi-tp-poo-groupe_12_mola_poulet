@@ -16,15 +16,15 @@ public class Personnage extends Creature{
 
     
     /**
-     * 
-     * @param name
-     * @param pV
-     * @param dA
-     * @param pPar
-     * @param paAtt
-     * @param paPar
-     * @param dMax
-     * @param p 
+     * Construit un personnage
+     * @param name Nom
+     * @param pV Points de vie
+     * @param dA Points d'attaque
+     * @param pPar Points de parade
+     * @param paAtt Pourcentage réussite attaque
+     * @param paPar Pourcentage reussite parade
+     * @param dMax Distance max
+     * @param p Position
      */
     public Personnage(String name,int pV,int dA,int pPar,int paAtt, int paPar, int dMax, Point2D p){
         super(pV, dA, pPar, paAtt, paPar, p);
@@ -35,7 +35,7 @@ public class Personnage extends Creature{
 
     /**
      *
-     * @param perso
+     * @param perso Personnage à copier
      */
     public Personnage(Personnage perso){
         super((Creature) perso);
@@ -50,6 +50,14 @@ public class Personnage extends Creature{
     public Personnage(){
         
     }
-    
 
+    /**
+     * Méthode permettant de se soigner via une potion puis de supprimer 
+     * la potion du terrain (et de la mémoire)
+     * @param pot Potion
+     */
+    public void soin(PotionSoin pot){
+        this.setPtVie(this.getPtVie()+pot.getPvRendus());
+        pot=null;
+    }
 }

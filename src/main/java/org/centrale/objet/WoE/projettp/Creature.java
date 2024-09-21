@@ -22,12 +22,12 @@ public class Creature {
     
     /**
      *
-     * @param pV
-     * @param att
-     * @param par
-     * @param pAtt
-     * @param pPar
-     * @param p
+     * @param pV Nombre de point de vie de la créature
+     * @param att Degats physiques de la créature
+     * @param par Niveau de parade de la créature
+     * @param pAtt Taux de reussite d'attaque de la créature
+     * @param pPar Taux de reussite de parade de la créature
+     * @param p Position de la créature
      */
     public Creature(int pV, int att, int par, int pAtt, int pPar, Point2D p){
         
@@ -41,7 +41,7 @@ public class Creature {
     
     /**
      *
-     * @param crea
+     * @param crea Copie d'une créature 
      */
     public Creature(Creature crea){
 
@@ -63,7 +63,7 @@ public class Creature {
 
     /**
      *
-     * @return
+     * @return 
      */
     public int getPtVie() {
         return ptVie;
@@ -71,7 +71,7 @@ public class Creature {
 
     /**
      *
-     * @return
+     * @return 
      */
     public int getDegAtt() {
         return degAtt;

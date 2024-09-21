@@ -9,6 +9,11 @@ package org.centrale.objet.WoE.projettp;
  * @author clesp
  */
 public class TestWoE {
+
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args){
         //Initialisation du monde
         Archer a=new Archer("Robin des bois",50,10,75,50,50,5,new Point2D(0,0),10);
