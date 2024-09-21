@@ -181,13 +181,13 @@ public class Creature {
     }
 
     /**
-     * n est un entier compris entre 0 et 7 et permet de decider dans quelle direction deplacer le personnage d'une case dans cette direction
+     * n est un entier compris entre 1 et 8 et permet de decider dans quelle direction deplacer le personnage d'une case dans cette direction
      * 0 correspond au nord et on tourne dans le sens horaire
      * @param n
      */
     public void deplace(int n){
         
-        int sens=n%8+1;/*permet d'assurer que n est ompris entre 0 et 7*/
+        int sens=n%8+1;/*permet d'assurer que n est ompris entre 1 et 8*/
         
         switch (sens){
             case 1 :
