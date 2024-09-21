@@ -219,7 +219,7 @@ public class Creature {
     }
     
     /**
-     *
+     * Affiche les attributs de la créature
      */
     public void affiche(){
         System.out.println("pv "+this.ptVie+"\n"+"att "+this.degAtt+"\n"+"Par "+this.ptPar+"\n"+"PaAtt "+this.pageAtt+"\n"+"PaPar "+this.pagePar+"\n");
