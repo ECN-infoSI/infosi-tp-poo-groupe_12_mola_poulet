@@ -9,21 +9,25 @@ package org.centrale.objet.WoE.projettp;
  * @author clesp
  */
 public class Epee extends Objet {
-    private int Bonus;
+    private String name;
+    private int bonus;
 
     /**
      *
-     * @param Bonus Bonus d'attaque au détenteur de l'arme
+     * @param nom Nom de l'épée
+     * @param bonus Bonus d'attaque
      */
-    public Epee(int Bonus) {
-        this.Bonus = Bonus;
+    public Epee(String nom,int bonus) {
+        this.name=nom;
+        this.bonus = bonus;
     }
     /**
      * 
      * @param e Copie d'une épée
      */
     public Epee (Epee e){
-        this.Bonus=e.Bonus;
+        this.name=e.name;
+        this.bonus=e.bonus;
     }
 
     /**
@@ -37,18 +41,41 @@ public class Epee extends Objet {
      *
      * @return
      */
+    public String getName() {
+        return name;
+    }
+    
+    /**
+     *
+     * @return
+     */
     public int getBonus() {
-        return Bonus;
+        return bonus;
     }
     //Setter
 
     /**
      *
-     * @param Bonus
+     * @param name
      */
-    public void setBonus(int Bonus) {
-        this.Bonus = Bonus;
+    public void setName(String name) {
+        this.name = name;
     }
     
+    /**
+     *
+     * @param bonus 
+     */
+    public void setBonus(int bonus) {
+        this.bonus = bonus;
+    }
+    //méthodes
+    
+    /**
+     * Affiche les attributs de l'épée
+     */
+    public void affiche(){
+        System.out.println("[Nom de l'arme : "+this.name+", Bonus de l'arme : "+this.bonus+"]");
+    }
     
 }
