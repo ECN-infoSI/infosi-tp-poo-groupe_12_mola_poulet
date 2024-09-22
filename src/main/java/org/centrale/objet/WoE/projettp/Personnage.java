@@ -1,5 +1,4 @@
 package org.centrale.objet.WoE.projettp;
-import java.util.Random;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -50,7 +49,43 @@ public class Personnage extends Creature{
     public Personnage(){
         
     }
+    //getters
 
+    /**
+     *
+     * @return
+     */
+    public String getNom() {
+        return nom;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getDistAttMax() {
+        return distAttMax;
+    }
+    
+    //setters
+
+    /**
+     *
+     * @param nom
+     */
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    /**
+     *
+     * @param distAttMax
+     */
+    public void setDistAttMax(int distAttMax) {
+        this.distAttMax = distAttMax;
+    }
+    
+    //Méthodes
     /**
      * Méthode permettant de se soigner via une potion puis de supprimer 
      * la potion du terrain (et de la mémoire)
@@ -59,5 +94,13 @@ public class Personnage extends Creature{
     public void soin(PotionSoin pot){
         this.setPtVie(this.getPtVie()+pot.getPvRendus());
         pot=null;
+    }
+    /**
+     * Affiche les attributs du personnage
+     */
+    @Override
+    public void affiche(){
+        System.out.println("Nom "+this.nom+"\n"+"pv "+this.getPtVie()+"\n"+"att "+this.getDegAtt()+"\n"+"Par "+this.getPtPar()+"\n"+"PaAtt "+this.getPageAtt()+"\n"+"PaPar "+this.getPagePar()+"\n"+"Distance attaque max "+this.distAttMax);
+        this.getPos().affiche();
     }
 }

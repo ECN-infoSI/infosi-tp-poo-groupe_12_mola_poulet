@@ -42,4 +42,14 @@ public class Archer extends Personnage {
      */
     public Archer() {
     }
+    
+    /**
+     * Affiche les attributs de l'archer
+     */
+    @Override
+    public void affiche(){
+        System.out.println("Nom "+this.getNom()+"\n"+"pv "+this.getPtVie()+"\n"+"att "+this.getDegAtt()+"\n"+"Par "+this.getPtPar()+"\n"+"PaAtt "+this.getPageAtt()+"\n"+"PaPar "+this.getPagePar()+"\n"+"Distance attaque max "+this.getDistAttMax());
+        this.getPos().affiche();
+        System.out.println("Nombre de flèches "+this.nbFleches);
+    }
 }

@@ -154,18 +154,16 @@ public class Creature {
      * @param pos
      */
     public void setPos(Point2D pos) {
-        this.pos = pos;
+        this.pos.setPosition(pos.getX(), pos.getY());
     }
     
     /**
      * deplace sans argument utilise la fonction nextInt pour teleporter le personnage a une position aleatoire dans un rayon de 10 cases
      */
     public void deplace(){
-
         Random rand =new Random();
-        int dx = rand.nextInt(21)-10;/*permet de determiner la translation selon x entre -10 et 10*/
-        int dy = rand.nextInt(21)-10;/*fait la meme chose qu'avant mais selon y*/
-        
+        int dx = rand.nextInt(21)-10;//permet de determiner la translation selon x entre -10 et 10
+        int dy = rand.nextInt(21)-10;//fait la meme chose qu'avant mais selon y
         this.pos.translate(dx, dy);
     }
 
@@ -176,13 +174,12 @@ public class Creature {
      * @param dy
      */
     public void deplace(int dx, int dy){
-    
         this.pos.translate(dx, dy);
     }
 
     /**
      * n est un entier compris entre 1 et 8 et permet de decider dans quelle direction deplacer le personnage d'une case dans cette direction
-     * 0 correspond au nord et on tourne dans le sens horaire
+     * 1 correspond au nord et on tourne dans le sens horaire
      * @param n
      */
     public void deplace(int n){
@@ -222,7 +219,7 @@ public class Creature {
      * Affiche les attributs de la créature
      */
     public void affiche(){
-        System.out.println("pv "+this.ptVie+"\n"+"att "+this.degAtt+"\n"+"Par "+this.ptPar+"\n"+"PaAtt "+this.pageAtt+"\n"+"PaPar "+this.pagePar+"\n");
+        System.out.println("pv "+this.ptVie+"\n"+"att "+this.degAtt+"\n"+"Par "+this.ptPar+"\n"+"PaAtt "+this.pageAtt+"\n"+"PaPar "+this.pagePar);
         this.pos.affiche(); 
     }
 }

@@ -10,15 +10,12 @@ package org.centrale.objet.WoE.projettp;
  */
 public class PotionSoin extends Objet {
     private int pvRendus;
-    private Point2D pos;
     /**
      * @param pv Nombre de points de vie rendus
-     * @param p
      * 
      */
-    public PotionSoin(int pv,Point2D p){
+    public PotionSoin(int pv){
         this.pvRendus=pv;
-        this.pos=new Point2D (p);
     }
 
     /**
@@ -29,13 +26,6 @@ public class PotionSoin extends Objet {
         return pvRendus;
     }
 
-    /**
-     *
-     * @return
-     */
-    public Point2D getPos() {
-        return pos;
-    }
 
     /**
      *
@@ -43,14 +33,5 @@ public class PotionSoin extends Objet {
      */
     public void setPvRendus(int pvRendus) {
         this.pvRendus = pvRendus;
-    }
-
-    /**
-     *
-     * @param pos
-     */
-    public void setPos(Point2D pos) {
-        this.pos = pos;
-    }
-    
+    }  
 }
