@@ -4,6 +4,8 @@
  */
 package org.centrale.objet.WoE.projettp;
 
+import java.util.Random;
+
 /**
  *
  * @author clesp
@@ -37,4 +39,30 @@ public class Loup extends Monstre{
      */
     public Loup() {
     }
+    
+    /**
+     * Système de combat (corps à corps)
+     * @param c Créature à combattre
+     */
+    
+    public void combattre(Creature c){
+        Random r=new Random();
+        if (this.getPos().distance(c.getPos())<Math.sqrt(2)){
+            //Case adjacente (distance inférieure à sqrt(2)
+            int n=r.nextInt(101);
+            if (n<=this.getPageAtt()){
+                //Attaque réussie
+                int k=r.nextInt(101);
+                if (k>c.getPagePar()){
+                    //Parade ratée
+                    c.setPtVie(Math.max(c.getPtVie()-this.getDegAtt(),0));  
+                }
+                else{
+                    //Parade réussie
+                    c.setPtVie(Math.max(0,Math.min(c.getPtVie(),c.getPtVie()-this.getDegAtt()+c.getPtPar())));
+                }
+            }
+        }
+    }
 }
+
