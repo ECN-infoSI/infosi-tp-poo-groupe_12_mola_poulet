@@ -9,31 +9,14 @@ import java.util.Random;
  * @author clesp
  */
 public class World {
-
-    /**
-     *
-     */
+    
     public Archer robin;
-
-    /**
-     *
-     */
     public Archer guillaumeT;
-
-    /**
-     *
-     */
     public Paysan peon;
-
-    /**
-     *
-     */
     public Lapin bugs;
-
-    /**
-     *
-     */
     public Lapin roger;
+    public Loup wolfie;
+    public Guerrier grosBill;
 
     /**
      *
@@ -42,12 +25,14 @@ public class World {
      * @param l1 Un lapin
      * @param l2 Un lapin
      */
-    public World (Archer a,Paysan p, Lapin l1,Lapin l2){
+    public World (Archer a,Paysan p, Lapin l1,Lapin l2,Loup w,Guerrier g){
         this.robin=new Archer(a);
         this.guillaumeT=new Archer(this.robin);
         this.peon=new Paysan(p);
         this.bugs=new Lapin(l1);
         this.roger=new Lapin(l2);
+        this.wolfie=new Loup(w);
+        this.grosBill=new Guerrier(g);
     }
 
     /**
@@ -89,6 +74,15 @@ public class World {
     public Lapin getRoger() {
         return roger;
     }
+
+    public Loup getWolfie() {
+        return wolfie;
+    }
+
+    public Guerrier getGrosBill() {
+        return grosBill;
+    }
+    
     
     // création des positions initiales aléatoires
 
@@ -128,5 +122,9 @@ public class World {
        while (p3.distance(p4)==0){
            this.roger.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
        }
+   }
+   
+   public void afficheWorld(){
+       
    }
 }
