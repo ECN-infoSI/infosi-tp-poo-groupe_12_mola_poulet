@@ -4,6 +4,8 @@
  */
 package org.centrale.objet.WoE.projettp;
 
+import java.util.Random;
+
 /**
  *
  * @author clesp
@@ -42,6 +44,18 @@ public class Archer extends Personnage {
      */
     public Archer() {
     }
+
+    
+    
+    public int getNbFleches() {
+        return nbFleches;
+    }
+
+    public void setNbFleches(int nbFleches) {
+        this.nbFleches = nbFleches;
+    }
+    
+    
     
     /**
      * Affiche les attributs de l'archer
@@ -52,4 +66,41 @@ public class Archer extends Personnage {
         this.getPos().affiche();
         System.out.println("Nombre de flèches "+this.nbFleches);
     }
+    
+        public void combattre(Creature adversaire){
+        Random rand = new Random();
+        int jetAtt = rand.nextInt(101);
+        int jetPar = rand.nextInt(101);
+        
+        if (this.getPos().distance(adversaire.getPos())<2){
+            
+            if (jetAtt>=this.getPageAtt()){
+                
+                if (jetPar>=adversaire.getPagePar()){
+                    
+                    if (adversaire.getPtPar()<this.getDegAtt()){
+                        
+                        adversaire.setPtVie(Math.max(0, adversaire.getPtVie()-(this.getDegAtt()-adversaire.getPtPar())));
+                    }
+                }
+                else{
+                    
+                    adversaire.setPtVie(Math.max(0, adversaire.getPtVie()-this.getDegAtt()));
+                }
+            }
+            
+        }
+        else if (this.getPos().distance(adversaire.getPos())<=this.getDistAttMax()&&this.getNbFleches()>0){
+            
+            if (jetAtt>=this.getPageAtt()){
+                
+                adversaire.setPtVie(Math.max(0, adversaire.getPtVie()-this.getDegAtt()));
+            }
+            
+            this.setNbFleches(Math.max(0,this.getNbFleches()-1));
+        }
+    }
+
+    
 }
+
