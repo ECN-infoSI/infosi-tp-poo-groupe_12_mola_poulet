@@ -92,8 +92,10 @@ public class Personnage extends Creature{
      * @param pot Potion
      */
     public void soin(PotionSoin pot){
-        this.setPtVie(this.getPtVie()+pot.getPvRendus());
-        pot=null;
+        if (this.getPos().distance(pot.getPos())==0){
+            this.setPtVie(this.getPtVie()+pot.getPvRendus());
+            pot=null;
+        }
     }
     /**
      * Affiche les attributs du personnage
