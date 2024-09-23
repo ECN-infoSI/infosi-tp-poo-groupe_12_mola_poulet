@@ -65,8 +65,11 @@ public class Archer extends Personnage {
         this.getPos().affiche();
         System.out.println("Nombre de flèches "+this.nbFleches);
     }
-    
-        public void combattre(Creature adversaire){
+    /**
+     * Méthode permettant le combat d'un archer (au corps à corps et à distance)
+     * @param adversaire adversaire à combattre
+     */
+    public void combattre(Creature adversaire){
         Random rand = new Random();
         int jetAtt = rand.nextInt(101);
         int jetPar = rand.nextInt(101);
