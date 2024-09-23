@@ -149,7 +149,7 @@ public class World {
            this.wolfie.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
        }
        //Guerrier
-       this.wolfie.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
+       this.grosBill.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
        Point2D p6=this.grosBill.getPos();
        while (p1.distance(p6)==0){
            this.grosBill.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
@@ -167,7 +167,7 @@ public class World {
            this.grosBill.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
        }
        //Potion
-       this.wolfie.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
+       this.potion.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
        Point2D p7=this.potion.getPos();
        while (p1.distance(p7)==0){
            this.potion.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
