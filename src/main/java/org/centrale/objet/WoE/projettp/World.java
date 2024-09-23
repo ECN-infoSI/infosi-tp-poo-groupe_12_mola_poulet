@@ -99,8 +99,8 @@ public class World {
        Random r=new Random();
        //Archer
        this.robin.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
-       this.guillaumeT.setPos(new Point2D (this.robin.getPos().getX(),this.robin.getPos().getY()));
        Point2D p1=this.robin.getPos();
+       this.guillaumeT.setPos(p1);
        //Paysan
        this.peon.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
        Point2D p2=this.peon.getPos();

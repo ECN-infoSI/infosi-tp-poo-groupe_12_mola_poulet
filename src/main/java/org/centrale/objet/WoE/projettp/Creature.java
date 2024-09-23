@@ -178,8 +178,8 @@ public class Creature {
     }
 
     /**
-     * n est un entier compris entre 1 et 8 et permet de decider dans quelle direction deplacer le personnage d'une case dans cette direction
-     * 1 correspond au nord et on tourne dans le sens horaire
+     * n est un entier compris entre 0 et 7 et permet de decider dans quelle direction deplacer le personnage d'une case dans cette direction
+     * 7 correspond au nord et on tourne dans le sens horaire
      * @param n
      */
     public void deplace(int n){
@@ -191,7 +191,7 @@ public class Creature {
                 this.pos.translate(0, 1);//nord
                 break;
             case 2 :
-                this.pos.translate(0, 1);//nord-est
+                this.pos.translate(1, 1);//nord-estS
                 break;
             case 3 : 
                 this.pos.translate(1,0);//est

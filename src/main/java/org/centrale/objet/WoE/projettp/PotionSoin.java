@@ -34,4 +34,13 @@ public class PotionSoin extends Objet {
     public void setPvRendus(int pvRendus) {
         this.pvRendus = pvRendus;
     }  
+    //Méthodes
+    /**
+     * Affiche les attributs de la potion
+     */
+    @Override
+    public void affiche(){
+        System.out.println("Nombre de points de vie rendus "+this.pvRendus);
+        this.getPos().affiche();
+    }
 }

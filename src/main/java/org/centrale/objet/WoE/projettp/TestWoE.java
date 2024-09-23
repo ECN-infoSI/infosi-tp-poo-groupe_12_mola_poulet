@@ -33,8 +33,12 @@ public class TestWoE {
         w.getBugs().affiche();
         w.getPeon().deplace(2, -3);
         w.getPeon().affiche();
-        w.getRobin().deplace(0);
-        w.getRobin().affiche();
+        w.getRobin().deplace(1);
         w.getGuillaumeT().affiche();
+        w.getRobin().affiche();
+        w.getPeon().deplace(2);
+        w.getPeon().affiche();
+        w.getBugs().deplace(6);
+        w.getBugs().affiche();
     }
 }

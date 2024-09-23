@@ -51,6 +51,11 @@ public class Objet {
     public void setPos(Point2D pos) {
         this.pos.setPosition(pos.getX(), pos.getY());
     }
-    
-    
+    //méthodes
+    /**
+     * Affiche les attributs de l'objet
+     */
+    public void affiche(){
+        this.getPos().affiche();
+    }
 }

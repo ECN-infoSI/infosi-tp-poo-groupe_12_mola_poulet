@@ -74,6 +74,7 @@ public class Epee extends Objet {
     /**
      * Affiche les attributs de l'épée
      */
+    @Override
     public void affiche(){
         System.out.println("[Nom de l'arme : "+this.name+", Bonus de l'arme : "+this.bonus+"]");
     }
