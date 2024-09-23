@@ -93,11 +93,11 @@ public class Guerrier extends Personnage {
                 int k=r.nextInt(101);
                 if (k>c.getPagePar()){
                     //Parade ratée
-                    c.setPtVie(Math.max(c.getPtVie()-this.getDegAtt(),0));  
+                    c.setPtVie(Math.max(c.getPtVie()-this.getDegAtt()-this.getArme().getBonus(),0));  
                 }
                 else{
                     //Parade réussie
-                    c.setPtVie(Math.max(0,Math.min(c.getPtVie(),c.getPtVie()-this.getDegAtt()+c.getPtPar())));
+                    c.setPtVie(Math.max(0,Math.min(c.getPtVie(),c.getPtVie()-this.getDegAtt()-this.getArme().getBonus()+c.getPtPar())));
                 }
             }
         }
