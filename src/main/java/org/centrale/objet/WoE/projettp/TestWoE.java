@@ -20,7 +20,11 @@ public class TestWoE {
         Paysan p=new Paysan("Malon",50,10,75,50,50,5,new Point2D(0,0));
         Lapin l1=new Lapin(50,10,75,50,50,new Point2D(0,0));
         Lapin l2=new Lapin(50,10,75,50,50,new Point2D(0,0));
-        World w=new World(a,p,l1,l2);
+        Loup lo=new Loup(50,10,75,50,50,new Point2D(0,0));
+        Epee arme=new Epee("Master Sword",30,new Point2D(0,0));
+        Guerrier g=new Guerrier ("Link",50,10,75,50,50,5,arme,new Point2D(0,0));
+        PotionSoin s=new PotionSoin(10,new Point2D(0,0));
+        World w=new World(a,p,l1,l2,lo,g,s);
         //génération du monde
         w.creeMondeAlea();
         w.getRobin().affiche();

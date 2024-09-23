@@ -17,6 +17,7 @@ public class World {
     public Lapin roger;
     public Loup wolfie;
     public Guerrier grosBill;
+    public PotionSoin potion;
 
     /**
      *
@@ -24,8 +25,12 @@ public class World {
      * @param p Un paysan
      * @param l1 Un lapin
      * @param l2 Un lapin
+     * @param w Un loup
+     * @param g Un guerrier
+     * @param s Une potion
+     * 
      */
-    public World (Archer a,Paysan p, Lapin l1,Lapin l2,Loup w,Guerrier g){
+    public World (Archer a,Paysan p, Lapin l1,Lapin l2,Loup w,Guerrier g, PotionSoin s){
         this.robin=new Archer(a);
         this.guillaumeT=new Archer(this.robin);
         this.peon=new Paysan(p);
@@ -33,6 +38,7 @@ public class World {
         this.roger=new Lapin(l2);
         this.wolfie=new Loup(w);
         this.grosBill=new Guerrier(g);
+        this.potion=new PotionSoin(s.getPvRendus(),s.getPos());
     }
 
     /**
@@ -82,6 +88,11 @@ public class World {
     public Guerrier getGrosBill() {
         return grosBill;
     }
+
+    public PotionSoin getPotion() {
+        return potion;
+    }
+    
     
     
     // création des positions initiales aléatoires
@@ -122,9 +133,77 @@ public class World {
        while (p3.distance(p4)==0){
            this.roger.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
        }
-   }
-   
-   public void afficheWorld(){
+       //Loup
+       this.wolfie.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
+       Point2D p5=this.wolfie.getPos();
+       while (p1.distance(p5)==0){
+           this.wolfie.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
+       }
+       while (p2.distance(p5)==0){
+           this.wolfie.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
+       }
+       while (p3.distance(p5)==0){
+           this.wolfie.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
+       }
+       while(p4.distance(p5)==0){
+           this.wolfie.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
+       }
+       //Guerrier
+       this.wolfie.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
+       Point2D p6=this.grosBill.getPos();
+       while (p1.distance(p6)==0){
+           this.grosBill.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
+       }
+       while (p2.distance(p6)==0){
+           this.grosBill.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
+       }
+       while (p3.distance(p6)==0){
+           this.grosBill.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
+       }
+       while(p4.distance(p6)==0){
+           this.grosBill.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
+       }
+        while(p5.distance(p6)==0){
+           this.grosBill.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
+       }
+       //Potion
+       this.wolfie.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
+       Point2D p7=this.potion.getPos();
+       while (p1.distance(p7)==0){
+           this.potion.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
+       }
+       while (p2.distance(p7)==0){
+           this.potion.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
+       }
+       while (p3.distance(p7)==0){
+           this.potion.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
+       }
+       while(p4.distance(p7)==0){
+           this.potion.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
+       }
+       while(p5.distance(p7)==0){
+           this.potion.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
+       }
+       while(p6.distance(p7)==0){
+           this.potion.setPos(new Point2D (r.nextInt(51)-25,r.nextInt(51)-25));
+       }
        
+       
+       
+
+       
+   }
+   /**
+    * Affiche les attributs du monde
+    */
+   public void afficheWorld(){
+       this.robin.affiche();
+       this.guillaumeT.affiche();
+       this.peon.affiche();
+       this.bugs.affiche();
+       this.roger.affiche();
+       this.wolfie.affiche();
+       this.grosBill.affiche();
+       this.potion.affiche();
    }
 }

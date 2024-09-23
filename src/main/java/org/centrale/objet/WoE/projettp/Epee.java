@@ -17,7 +17,8 @@ public class Epee extends Objet {
      * @param nom Nom de l'épée
      * @param bonus Bonus d'attaque
      */
-    public Epee(String nom,int bonus) {
+    public Epee(String nom,int bonus,Point2D p) {
+        super(p);
         this.name=nom;
         this.bonus = bonus;
     }
@@ -26,6 +27,7 @@ public class Epee extends Objet {
      * @param e Copie d'une épée
      */
     public Epee (Epee e){
+        super((Objet) e);
         this.name=e.name;
         this.bonus=e.bonus;
     }

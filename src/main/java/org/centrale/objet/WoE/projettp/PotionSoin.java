@@ -14,7 +14,8 @@ public class PotionSoin extends Objet {
      * @param pv Nombre de points de vie rendus
      * 
      */
-    public PotionSoin(int pv){
+    public PotionSoin(int pv,Point2D p){
+        super(p);
         this.pvRendus=pv;
     }
 
