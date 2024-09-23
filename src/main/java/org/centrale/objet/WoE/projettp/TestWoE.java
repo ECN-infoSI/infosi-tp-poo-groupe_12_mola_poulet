@@ -28,18 +28,7 @@ public class TestWoE {
         //génération du monde
         w.creeMondeAlea();
         w.afficheWorld();
-        //déplacements
-        /*w.getBugs().deplace();
-        w.getBugs().affiche();
-        w.getPeon().deplace(2, -3);
-        w.getPeon().affiche();
-        w.getRobin().deplace(1);
-        w.getGuillaumeT().affiche();
-        w.getRobin().affiche();
-        w.getPeon().deplace(2);
-        w.getPeon().affiche();
-        w.getBugs().deplace(6);
-        w.getBugs().affiche();*/
+
         //Tests de combat et de soin
         w.getGrosBill().setPos(new Point2D (w.getBugs().getPos().getX()+1,w.getBugs().getPos().getY()));
         w.getGrosBill().combattre(w.getBugs());
