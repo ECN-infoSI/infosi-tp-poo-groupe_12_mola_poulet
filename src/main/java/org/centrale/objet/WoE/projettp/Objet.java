@@ -8,14 +8,16 @@ package org.centrale.objet.WoE.projettp;
  *
  * @author clesp
  */
-public class Objet {
+public class Objet extends Entite {
+    
     private Point2D pos;//position
+    
     //Constructeurs
     /**
      * @param p Position
      */
     public Objet(Point2D p){
-        this.pos=new Point2D(p);
+        super(p);
     }
 
     /**
@@ -29,32 +31,14 @@ public class Objet {
      * @param o copie profonde d'un objet
      */
     public Objet(Objet o){
-        this.pos=new Point2D(o.pos);
+        super((Entite) o);
     }
-    //getters
 
-    /**
-     *
-     * @return
-     */
-    public Point2D getPos() {
-        return pos;
-    }
-    
-    //setters
-
-    /**
-     *
-     * @param pos
-     */
-
-    public void setPos(Point2D pos) {
-        this.pos.setPosition(pos.getX(), pos.getY());
-    }
     //méthodes
     /**
      * Affiche les attributs de l'objet
      */
+    @Override
     public void affiche(){
         this.getPos().affiche();
     }

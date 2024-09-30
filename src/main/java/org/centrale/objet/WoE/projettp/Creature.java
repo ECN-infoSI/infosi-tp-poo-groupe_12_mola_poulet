@@ -11,7 +11,7 @@ import java.util.Random;
  *
  * @author Amolz
  */
-public class Creature {
+public class Creature extends Entite {
     
     private int ptVie; //nombre de point de vie du personnage
     private int degAtt; //degats physiques du personnage
@@ -30,13 +30,13 @@ public class Creature {
      * @param p Position de la créature
      */
     public Creature(int pV, int att, int par, int pAtt, int pPar, Point2D p){
-        
+        super(p);
         ptVie = pV;
         degAtt = att;
         ptPar = par;
         pageAtt = pAtt;
         pagePar = pPar;
-        pos = new Point2D(p);
+        
     }
     
     /**
@@ -44,14 +44,14 @@ public class Creature {
      * @param crea Copie d'une créature 
      */
     public Creature(Creature crea){
-
+        
+        super((Entite) crea);
         this.ptVie = crea.ptVie;
         this.degAtt = crea.degAtt;
         this.ptPar = crea.ptPar;
         this.pageAtt = crea.pageAtt;
         this.pagePar = crea.pagePar;
-        this.pos=new Point2D(crea.pos);
-        
+   
     }
     
     /**
@@ -149,14 +149,7 @@ public class Creature {
         this.pagePar = pagePar;
     }
 
-    /**
-     *
-     * @param pos
-     */
-    public void setPos(Point2D pos) {
-        this.pos.setPosition(pos.getX(), pos.getY());
-    }
-    
+
     /**
      * deplace sans argument utilise la fonction nextInt pour teleporter le personnage a une position aleatoire dans un rayon de 10 cases
      */
@@ -218,6 +211,7 @@ public class Creature {
     /**
      * Affiche les attributs de la créature
      */
+    @Override
     public void affiche(){
         System.out.println("pv "+this.ptVie+"\n"+"att "+this.degAtt+"\n"+"Par "+this.ptPar+"\n"+"PaAtt "+this.pageAtt+"\n"+"PaPar "+this.pagePar);
         this.pos.affiche(); 
