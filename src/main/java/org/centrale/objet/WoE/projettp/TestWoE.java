@@ -20,9 +20,10 @@ public class TestWoE {
         World w=new World();
         Random r= new Random();
         w.creeMondeAlea(r.nextInt(21), r.nextInt(21), r.nextInt(21), r.nextInt(21), r.nextInt(21), r.nextInt(21), r.nextInt(21));
-        //w.afficheWorld();
+        w.afficheWorld();
+        
         World w2=new World(1000,1000);
-        w2.creeMondeAlea(1000000, 0, 0, 0, 0, 0, 0);
+        w2.creeMondeAlea(20, 20, 20, 20, 20, 0, 0);
         int sum=0;
         long debut=System.nanoTime();
         for (Entite p:w2.getListeEntite()){
@@ -30,6 +31,7 @@ public class TestWoE {
                 sum+=((Creature) p).getPtVie();
             }
         }
+        System.out.println("Points de vie totaux : "+sum);
         long fin=System.nanoTime();
         System.out.println("Temps écoulé en ns : "+(fin-debut));
         sum=0;

@@ -46,12 +46,18 @@ public class Archer extends Personnage {
         this.nbFleches=30;
     }
 
-    
-    
+    /**
+     *
+     * @return
+     */
     public int getNbFleches() {
         return nbFleches;
     }
 
+    /**
+     *
+     * @param nbFleches
+     */
     public void setNbFleches(int nbFleches) {
         this.nbFleches = nbFleches;
     }

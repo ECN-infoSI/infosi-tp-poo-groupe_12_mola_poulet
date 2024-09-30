@@ -52,6 +52,9 @@ public abstract class Entite {
         this.pos = pos;
     }
     
+    /**
+     *
+     */
     public void affiche(){}
             
 }

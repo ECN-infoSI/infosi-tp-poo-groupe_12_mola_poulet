@@ -17,13 +17,8 @@ public class World {
     
     /**
      *
-     * @param a Un archer
-     * @param p Un paysan
-     * @param l1 Un lapin
-     * @param l2 Un lapin
-     * @param w Un loup
-     * @param g Un guerrier
-     * @param s Une potion
+     * @param lo longueur
+     * @param la largeur
      * 
      * 
      */
@@ -33,12 +28,19 @@ public class World {
         this.listeEntite=new ArrayList<>();
     }
     
+    /**
+     *
+     */
     public World(){
         this.longueur=l;
         this.largeur=l;
         this.listeEntite=new ArrayList<>();
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Entite> getListeEntite() {
         return listeEntite;
     }
@@ -49,6 +51,13 @@ public class World {
 
     /**
      * Créer le monde en générant des positions aléatoires (sur différentes cases)
+     * @param nbGuerrier Nombre de guerriers
+     * @param nbPaysan Nombre de paysans
+     * @param nbArcher Nombre d'archers
+     * @param nbEpee Nombre d'épées
+     * @param nbLoup Nombre de loups
+     * @param nbLapin Nombre de lapins
+     * @param nbPotion Nombre de potions
      */
    public void creeMondeAlea(int nbGuerrier,int nbPaysan,int nbArcher,int nbLoup, int nbLapin,int nbPotion,int nbEpee){
        Random r=new Random();
