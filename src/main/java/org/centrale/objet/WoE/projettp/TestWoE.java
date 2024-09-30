@@ -20,7 +20,7 @@ public class TestWoE {
         Random r= new Random();
         w.creeMondeAlea(r.nextInt(21), r.nextInt(21), r.nextInt(21), r.nextInt(21), r.nextInt(21), r.nextInt(21), r.nextInt(21));
         w.afficheWorld();
-        World w2=new World();
+        World w2=new World(1000,1000);
         w2.creeMondeAlea(2000, 2000, 2000, 2000, 2000, 0, 0);
         int sum=0;
         long debut=System.nanoTime();
