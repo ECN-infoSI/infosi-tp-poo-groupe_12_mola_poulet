@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package org.centrale.objet.WoE.projettp;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.Random;
 /**
  *
@@ -12,7 +12,7 @@ import java.util.Random;
 public class World {
     private int longueur;
     private int largeur;
-    private LinkedList<Entite> listeEntite;
+    private ArrayList<Entite> listeEntite;
     private final static int l=50;
     
     /**
@@ -30,16 +30,16 @@ public class World {
     public World (int lo, int la){
         this.longueur=lo;
         this.largeur=la;
-        this.listeEntite=new LinkedList<>();
+        this.listeEntite=new ArrayList<>();
     }
     
     public World(){
         this.longueur=l;
         this.largeur=l;
-        this.listeEntite=new LinkedList<>();
+        this.listeEntite=new ArrayList<>();
     }
 
-    public LinkedList<Entite> getListeEntite() {
+    public ArrayList<Entite> getListeEntite() {
         return listeEntite;
     }
     

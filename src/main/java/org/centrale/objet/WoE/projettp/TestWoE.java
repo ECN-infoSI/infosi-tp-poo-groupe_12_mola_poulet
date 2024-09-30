@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package org.centrale.objet.WoE.projettp;
+import java.util.ArrayList;
 import java.util.Random;
 /**
  *
@@ -19,9 +20,9 @@ public class TestWoE {
         World w=new World();
         Random r= new Random();
         w.creeMondeAlea(r.nextInt(21), r.nextInt(21), r.nextInt(21), r.nextInt(21), r.nextInt(21), r.nextInt(21), r.nextInt(21));
-        w.afficheWorld();
+        //w.afficheWorld();
         World w2=new World(1000,1000);
-        w2.creeMondeAlea(2000, 2000, 2000, 2000, 2000, 0, 0);
+        w2.creeMondeAlea(1000000, 0, 0, 0, 0, 0, 0);
         int sum=0;
         long debut=System.nanoTime();
         for (Entite p:w2.getListeEntite()){
@@ -33,8 +34,9 @@ public class TestWoE {
         System.out.println("Temps écoulé en ns : "+(fin-debut));
         sum=0;
         debut=System.nanoTime();
-        for(int i=0;i<w2.getListeEntite().size();i++){
-            if (w2.getListeEntite().get(i) instanceof Creature){
+        ArrayList<Entite> list=w2.getListeEntite();
+        for(int i=0;i<list.size();i++){
+            if (list.get(i) instanceof Creature){
                 sum+=((Creature) w2.getListeEntite().get(i)).getPtVie();
             }
         }
