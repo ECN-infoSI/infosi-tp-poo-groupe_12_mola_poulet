@@ -18,7 +18,6 @@ public class Creature extends Entite {
     private int ptPar; // niveau de parade du personnage
     private int pageAtt; //taux de reussite d'attaque du personnage
     private int pagePar; //taux de reussite de parade du personnage
-    private Point2D pos; //position du personnage
     
     /**
      *
@@ -58,7 +57,12 @@ public class Creature extends Entite {
      *
      */
     public Creature(){
-        
+        super();
+        this.ptVie = 50;
+        this.degAtt = 50;
+        this.ptPar = 20;
+        this.pageAtt = 80;
+        this.pagePar = 30;
     }
 
     /**
@@ -100,15 +104,6 @@ public class Creature extends Entite {
     public int getPagePar() {
         return pagePar;
     }
-
-    /**
-     *
-     * @return
-     */
-    public Point2D getPos() {
-        return pos;
-    }
-
     /**
      *
      * @param ptVie
@@ -157,7 +152,7 @@ public class Creature extends Entite {
         Random rand =new Random();
         int dx = rand.nextInt(21)-10;//permet de determiner la translation selon x entre -10 et 10
         int dy = rand.nextInt(21)-10;//fait la meme chose qu'avant mais selon y
-        this.pos.translate(dx, dy);
+        this.getPos().translate(dx, dy);
     }
 
     /**
@@ -167,7 +162,7 @@ public class Creature extends Entite {
      * @param dy
      */
     public void deplace(int dx, int dy){
-        this.pos.translate(dx, dy);
+        this.getPos().translate(dx, dy);
     }
 
     /**
@@ -181,28 +176,28 @@ public class Creature extends Entite {
         
         switch (sens){
             case 1 :
-                this.pos.translate(0, 1);//nord
+                this.getPos().translate(0, 1);//nord
                 break;
             case 2 :
-                this.pos.translate(1, 1);//nord-estS
+                this.getPos().translate(1, 1);//nord-estS
                 break;
             case 3 : 
-                this.pos.translate(1,0);//est
+                this.getPos().translate(1,0);//est
                 break;
             case 4 :
-                this.pos.translate(1, -1);//sud-est
+                this.getPos().translate(1, -1);//sud-est
                 break;
             case 5 : 
-                this.pos.translate(0, -1);//sud
+                this.getPos().translate(0, -1);//sud
                 break;
             case 6 :
-                this.pos.translate(-1, -1);//sud-ouest
+                this.getPos().translate(-1, -1);//sud-ouest
                 break;
             case 7 : 
-                this.pos.translate(-1,0);//ouest
+                this.getPos().translate(-1,0);//ouest
                 break;
             case 8 :
-                this.pos.translate(-1,1);//nord-ouest
+                this.getPos().translate(-1,1);//nord-ouest
                 break;
 
         }
@@ -214,6 +209,6 @@ public class Creature extends Entite {
     @Override
     public void affiche(){
         System.out.println("pv "+this.ptVie+"\n"+"att "+this.degAtt+"\n"+"Par "+this.ptPar+"\n"+"PaAtt "+this.pageAtt+"\n"+"PaPar "+this.pagePar);
-        this.pos.affiche(); 
+        this.getPos().affiche(); 
     }
 }

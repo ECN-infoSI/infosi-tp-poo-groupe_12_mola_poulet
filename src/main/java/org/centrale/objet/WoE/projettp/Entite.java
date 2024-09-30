@@ -33,7 +33,7 @@ public abstract class Entite {
      *
      */
     public Entite(){
-        
+        this.pos=new Point2D(0,0);
     }
 
     /**

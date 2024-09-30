@@ -35,6 +35,7 @@ public class Lapin extends Monstre{
      *
      */
     public Lapin() {
+        super();
     }
     
 }

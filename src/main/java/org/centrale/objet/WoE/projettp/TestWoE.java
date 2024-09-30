@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package org.centrale.objet.WoE.projettp;
-
+import java.util.Random;
 /**
  *
  * @author clesp
@@ -16,29 +16,30 @@ public class TestWoE {
      */
     public static void main(String[] args){
         //Initialisation du monde
-        Archer a=new Archer("Robin des bois",50,10,75,50,50,5,new Point2D(0,0),10);
-        Paysan p=new Paysan("Malon",50,10,75,50,50,5,new Point2D(0,0));
-        Lapin l1=new Lapin(50,10,10,50,50,new Point2D(0,0));
-        Lapin l2=new Lapin(50,10,10,50,50,new Point2D(0,0));
-        Loup lo=new Loup(50,10,75,50,50,new Point2D(0,0));
-        Epee arme=new Epee("Master Sword",30,new Point2D(0,0));
-        Guerrier g=new Guerrier ("Link",50,10,10,50,50,5,arme,new Point2D(0,0));
-        PotionSoin s=new PotionSoin(10,new Point2D(0,0));
-        World w=new World(a,p,l1,l2,lo,g,s);
-        //génération du monde
-        w.creeMondeAlea();
+        World w=new World();
+        Random r= new Random();
+        w.creeMondeAlea(r.nextInt(21), r.nextInt(21), r.nextInt(21), r.nextInt(21), r.nextInt(21), r.nextInt(21), r.nextInt(21));
         w.afficheWorld();
-
-        //Tests de combat et de soin
-        w.getGrosBill().setPos(new Point2D (w.getBugs().getPos().getX()+1,w.getBugs().getPos().getY()));
-        w.getGrosBill().combattre(w.getBugs());
-        w.getBugs().affiche();
-        w.getRobin().setPos(new Point2D (w.getGrosBill().getPos().getX()+3,w.getGrosBill().getPos().getY()));
-        w.getRobin().combattre(w.getGrosBill());
-        w.getRobin().affiche();
-        w.getGrosBill().affiche();
-        w.getGrosBill().setPos(new Point2D (w.getPotion().getPos().getX(),w.getPotion().getPos().getY()));
-        w.getGrosBill().soin(w.getPotion());
-        w.getGrosBill().affiche();
+        World w2=new World();
+        w2.creeMondeAlea(2000, 2000, 2000, 2000, 2000, 0, 0);
+        int sum=0;
+        long debut=System.nanoTime();
+        for (Entite p:w2.getListeEntite()){
+            if (p instanceof Creature){
+                sum+=((Creature) p).getPtVie();
+            }
+        }
+        long fin=System.nanoTime();
+        System.out.println("Temps écoulé en ns : "+(fin-debut));
+        sum=0;
+        debut=System.nanoTime();
+        for(int i=0;i<w2.getListeEntite().size();i++){
+            if (w2.getListeEntite().get(i) instanceof Creature){
+                sum+=((Creature) w2.getListeEntite().get(i)).getPtVie();
+            }
+        }
+        fin=System.nanoTime();
+        System.out.println("Temps écoulé en ns : "+(fin-debut));
+        
     }
 }

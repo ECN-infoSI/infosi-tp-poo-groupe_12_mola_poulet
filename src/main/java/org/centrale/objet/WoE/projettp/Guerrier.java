@@ -35,6 +35,8 @@ public class Guerrier extends Personnage {
      *
      */
     public Guerrier(){
+        super();
+        this.arme=new Epee();
     }
 
     /**

@@ -38,5 +38,6 @@ public class Monstre extends Creature {
      *
      */
     public Monstre(){
+        super();
     }
 }

@@ -18,6 +18,10 @@ public class PotionSoin extends Objet {
         super(p);
         this.pvRendus=pv;
     }
+    public PotionSoin(){
+        super();
+        this.pvRendus=20;
+    }
 
     /**
      *

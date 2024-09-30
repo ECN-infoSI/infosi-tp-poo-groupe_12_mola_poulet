@@ -36,6 +36,9 @@ public class Epee extends Objet {
      *
      */
     public Epee (){
+        super();
+        this.name="Epee lambda";
+        this.bonus=5;
     }
     //Getter
 

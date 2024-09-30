@@ -24,6 +24,7 @@ public class Objet extends Entite {
      *
      */
     public Objet(){
+        this.pos=new Point2D(0,0);
     }
 
     /**
