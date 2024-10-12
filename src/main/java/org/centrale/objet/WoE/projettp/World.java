@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package org.centrale.objet.WoE.projettp;
-import java.util.ArrayList;
 import java.util.Random;
 /**
  *
@@ -12,7 +11,8 @@ import java.util.Random;
 public class World {
     private int longueur;
     private int largeur;
-    private ArrayList<Entite> listeEntite;
+    private Joueur joueur;
+    private Entite[][] listeEntite;
     private final static int l=50;
     
     /**
@@ -22,10 +22,14 @@ public class World {
      * 
      * 
      */
-    public World (int lo, int la){
+    public World (int lo, int la,Joueur joueur){
         this.longueur=lo;
         this.largeur=la;
-        this.listeEntite=new ArrayList<>();
+        this.joueur=joueur;
+        this.listeEntite=new Entite[lo][];
+        for (int i=0;i<lo;i++){
+            this.listeEntite[i]=new Entite[la];
+        }
     }
     
     /**
@@ -34,15 +38,23 @@ public class World {
     public World(){
         this.longueur=l;
         this.largeur=l;
-        this.listeEntite=new ArrayList<>();
+        this.joueur=new Joueur();
+        this.listeEntite=new Entite[l][];
+        for (int i=0;i<l;i++){
+            this.listeEntite[i]=new Entite[l];
+        }
     }
 
     /**
      *
      * @return
      */
-    public ArrayList<Entite> getListeEntite() {
+    public Entite[][] getListeEntite() {
         return listeEntite;
+    }
+
+    public Joueur getJoueur() {
+        return joueur;
     }
     
 
@@ -61,133 +73,90 @@ public class World {
      */
    public void creeMondeAlea(int nbGuerrier,int nbPaysan,int nbArcher,int nbLoup, int nbLapin,int nbPotion,int nbEpee){
        Random r=new Random();
+       //Joueur
+       joueur.getPerso().setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
+       this.listeEntite[this.joueur.getPerso().getPos().getX()][this.joueur.getPerso().getPos().getY()]=joueur.getPerso();
        //Guerrier
        for (int i=1;i<=nbGuerrier;i++){
-           
            Guerrier thing= new Guerrier();
-           thing.setPos(new Point2D (r.nextInt(this.longueur+1),r.nextInt(this.largeur+1)));
-           int j=0; 
-           while (j<this.listeEntite.size()){
-               if (thing.getPos().distance(this.listeEntite.get(j).getPos())==0){
-                   thing.setPos(new Point2D (r.nextInt(this.longueur+1),r.nextInt(this.largeur+1)));
-                   j=0;
-               }
-               else{
-                   j++;
-               }
+           thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
+           while (listeEntite[thing.getPos().getX()][thing.getPos().getY()]!=null){
+                thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
            }
-           this.listeEntite.add(thing);
+           this.listeEntite[thing.getPos().getX()][thing.getPos().getY()]=thing;
        }
        //Paysan
        for (int i=1;i<=nbPaysan;i++){
            
            Paysan thing= new Paysan();
-           thing.setPos(new Point2D (r.nextInt(this.longueur+1),r.nextInt(this.largeur+1)));
-           int j=0; 
-           while (j<this.listeEntite.size()){
-               if (thing.getPos().distance(this.listeEntite.get(j).getPos())==0){
-                   thing.setPos(new Point2D (r.nextInt(this.longueur+1),r.nextInt(this.largeur+1)));
-                   j=0;
-               }
-               else{
-                   j++;
-               }
+           thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
+           while (listeEntite[thing.getPos().getX()][thing.getPos().getY()]!=null){
+                thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
            }
-           this.listeEntite.add(thing);
+           this.listeEntite[thing.getPos().getX()][thing.getPos().getY()]=thing;
        }
        //Archer
        for (int i=1;i<=nbArcher;i++){
            
            Archer thing= new Archer();
-           thing.setPos(new Point2D (r.nextInt(this.longueur+1),r.nextInt(this.largeur+1)));
-           int j=0; 
-           while (j<this.listeEntite.size()){
-               if (thing.getPos().distance(this.listeEntite.get(j).getPos())==0){
-                   thing.setPos(new Point2D (r.nextInt(this.longueur+1),r.nextInt(this.largeur+1)));
-                   j=0;
-               }
-               else{
-                   j++;
-               }
+           thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
+           while (listeEntite[thing.getPos().getX()][thing.getPos().getY()]!=null){
+                thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
            }
-           this.listeEntite.add(thing);
+           this.listeEntite[thing.getPos().getX()][thing.getPos().getY()]=thing;
        }
        //Loup
        for (int i=1;i<=nbLoup;i++){
            
            Loup thing= new Loup();
-           thing.setPos(new Point2D (r.nextInt(this.longueur+1),r.nextInt(this.largeur+1)));
-           int j=0; 
-           while (j<this.listeEntite.size()){
-               if (thing.getPos().distance(this.listeEntite.get(j).getPos())==0){
-                   thing.setPos(new Point2D (r.nextInt(this.longueur+1),r.nextInt(this.largeur+1)));
-                   j=0;
-               }
-               else{
-                   j++;
-               }
+           thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
+           while (listeEntite[thing.getPos().getX()][thing.getPos().getY()]!=null){
+                thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
            }
-           this.listeEntite.add(thing);
+           this.listeEntite[thing.getPos().getX()][thing.getPos().getY()]=thing;
        }
        //Lapins
        for (int i=1;i<=nbLapin;i++){
            
            Lapin thing= new Lapin();
-           thing.setPos(new Point2D (r.nextInt(this.longueur+1),r.nextInt(this.largeur+1)));
-           int j=0; 
-           while (j<this.listeEntite.size()){
-               if (thing.getPos().distance(this.listeEntite.get(j).getPos())==0){
-                   thing.setPos(new Point2D (r.nextInt(this.longueur+1),r.nextInt(this.largeur+1)));
-                   j=0;
-               }
-               else{
-                   j++;
-               }
+           thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
+           while (listeEntite[thing.getPos().getX()][thing.getPos().getY()]!=null){
+                thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
            }
-           this.listeEntite.add(thing);
+           this.listeEntite[thing.getPos().getX()][thing.getPos().getY()]=thing;
        }
        //Potions
        for (int i=1;i<=nbPotion;i++){
-           
            PotionSoin thing= new PotionSoin();
-           thing.setPos(new Point2D (r.nextInt(this.longueur+1),r.nextInt(this.largeur+1)));
-           int j=0; 
-           while (j<this.listeEntite.size()){
-               if (thing.getPos().distance(this.listeEntite.get(j).getPos())==0){
-                   thing.setPos(new Point2D (r.nextInt(this.longueur+1),r.nextInt(this.largeur+1)));
-                   j=0;
-               }
-               else{
-                   j++;
-               }
+           thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
+           while (listeEntite[thing.getPos().getX()][thing.getPos().getY()]!=null){
+                thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
            }
-           this.listeEntite.add(thing);
+           this.listeEntite[thing.getPos().getX()][thing.getPos().getY()]=thing;
        }
        //Epee
        for (int i=1;i<=nbEpee;i++){
            
            Epee thing= new Epee();
-           thing.setPos(new Point2D (r.nextInt(this.longueur+1),r.nextInt(this.largeur+1)));
-           int j=0; 
-           while (j<this.listeEntite.size()){
-               if (thing.getPos().distance(this.listeEntite.get(j).getPos())==0){
-                   thing.setPos(new Point2D (r.nextInt(this.longueur+1),r.nextInt(this.largeur+1)));
-                   j=0;
-               }
-               else{
-                   j++;
-               }
+           thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
+           while (listeEntite[thing.getPos().getX()][thing.getPos().getY()]!=null){
+                thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
            }
-           this.listeEntite.add(thing);
+           this.listeEntite[thing.getPos().getX()][thing.getPos().getY()]=thing;
        }
    }
    /**
     * Affiche les attributs du monde
     */
    public void afficheWorld(){
-       System.out.println("("+this.longueur+","+this.largeur+")");
-       for (Entite p:this.listeEntite){
-           p.affiche();
-       }
-   }
+       System.out.println("["+this.longueur+","+this.largeur+"]");
+       int j=listeEntite.length;
+       for (int i=0;i<j;i++){
+           for (Entite p:listeEntite[i]){
+               if (p!=null){
+                   p.affiche(); 
+               }
+           }
+        }
+    }
 }
