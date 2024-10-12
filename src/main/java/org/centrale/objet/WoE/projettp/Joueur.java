@@ -1,11 +1,12 @@
+package org.centrale.objet.WoE.projettp;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package org.centrale.objet.WoE.projettp;
-import java.util.ArrayList;
-import java.util.Scanner;
 
+import java.util.Scanner;
+import java.util.Random;
 /**
  *
  * @author clesp
@@ -69,26 +70,47 @@ public class Joueur {
         this.password = password;
     }
     
-    public void appartient(Object[] liste){
-        for (int j=0;j<=liste.length ;j++){
-            
+    private Class appartient(Class classe,Class[] liste){
+        Class res=null;
+        for (Class liste1 : liste) {
+            if (liste1.equals(classe)) {
+                res = liste1;
+            }
         }
-}
+        return res;
+    }
     public void demande(){
+        Random r=new Random();
         System.out.println("Rentrez votre classe voulue : ");
         Scanner s=new Scanner(System.in);
-        String nom=s.next();
+        String name=s.next();
         try{
-            Class classeJoueur=Class.forName(nom);
+            Class classeJoueur=Class.forName("org.centrale.objet.WoE.projettp."+name);
+            Class res=this.appartient(classeJoueur,list_classes);
+            if (res!=null){ 
+                System.out.println("Rentrez son nom : ");
+                String nomPerso=s.next();
+                switch (res.getSimpleName()){
+                    case "Archer": 
+                        this.perso=new Archer(nomPerso,20+r.nextInt(21),10+r.nextInt(11),5+r.nextInt(6),60+r.nextInt(36),20+r.nextInt(11),2+r.nextInt(5),new Point2D(0,0),30+r.nextInt(31));
+                        break;
+                    case "Guerrier":
+                        this.perso=new Guerrier(nomPerso,30+r.nextInt(21),20+r.nextInt(21),15+r.nextInt(11),80+r.nextInt(16),10+r.nextInt(11),1,new Epee(),new Point2D(0,0));
+                        break;
+                    default: 
+                       System.out.println("Vous ne pouvez pas jouer cette classe");
+                       this.demande();
+                }
+            }
+            else{
+                System.out.println("Vous ne pouvez pas jouer cette classe");
+                this.demande();
+            }
         } catch(ClassNotFoundException e){
             System.out.println("Veuliez réecrire le nom, il semble y avoir une erreur de saisie");
             this.demande();
         }
-        if (classeJoueur.appartient(list_classes) ){
-        
     }
         
-        
-    }
     
 }
