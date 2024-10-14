@@ -143,14 +143,24 @@ public class Creature extends Entite implements Deplacable {
      */
     public void setPagePar(int pagePar) {
         this.pagePar = pagePar;
-    }/**
+    }
+    /**
      * deplace sans argument utilise la fonction nextInt pour teleporter le personnage a une position aleatoire dans un rayon de 10 cases
      */
-    public void deplace(){
+    @Override
+    public void deplace(World monde){
         Random rand =new Random();
         int dx = rand.nextInt(21)-10;//permet de determiner la translation selon x entre -10 et 10
         int dy = rand.nextInt(21)-10;//fait la meme chose qu'avant mais selon y
-        this.getPos().translate(dx, dy);
+        if (this.getPos().getX()+dx<monde.getLongueur() && this.getPos().getY()+dy<monde.getLargeur() && monde.getListeEntite()[this.getPos().getX()+dx][this.getPos().getY()+dy]!=null){
+           monde.getListeEntite()[this.getPos().getX()][this.getPos().getY()]=null;
+           this.getPos().translate(dx, dy);
+           monde.getListeEntite()[this.getPos().getX()][this.getPos().getY()]=this;
+        }
+        else{
+            this.deplace(monde);
+        }
+        
     }
 
     /**
@@ -159,8 +169,12 @@ public class Creature extends Entite implements Deplacable {
      * @param dx
      * @param dy
      */
-    public void deplace(int dx, int dy){
-        this.getPos().translate(dx, dy);
+    public void deplace(int dx, int dy,World monde){
+        if (this.getPos().getX()+dx<monde.getLongueur() && this.getPos().getY()+dy<monde.getLargeur() && monde.getListeEntite()[this.getPos().getX()+dx][this.getPos().getY()+dy]!=null){
+           monde.getListeEntite()[this.getPos().getX()][this.getPos().getY()]=null;
+           this.getPos().translate(dx, dy);
+           monde.getListeEntite()[this.getPos().getX()][this.getPos().getY()]=this;
+        }
     }
 
     /**
@@ -168,39 +182,48 @@ public class Creature extends Entite implements Deplacable {
      * 7 correspond au nord et on tourne dans le sens horaire
      * @param n
      */
-    public void deplace(int n){
+
+    public void deplace(int n,World monde){
         
         int sens=n%8+1;/*permet d'assurer que n est ompris entre 1 et 8*/
         
         switch (sens){
             case 1 :
-                this.getPos().translate(0, 1);//nord
+                this.deplace(0, 1,monde);//nord
                 break;
             case 2 :
-                this.getPos().translate(1, 1);//nord-estS
+                this.deplace(1, 1,monde);//nord-estS
                 break;
             case 3 : 
-                this.getPos().translate(1,0);//est
+                this.deplace(1,0,monde);//est
                 break;
             case 4 :
-                this.getPos().translate(1, -1);//sud-est
+                this.deplace(1, -1,monde);//sud-est
                 break;
             case 5 : 
-                this.getPos().translate(0, -1);//sud
+                this.deplace(0, -1,monde);//sud
                 break;
             case 6 :
-                this.getPos().translate(-1, -1);//sud-ouest
+                this.deplace(-1, -1,monde);//sud-ouest
                 break;
             case 7 : 
-                this.getPos().translate(-1,0);//ouest
+                this.deplace(-1,0,monde);//ouest
                 break;
             case 8 :
-                this.getPos().translate(-1,1);//nord-ouest
+                this.deplace(-1,1,monde);//nord-ouest
                 break;
 
         }
     }
-    
+    public boolean[][] estDeplacable (World monde){
+        boolean[][]res=new boolean[3][3];
+        for (int i=-1;i<=1;i++){
+            for (int j=-1;j<=1;j++){
+                res[i][j]=((i!=0 || j!=0) && this.getPos().getX()+i<monde.getLongueur() && this.getPos().getY()+j<monde.getLargeur() && monde.getListeEntite()[this.getPos().getX()+i][this.getPos().getY()+j]!=null);
+            } 
+        } 
+        return res;
+    }
     /**
      * Affiche les attributs de la créature
      */

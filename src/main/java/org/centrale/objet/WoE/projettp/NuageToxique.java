@@ -104,49 +104,55 @@ public class NuageToxique extends Objet implements Deplacable, Combattant{
     /**
      * le deplacement est decide par l'attribut direction, 0 pour le nord, 1 pour le nord-est, 2 pour l'est, etc...
      */
-    public void deplace(){
+    
+    
+    public void deplace(int dx, int dy,World monde){
+        if (this.getPos().getX()+dx<monde.getLongueur() && this.getPos().getY()+dy<monde.getLargeur() && monde.getListeEntite()[this.getPos().getX()+dx][this.getPos().getY()+dy]!=null){
+           monde.getListeEntite()[this.getPos().getX()][this.getPos().getY()]=null;
+           this.getPos().translate(dx, dy);
+           monde.getListeEntite()[this.getPos().getX()][this.getPos().getY()]=this;
+        }
+    }
+    @Override
+  
+    public void deplace(World monde){
         
         int sens=this.getDirection()%8+1;/*permet d'assurer que n est ompris entre 1 et 8*/
         
-        switch (sens){
+                switch (sens){
             case 1 :
-                this.getPos().translate(0, 1);//nord
+                this.deplace(0, 1,monde);//nord
                 break;
-                
             case 2 :
-                this.getPos().translate(1, 1);//nord-estS
+                this.deplace(1, 1,monde);//nord-estS
                 break;
-                
             case 3 : 
-                this.getPos().translate(1,0);//est
+                this.deplace(1,0,monde);//est
                 break;
-                
             case 4 :
-                this.getPos().translate(1, -1);//sud-est
+                this.deplace(1, -1,monde);//sud-est
                 break;
-                
             case 5 : 
-                this.getPos().translate(0, -1);//sud
+                this.deplace(0, -1,monde);//sud
                 break;
-                
             case 6 :
-                this.getPos().translate(-1, -1);//sud-ouest
+                this.deplace(-1, -1,monde);//sud-ouest
                 break;
-                
             case 7 : 
-                this.getPos().translate(-1,0);//ouest
+                this.deplace(-1,0,monde);//ouest
                 break;
-                
             case 8 :
-                this.getPos().translate(-1,1);//nord-ouest
+                this.deplace(-1,1,monde);//nord-ouest
                 break;
-        }            
+
+        }
     }
     /**
      *
      * @param ennemi
      * Inflige des degats constants a la creature si elle se situe dans le nuage
      */
+    @Override
     public void combattre(Creature ennemi){
         
         if (this.getPos().distance(ennemi.getPos())<=this.getRayonAtt()){

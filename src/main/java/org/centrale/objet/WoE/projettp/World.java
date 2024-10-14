@@ -57,8 +57,15 @@ public class World {
     public Joueur getJoueur() {
         return joueur;
     }
-    
 
+    public int getLongueur() {
+        return longueur;
+    }
+
+    public int getLargeur() {
+        return largeur;
+    }
+    
     
     // création des positions initiales aléatoires
 

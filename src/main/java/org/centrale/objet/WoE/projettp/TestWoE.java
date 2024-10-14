@@ -26,8 +26,8 @@ public class TestWoE {
         //Tests des performances de la matrice
         World w2=new World(10000,10000,new Joueur());
         w2.getJoueur().demande();
-        w2.creeMondeAlea(1000, 1000, 1000, 10000, 100000, 1000, 1537);
-        w2.afficheWorld();
+        w2.creeMondeAlea(700000, 100000, 100000, 100000, 100000, 1000, 1537);
+        //w2.afficheWorld();
         int sum=0;
         long debut=System.nanoTime();
         int j=w2.getListeEntite().length;

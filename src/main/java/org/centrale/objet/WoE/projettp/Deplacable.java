@@ -11,6 +11,5 @@ package org.centrale.objet.WoE.projettp;
  */
 interface Deplacable {
     
-    public void deplace();
-    
+    public void deplace(World monde);
 }

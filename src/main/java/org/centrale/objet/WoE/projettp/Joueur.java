@@ -115,6 +115,66 @@ public class Joueur {
             this.demande();
         }
     }
+    
+    public void tourDeJoueur(int n){
+        Scanner s=new Scanner(System.in);
+        if (this.perso.peut_combattre()!=null){
+            System.out.println("Voulez-vous vous déplacer, utiliser un objet ou combattre ?"+"\n"+"Taper 1 pour vous déplacer"+"\n"+"Taper 2 pour utiliser un objet"+"\n"+"Taper 3 pour combattre");
+            String choix=s.next();
+            switch (choix){
+                case "1" : 
+                    System.out.println("Taper 0 pour aller au nord rajouter 1 pour pivoter de 45°");
+                    choix=s.next();
+                    try{
+                        this.perso.deplace(Integer.parseInt(choix));
+                    }catch(NumberFormatException exc){
+                        this.tourDeJoueur(n);
+                    }
+                    break;
+                case "2": 
+                    
+                    break;
+                case "3": 
+                    for (int i=0;i<peut_combattre.size();i++){
+                            
+                            System.out.println("Taper"+i+" pour frapper la créature à la position "+peut_combattre[i].getPos());
+                    }
+                    choix=s.next();
+                    try{
+                        this.perso.combattre(peut_combattre[Integer.parseInt(choix)]);
+                    }catch(NumberFormatException exc){
+                        this.tourDeJoueur(n);
+                    }
+                    break;
+                default : 
+                    this.tourDeJoueur(n);
+                    break;
+            }
+            
+        }
+        if(this.perso.peutCombattre()==null){
+            System.out.println("Voulez-vous vous déplacer, utiliser un objet ou combattre ?"+"\n"+"Taper 1 pour vous déplacer"+"\n"+"Taper 2 pour utiliser un objet"+"\n"+"Taper 3 pour combattre");
+            String choix=s.next();
+            switch (choix){
+                case "1" : 
+                    System.out.println("Taper 0 pour aller au nord rajouter 1 pour pivoter de 45°");
+                    choix=s.next();
+                    try{
+                        this.perso.deplace(Integer.parseInt(choix));
+                    }catch(NumberFormatException exc){
+                        this.tourDeJoueur(n);
+                    }
+                    break;
+                case "2": 
+                    
+                    break;
+                default : 
+                    this.tourDeJoueur(n);
+                    break;
+            }
+        }
+        
+    }
         
     
 }
