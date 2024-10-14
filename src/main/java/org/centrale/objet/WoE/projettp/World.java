@@ -171,7 +171,7 @@ public class World {
        return this.joueur.getPerso().getPtVie()<=0;
    }
    public void tourDeJeu(){
-       int n; //nombre de tours
+       int n=0; //nombre de tours
        while (!estTermine(n)){
             this.joueur.tourDeJoueur(n, this);
             for (Entite[] ligne: listeEntite){
