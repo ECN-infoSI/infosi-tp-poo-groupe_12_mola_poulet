@@ -10,9 +10,9 @@ import java.util.Random;
  */
 
 public class World {
-    private int longueur;
-    private int largeur;
-    private Joueur joueur;
+    private final int longueur;
+    private final int largeur;
+    private final Joueur joueur;
     private Entite[][] listeEntite;
     private final static int l=50;
     
