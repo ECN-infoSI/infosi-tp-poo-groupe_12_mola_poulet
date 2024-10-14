@@ -4,11 +4,13 @@
  */
 package org.centrale.objet.WoE.projettp;
 
+import static java.lang.Math.max;
+
 /**
  *
  * @author clesp
  */
-public class PotionSoin extends Objet {
+public class PotionSoin extends Objet implements Utilisable{
     private int pvRendus;
     /**
      * @param pv Nombre de points de vie rendus
@@ -52,5 +54,14 @@ public class PotionSoin extends Objet {
     public void affiche(){
         System.out.println("Nombre de points de vie rendus "+this.pvRendus);
         this.getPos().affiche();
+    }
+    
+    @Override
+    public void utilisation(Joueur player){
+        
+        Personnage mainCharacter = player.getPerso();
+        
+        mainCharacter.setPtVie(mainCharacter.getPtVie() + this.pvRendus);
+        
     }
 }
