@@ -100,7 +100,7 @@ public class Epee extends Objet implements Utilisable{
                 
                 rambo.setArme(this);
                 rambo.setDegAtt(rambo.getDegAtt() + bonus);
-                rambo.getInventaire().add(this)
+                rambo.getInventaire().add(this);
                 
             }
             else{

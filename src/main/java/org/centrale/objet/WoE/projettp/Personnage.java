@@ -1,5 +1,7 @@
 package org.centrale.objet.WoE.projettp;
 
+import java.util.ArrayList;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -94,12 +96,6 @@ public class Personnage extends Creature{
      * la potion du terrain (et de la mémoire)
      * @param pot Potion
      */
-    public void soin(PotionSoin pot){
-        if (this.getPos().distance(pot.getPos())==0){
-            this.setPtVie(this.getPtVie()+pot.getPvRendus());
-            pot=null;
-        }
-    }
     /**
      * Affiche les attributs du personnage
      */
@@ -108,4 +104,13 @@ public class Personnage extends Creature{
         System.out.println("Nom "+this.nom+"\n"+"pv "+this.getPtVie()+"\n"+"att "+this.getDegAtt()+"\n"+"Par "+this.getPtPar()+"\n"+"PaAtt "+this.getPageAtt()+"\n"+"PaPar "+this.getPagePar()+"\n"+"Distance attaque max "+this.distAttMax);
         this.getPos().affiche();
     }
+    public void combattre(Creature ennemi){
+        
+    }
+    public ArrayList<Creature> peutCombattre(World monde){
+        
+        return null;
+        
+    }
 }
+

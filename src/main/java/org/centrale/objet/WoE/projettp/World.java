@@ -167,4 +167,28 @@ public class World {
            }
         }
     }
+   public boolean estTermine(int n){
+       return this.joueur.getPerso().getPtVie()<=0;
+   }
+   public void tourDeJeu(){
+       int n; //nombre de tours
+       while (!estTermine(n)){
+            this.joueur.tourDeJoueur(n, this);
+            for (Entite[] ligne: listeEntite){
+                for (Entite ia:ligne){
+                    if (ia instanceof Creature && ia!=this.joueur.getPerso()){
+                        Creature ai=(Creature)ia;
+                        ai.tourIA(this);
+                        
+                    }
+                    if(ia instanceof NuageToxique){
+                        ((NuageToxique) ia).combattre(((NuageToxique) ia).peutCombattre(this));
+                    }
+                }
+            n++;
+            }
+        System.out.println("Game Over,"+"\n"+"Vous avez survécu "+n+" tours");
+       }
+       
+   }
 }

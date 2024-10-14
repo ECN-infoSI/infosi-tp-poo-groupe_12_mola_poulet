@@ -5,6 +5,7 @@
 
 package org.centrale.objet.WoE.projettp;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -47,9 +48,10 @@ public class Loup extends Monstre implements Combattant{
      * @param c Créature à combattre
      */
     
+    @Override
     public void combattre(Creature c){
         Random r=new Random();
-        if (this.getPos().distance(c.getPos())<2){
+        if (this.getPos().distance(c.getPos())<Math.sqrt(2)){
             //Case adjacente (distance inférieure à sqrt(2)
             int n=r.nextInt(101);
             if (n<=this.getPageAtt()){
@@ -64,6 +66,35 @@ public class Loup extends Monstre implements Combattant{
                     c.setPtVie(Math.max(0,Math.min(c.getPtVie(),c.getPtVie()-this.getDegAtt()+c.getPtPar())));
                 }
             }
+        }
+    }
+    @Override
+    public ArrayList<Creature> peutCombattre(World monde){
+        ArrayList<Creature> tab=new ArrayList<>();
+        for (int i=0;i<monde.getLongueur();i++){
+            for(int j=0;j<monde.getLargeur();j++){
+                if (monde.getListeEntite()[i][j]!=null && monde.getListeEntite()[i][j] instanceof Creature){
+                    if (this.getPos().distance(monde.getListeEntite()[i][j].getPos())<2){
+                        tab.add((Creature)monde.getListeEntite()[i][j]);
+                    }
+                }
+            }
+        }
+        if (tab.isEmpty()){
+            tab=null;
+        }
+        return tab;
+    }
+    @Override
+    public void tourIA(World monde){
+        ArrayList<Creature> liste=this.peutCombattre(monde);
+        if (liste.contains(monde.getJoueur().getPerso())){
+            this.combattre(monde.getJoueur().getPerso());
+        }
+        else{
+            Random r=new Random();
+            int n=r.nextInt(8);
+            this.deplace(n,monde);
         }
     }
 }

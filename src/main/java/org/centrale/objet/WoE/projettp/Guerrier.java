@@ -1,4 +1,5 @@
 package org.centrale.objet.WoE.projettp;
+import java.util.ArrayList;
 import java.util.Random;
 
 /*
@@ -103,6 +104,35 @@ public class Guerrier extends Personnage implements Combattant {
                     c.setPtVie(Math.max(0,Math.min(c.getPtVie(),c.getPtVie()-this.getDegAtt()-this.getArme().getBonus()+c.getPtPar())));
                 }
             }
+        }
+    }
+    @Override
+    public ArrayList<Creature> peutCombattre(World monde){
+        ArrayList<Creature> tab=new ArrayList<>();
+        for (int i=0;i<monde.getLongueur();i++){
+            for(int j=0;j<monde.getLargeur();j++){
+                if (monde.getListeEntite()[i][j]!=null && monde.getListeEntite()[i][j] instanceof Creature){
+                    if (this.getPos().distance(monde.getListeEntite()[i][j].getPos())<=this.getDistAttMax()){
+                        tab.add((Creature)monde.getListeEntite()[i][j]);
+                    }
+                }
+            }
+        }
+        if (tab.isEmpty()){
+            tab=null;
+        }
+        return tab;
+    }
+    @Override
+    public void tourIA(World monde){
+        ArrayList<Creature> liste=this.peutCombattre(monde);
+        if (liste.contains(monde.getJoueur().getPerso())){
+            this.combattre(monde.getJoueur().getPerso());
+        }
+        else{
+            Random r=new Random();
+            int n=r.nextInt(8);
+            this.deplace(n,monde);
         }
     }
 }

@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package org.centrale.objet.WoE.projettp;
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -78,6 +79,7 @@ public class Archer extends Personnage implements Combattant{
      * Méthode permettant le combat d'un archer (au corps à corps et à distance)
      * @param adversaire adversaire à combattre
      */
+    @Override
     public void combattre(Creature adversaire){
         Random rand = new Random();
         int jetAtt = rand.nextInt(101);
@@ -111,7 +113,35 @@ public class Archer extends Personnage implements Combattant{
             this.setNbFleches(Math.max(0,this.getNbFleches()-1));
         }
     }
-
+    @Override
+    public ArrayList<Creature> peutCombattre(World monde){
+        ArrayList<Creature> tab=new ArrayList<>();
+        for (int i=0;i<monde.getLongueur();i++){
+            for(int j=0;j<monde.getLargeur();j++){
+                if (monde.getListeEntite()[i][j]!=null && monde.getListeEntite()[i][j] instanceof Creature){
+                    if (this.getPos().distance(monde.getListeEntite()[i][j].getPos())<=this.getDistAttMax()){
+                        tab.add((Creature)monde.getListeEntite()[i][j]);
+                    }
+                }
+            }
+        }
+        if (tab.isEmpty()){
+            tab=null;
+        }
+        return tab;
+    }
+    @Override
+    public void tourIA(World monde){
+        ArrayList<Creature> liste=this.peutCombattre(monde);
+        if (liste.contains(monde.getJoueur().getPerso())){
+            this.combattre(monde.getJoueur().getPerso());
+        }
+        else{
+            Random r=new Random();
+            int n=r.nextInt(8);
+            this.deplace(n,monde);
+        }
+    }
     
 }
 

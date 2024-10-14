@@ -4,6 +4,9 @@
  */
 package org.centrale.objet.WoE.projettp;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  *
  * @author clesp
@@ -37,5 +40,10 @@ public class Lapin extends Monstre{
     public Lapin() {
         super();
     }
-    
+    @Override
+    public void tourIA(World monde){
+            Random r=new Random();
+            int n=r.nextInt(8);
+            this.deplace(n,monde);
+    }   
 }

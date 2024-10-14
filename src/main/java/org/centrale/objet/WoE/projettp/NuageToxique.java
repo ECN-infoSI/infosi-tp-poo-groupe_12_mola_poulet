@@ -1,6 +1,7 @@
 package org.centrale.objet.WoE.projettp;
 
 import static java.lang.Math.max;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 
@@ -155,10 +156,27 @@ public class NuageToxique extends Objet implements Deplacable, Combattant{
     @Override
     public void combattre(Creature ennemi){
         
-        if (this.getPos().distance(ennemi.getPos())<=this.getRayonAtt()){
+       
+    }
+    public void combattre (ArrayList<Creature> ennemis){
+        for (Creature ennemi:ennemis){
             
             ennemi.setPtVie(max(0, ennemi.getPtVie() - this.getDeg()));
         }
         
+    }
+    @Override
+    public ArrayList<Creature> peutCombattre(World monde){
+        ArrayList<Creature> tab=new ArrayList<>();
+        for (int i=0;i<monde.getLongueur();i++){
+            for(int j=0;j<monde.getLargeur();j++){
+                if (monde.getListeEntite()[i][j]!=null && monde.getListeEntite()[i][j] instanceof Creature){
+                    if (this.getPos().distance(monde.getListeEntite()[i][j].getPos())<=this.rayonAtt){
+                        tab.add((Creature)monde.getListeEntite()[i][j]);
+                    }
+                }
+            }
+        }
+         return tab;
     }
 }

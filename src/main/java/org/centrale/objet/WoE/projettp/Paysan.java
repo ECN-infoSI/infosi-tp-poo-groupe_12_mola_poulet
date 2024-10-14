@@ -4,11 +4,14 @@
  */
 package org.centrale.objet.WoE.projettp;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  *
  * @author Amolz
  */
-public class Paysan extends Personnage{
+public class Paysan extends Personnage implements IA {
     
     /**
      *
@@ -38,5 +41,11 @@ public class Paysan extends Personnage{
      */
     public Paysan(){
         super();
+    }  
+    @Override
+    public void tourIA(World monde){
+            Random r=new Random();
+            int n=r.nextInt(8);
+            this.deplace(n,monde);
     }  
 }

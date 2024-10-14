@@ -10,7 +10,7 @@ import java.util.Random;
  *
  * @author Amolz
  */
-public class Creature extends Entite implements Deplacable {
+public class Creature extends Entite implements Deplacable, IA {
     
     private int ptVie; //nombre de point de vie du personnage
     private int degAtt; //degats physiques du personnage
@@ -215,22 +215,21 @@ public class Creature extends Entite implements Deplacable {
 
         }
     }
-    public boolean[][] estDeplacable (World monde){
-        boolean[][]res=new boolean[3][3];
+    public boolean[] estDeplacable (World monde){
+        boolean[]res=new boolean[8];
+        int[] listeNb={5,6,7,4,0,3,2,1};
+        int nb=0;
         for (int i=-1;i<=1;i++){
             for (int j=-1;j<=1;j++){
-                res[i][j]=((i!=0 || j!=0) && this.getPos().getX()+i<monde.getLongueur() && this.getPos().getY()+j<monde.getLargeur() && monde.getListeEntite()[this.getPos().getX()+i][this.getPos().getY()+j]!=null);
+                if(j!=0 || i!=0){
+                    res[listeNb[nb]]=((i!=0 || j!=0) && this.getPos().getX()+i<monde.getLongueur() && this.getPos().getY()+j<monde.getLargeur() && monde.getListeEntite()[this.getPos().getX()+i][this.getPos().getY()+j]!=null);
+                    nb++;
+                }
             } 
         }
-        
-        if (res == (new boolean[][] {{false, false, false},
-                                     {false, false, false},
-                                     {false, false, false}})){
-            
-            return null;
-        
+        if (res==new boolean[]{false,false,false,false,false,false,false,false}){
+            res=null;
         }
-        
         return res;
     }
     /**
@@ -242,5 +241,9 @@ public class Creature extends Entite implements Deplacable {
         this.getPos().affiche(); 
         
     }
+    @Override
+    public void tourIA(World monde){
+        
+    }   
     
 }
