@@ -116,19 +116,36 @@ public class Joueur {
         }
     }
     
-    public void tourDeJoueur(int n){
+    public void tourDeJoueur(int n,World monde){
         Scanner s=new Scanner(System.in);
         if (this.perso.peut_combattre()!=null){
+            String[] cardinalites={"Nord","Nord-Est","Est","Sud-Est","Sud","Sud-Ouest","Ouest","Nord-Ouest"};
             System.out.println("Voulez-vous vous déplacer, utiliser un objet ou combattre ?"+"\n"+"Taper 1 pour vous déplacer"+"\n"+"Taper 2 pour utiliser un objet"+"\n"+"Taper 3 pour combattre");
             String choix=s.next();
             switch (choix){
                 case "1" : 
-                    System.out.println("Taper 0 pour aller au nord rajouter 1 pour pivoter de 45°");
-                    choix=s.next();
+                    boolean[]liste=this.perso.estDeplacable(monde);
+                    for (int i=0;i<liste.length;i++){
+                                if (liste[i]){
+                                    System.out.println("Taper "+i+" pour vous déplacer dans la direction "+cardinalites[i]);
+                                choix=s.next();
+                                try{
+                                        int ch=Integer.parseInt(choix);
+                                        if liste[ch]
+                                        this.perso.deplace(ch,monde);
+                                    }catch(NumberFormatException exc){
+                                      System.out.println("Il y a une erreur refaites un choix");
+                                      this.tourDeJoueur(n,monde);
+                                        
+                            }
+                        }
+                    }
+                }
+
                     try{
-                        this.perso.deplace(Integer.parseInt(choix));
+                        this.perso.deplace(Integer.parseInt(choix),monde);
                     }catch(NumberFormatException exc){
-                        this.tourDeJoueur(n);
+                        this.tourDeJoueur(n,monde);
                     }
                     break;
                 case "2": 
@@ -143,11 +160,11 @@ public class Joueur {
                     try{
                         this.perso.combattre(peut_combattre[Integer.parseInt(choix)]);
                     }catch(NumberFormatException exc){
-                        this.tourDeJoueur(n);
+                        this.tourDeJoueur(n,monde);
                     }
                     break;
                 default : 
-                    this.tourDeJoueur(n);
+                    this.tourDeJoueur(n,monde);
                     break;
             }
             
@@ -160,16 +177,16 @@ public class Joueur {
                     System.out.println("Taper 0 pour aller au nord rajouter 1 pour pivoter de 45°");
                     choix=s.next();
                     try{
-                        this.perso.deplace(Integer.parseInt(choix));
+                        this.perso.deplace(Integer.parseInt(choix),monde);
                     }catch(NumberFormatException exc){
-                        this.tourDeJoueur(n);
+                        this.tourDeJoueur(n,monde);
                     }
                     break;
                 case "2": 
                     
                     break;
                 default : 
-                    this.tourDeJoueur(n);
+                    this.tourDeJoueur(n,monde);
                     break;
             }
         }
