@@ -49,7 +49,7 @@ public class Loup extends Monstre implements Combattant{
     
     public void combattre(Creature c){
         Random r=new Random();
-        if (this.getPos().distance(c.getPos())<Math.sqrt(2)){
+        if (this.getPos().distance(c.getPos())<2){
             //Case adjacente (distance inférieure à sqrt(2)
             int n=r.nextInt(101);
             if (n<=this.getPageAtt()){
