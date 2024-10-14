@@ -1,5 +1,4 @@
 package org.centrale.objet.WoE.projettp;
-
 import java.util.Random;
 
 /*
@@ -11,7 +10,7 @@ import java.util.Random;
  *
  * @author Amolz
  */
-public class Creature extends Entite {
+public class Creature extends Entite implements Deplacable {
     
     private int ptVie; //nombre de point de vie du personnage
     private int degAtt; //degats physiques du personnage
@@ -44,7 +43,7 @@ public class Creature extends Entite {
      */
     public Creature(Creature crea){
         
-        super((Entite) crea);
+        super((Entite) crea);    
         this.ptVie = crea.ptVie;
         this.degAtt = crea.degAtt;
         this.ptPar = crea.ptPar;
@@ -58,6 +57,7 @@ public class Creature extends Entite {
      */
     public Creature(){
         super();
+        
         this.ptVie = 50;
         this.degAtt = 50;
         this.ptPar = 20;
@@ -104,6 +104,7 @@ public class Creature extends Entite {
     public int getPagePar() {
         return pagePar;
     }
+    
     /**
      *
      * @param ptVie
@@ -142,10 +143,7 @@ public class Creature extends Entite {
      */
     public void setPagePar(int pagePar) {
         this.pagePar = pagePar;
-    }
-
-
-    /**
+    }/**
      * deplace sans argument utilise la fonction nextInt pour teleporter le personnage a une position aleatoire dans un rayon de 10 cases
      */
     public void deplace(){

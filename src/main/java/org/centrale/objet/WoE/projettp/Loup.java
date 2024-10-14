@@ -2,6 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+
 package org.centrale.objet.WoE.projettp;
 
 import java.util.Random;
@@ -10,7 +11,7 @@ import java.util.Random;
  *
  * @author clesp
  */
-public class Loup extends Monstre{
+public class Loup extends Monstre implements Combattant{
     //constructeurs
 
     /**

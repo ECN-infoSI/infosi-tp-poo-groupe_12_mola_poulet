@@ -5,11 +5,12 @@
 package org.centrale.objet.WoE.projettp;
 import java.util.Random;
 
+
 /**
  *
  * @author clesp
  */
-public class Archer extends Personnage {
+public class Archer extends Personnage implements Combattant{
     private int nbFleches;
 
     /**
