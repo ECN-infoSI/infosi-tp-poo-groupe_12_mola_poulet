@@ -221,7 +221,16 @@ public class Creature extends Entite implements Deplacable {
             for (int j=-1;j<=1;j++){
                 res[i][j]=((i!=0 || j!=0) && this.getPos().getX()+i<monde.getLongueur() && this.getPos().getY()+j<monde.getLargeur() && monde.getListeEntite()[this.getPos().getX()+i][this.getPos().getY()+j]!=null);
             } 
-        } 
+        }
+        
+        if (res == (new boolean[][] {{false, false, false},
+                                     {false, false, false},
+                                     {false, false, false}})){
+            
+            return null;
+        
+        }
+        
         return res;
     }
     /**
@@ -231,5 +240,7 @@ public class Creature extends Entite implements Deplacable {
     public void affiche(){
         System.out.println("pv "+this.ptVie+"\n"+"att "+this.degAtt+"\n"+"Par "+this.ptPar+"\n"+"PaAtt "+this.pageAtt+"\n"+"PaPar "+this.pagePar);
         this.getPos().affiche(); 
+        
     }
+    
 }
