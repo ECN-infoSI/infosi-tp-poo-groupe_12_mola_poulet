@@ -4,8 +4,6 @@
  */
 package org.centrale.objet.WoE.projettp;
 
-import static java.lang.Math.max;
-
 /**
  *
  * @author clesp
@@ -52,8 +50,7 @@ public class PotionSoin extends Objet implements Utilisable{
      */
     @Override
     public void affiche(){
-        System.out.println("Nombre de points de vie rendus "+this.pvRendus);
-        this.getPos().affiche();
+        System.out.println("Potion : "+"\n"+"Nombre de points de vie rendus "+this.pvRendus);
     }
     
     @Override
@@ -62,7 +59,7 @@ public class PotionSoin extends Objet implements Utilisable{
         Personnage mainCharacter = player.getPerso();
         
         mainCharacter.setPtVie(mainCharacter.getPtVie() + this.pvRendus);
-        mainCharacter.getInventaire().remove(this);
+        player.getInventaire().getContenu().remove(this);
         
     }
 }

@@ -163,7 +163,7 @@ public class Joueur {
                 case "3": 
                     for (int i=0;i<((Combattant)this.perso).peutCombattre(monde).size();i++){
                             
-                            System.out.println("Taper"+i+" pour frapper la créature à la position "+this.perso.peutCombattre(monde).get(i).getPos());
+                            System.out.println("Taper"+i+" pour frapper la créature à la position "+((Combattant)this.perso).peutCombattre(monde).get(i).getPos());
                     }
                     choix=s.next();
                     try{
@@ -192,12 +192,12 @@ public class Joueur {
                     }
                     break;
                 case "2": 
-                    if (inventaire.getContenu().size()!=0){
+                    if (!inventaire.getContenu().isEmpty()){
                 inventaire.affiche();
                 System.out.println("Quel objet choisissez-vous ?");
                 choix=s.next();
                 try{
-                    Objet objet=inventaire.getContenu()[Integer.parseInt(choix)];
+                    Objet objet=inventaire.getContenu().get(Integer.parseInt(choix));
                     //suppression
                     if (objet instanceof PotionSoin){
                         ((PotionSoin) objet).utilisation(this);
@@ -237,12 +237,12 @@ public class Joueur {
                     }
                     break;
                 case "2":
-                    if (inventaire.getContenu().size()!=0){
+                    if (!inventaire.getContenu().isEmpty()){
                 inventaire.affiche();
                 System.out.println("Quel objet choisissez-vous ?");
                 choix=s.next();
                 try{
-                    Objet objet=inventaire.getContenu()[Integer.parseInt(choix)];
+                    Objet objet=inventaire.getContenu().get(Integer.parseInt(choix));
                     //suppression
                     if (objet instanceof PotionSoin){
                         ((PotionSoin) objet).utilisation(this);
@@ -253,7 +253,7 @@ public class Joueur {
                         }
                     }
                     else{
-                     effets.add(objet);   
+                     effets.add((Utilisable)objet);   
                     }
                 }catch(NumberFormatException exc){
                         this.tourDeJoueur(n,monde);
@@ -267,12 +267,12 @@ public class Joueur {
             
         }  
         if (((Combattant)this.perso).peutCombattre(monde)==null && this.perso.estDeplacable(monde)==null){
-            if (inventaire.getContenu().size()!=0){
+            if (!inventaire.getContenu().isEmpty()){
                 inventaire.affiche();
                 System.out.println("Quel objet choisissez-vous ?");
                 String choix=s.next();
                 try{
-                    Objet objet=inventaire.getContenu()[Integer.parseInt(choix)];
+                    Objet objet=inventaire.getContenu().get(Integer.parseInt(choix));
                     //suppression
                     if (objet instanceof PotionSoin){
                         ((PotionSoin) objet).utilisation(this);

@@ -13,27 +13,37 @@ import java.util.ArrayList;
 public class Inventaire {
     
     private int capacite;
-    private ArrayList<Objet> dansInventaire;
+    private ArrayList<Objet> contenu;
     
     private int defaultCapacite = 20;
     
     public Inventaire(int taille, ArrayList<Objet> inInventory){
         
         capacite = taille;
-        dansInventaire = inInventory;
+        contenu = inInventory;
         
     }
+
+    public int getCapacite() {
+        return capacite;
+    }
+
+    public ArrayList<Objet> getContenu() {
+        return contenu;
+    }
+    
+    
     
     public Inventaire(Inventaire inventory){
         
         this.capacite = inventory.capacite;
-        this.dansInventaire = inventory.dansInventaire;
+        this.contenu = inventory.contenu;
     }
     
     public Inventaire(){
         
         capacite = defaultCapacite;
-        dansInventaire = new ArrayList();
+        contenu = new ArrayList();
         
     }
     
@@ -43,9 +53,15 @@ public class Inventaire {
             System.out.println("Impossible de mettre du gaz dans son inventaire");
         }
         else{
-            dansInventaire.add(item);
+            contenu.add(item);
         }
         
+    }
+    public void affiche(){
+        for(int i=0;i<this.contenu.size();i++){
+            System.out.println("i- ");
+            this.contenu.get(i).affiche();
+        }
     }
     
 }

@@ -118,10 +118,13 @@ public class Nourriture extends Objet implements TempsAttente, Utilisable{
                 
         }
         consomme = true;
-        mainCharacter.getInventaire().remove(this);
-        mainCharacter.getEffets().add(this);
+        player.getInventaire().getContenu().remove(this);
+        player.getEffets().add(this);
     }
-    
+    @Override
+    public void affiche(){
+        System.out.println("Nourriture : "+"\n"+modif+" sur "+this.statModifiee+" pendant "+this.toursRestants);
+    }
     
     
 }
