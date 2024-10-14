@@ -82,7 +82,10 @@ public class Joueur {
     }
     public void demande(){
         Random r=new Random();
-        System.out.println("Rentrez votre classe voulue : ");
+        System.out.println("Rentrez votre classe voulue : "+"\n"+"Au choix parmi : ");
+        for (Class classe: list_classes){
+            System.out.println(classe.getSimpleName());
+        }
         Scanner s=new Scanner(System.in);
         String name=s.next();
         try{
