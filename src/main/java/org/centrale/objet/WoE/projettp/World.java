@@ -8,6 +8,7 @@ import java.util.Random;
  *
  * @author clesp
  */
+
 public class World {
     private int longueur;
     private int largeur;
