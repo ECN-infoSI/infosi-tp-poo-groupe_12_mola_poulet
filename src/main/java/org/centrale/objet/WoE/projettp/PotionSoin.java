@@ -62,6 +62,7 @@ public class PotionSoin extends Objet implements Utilisable{
         Personnage mainCharacter = player.getPerso();
         
         mainCharacter.setPtVie(mainCharacter.getPtVie() + this.pvRendus);
+        mainCharacter.getInventaire().remove(this);
         
     }
 }
