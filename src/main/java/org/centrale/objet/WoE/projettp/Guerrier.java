@@ -11,7 +11,7 @@ import java.util.Random;
  *
  * @author clesp
  */
-public class Guerrier extends Personnage implements Combattant {
+public class Guerrier extends Personnage implements Combattant,IA {
     private Epee arme;
     
     //Constructeurs

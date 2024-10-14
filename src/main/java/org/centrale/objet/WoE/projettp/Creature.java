@@ -10,7 +10,7 @@ import java.util.Random;
  *
  * @author Amolz
  */
-public class Creature extends Entite implements Deplacable, IA {
+public class Creature extends Entite implements Deplacable {
     
     private int ptVie; //nombre de point de vie du personnage
     private int degAtt; //degats physiques du personnage
@@ -152,7 +152,7 @@ public class Creature extends Entite implements Deplacable, IA {
         Random rand =new Random();
         int dx = rand.nextInt(21)-10;//permet de determiner la translation selon x entre -10 et 10
         int dy = rand.nextInt(21)-10;//fait la meme chose qu'avant mais selon y
-        if (this.getPos().getX()+dx<monde.getLongueur() && this.getPos().getY()+dy<monde.getLargeur() && monde.getListeEntite()[this.getPos().getX()+dx][this.getPos().getY()+dy]!=null){
+        if (this.getPos().getX()+dx<monde.getLongueur() && this.getPos().getY()+dy<monde.getLargeur() && (monde.getListeEntite()[this.getPos().getX()+dx][this.getPos().getY()+dy]!=null ||monde.getListeEntite()[this.getPos().getX()+dx][this.getPos().getY()+dy]instanceof Objet)){
            monde.getListeEntite()[this.getPos().getX()][this.getPos().getY()]=null;
            this.getPos().translate(dx, dy);
            monde.getListeEntite()[this.getPos().getX()][this.getPos().getY()]=this;
@@ -170,7 +170,7 @@ public class Creature extends Entite implements Deplacable, IA {
      * @param dy
      */
     public void deplace(int dx, int dy,World monde){
-        if (this.getPos().getX()+dx<monde.getLongueur() && this.getPos().getY()+dy<monde.getLargeur() && monde.getListeEntite()[this.getPos().getX()+dx][this.getPos().getY()+dy]!=null){
+        if (this.getPos().getX()+dx<monde.getLongueur() && this.getPos().getY()+dy<monde.getLargeur() && (monde.getListeEntite()[this.getPos().getX()+dx][this.getPos().getY()+dy]!=null ||monde.getListeEntite()[this.getPos().getX()+dx][this.getPos().getY()+dy]instanceof Objet)){
            monde.getListeEntite()[this.getPos().getX()][this.getPos().getY()]=null;
            this.getPos().translate(dx, dy);
            monde.getListeEntite()[this.getPos().getX()][this.getPos().getY()]=this;
@@ -222,7 +222,7 @@ public class Creature extends Entite implements Deplacable, IA {
         for (int i=-1;i<=1;i++){
             for (int j=-1;j<=1;j++){
                 if(j!=0 || i!=0){
-                    res[listeNb[nb]]=((i!=0 || j!=0) && this.getPos().getX()+i<monde.getLongueur() && this.getPos().getY()+j<monde.getLargeur() && monde.getListeEntite()[this.getPos().getX()+i][this.getPos().getY()+j]!=null);
+                    res[listeNb[nb]]=((i!=0 || j!=0) && this.getPos().getX()+i<monde.getLongueur() && this.getPos().getY()+j<monde.getLargeur() && (monde.getListeEntite()[this.getPos().getX()+i][this.getPos().getY()+j]!=null || monde.getListeEntite()[this.getPos().getX()+i][this.getPos().getY()+j] instanceof Objet));
                     nb++;
                 }
             } 
@@ -241,9 +241,4 @@ public class Creature extends Entite implements Deplacable, IA {
         this.getPos().affiche(); 
         
     }
-    @Override
-    public void tourIA(World monde){
-        
-    }   
-    
 }

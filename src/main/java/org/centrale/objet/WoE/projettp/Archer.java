@@ -11,7 +11,7 @@ import java.util.Random;
  *
  * @author clesp
  */
-public class Archer extends Personnage implements Combattant{
+public class Archer extends Personnage implements Combattant,IA{
     private int nbFleches;
 
     /**

@@ -130,7 +130,7 @@ public class Joueur {
     
     public void tourDeJoueur(int n,World monde){
         Scanner s=new Scanner(System.in);
-        if (this.perso.peutCombattre(monde)!=null && this.perso.estDeplacable(monde)!=null){
+        if (((Combattant)this.perso).peutCombattre(monde)!=null && this.perso.estDeplacable(monde)!=null){
             String[] cardinalites={"Nord","Nord-Est","Est","Sud-Est","Sud","Sud-Ouest","Ouest","Nord-Ouest"};
             System.out.println("Voulez-vous vous déplacer ou utiliser un objet?"+"\n"+"Taper 1 pour vous déplacer"+"\n"+"Taper 2 pour utiliser un objet"+"\n");
             String choix=s.next();
@@ -161,13 +161,13 @@ public class Joueur {
                     
                     break;
                 case "3": 
-                    for (int i=0;i<this.perso.peutCombattre(monde).size();i++){
+                    for (int i=0;i<((Combattant)this.perso).peutCombattre(monde).size();i++){
                             
                             System.out.println("Taper"+i+" pour frapper la créature à la position "+this.perso.peutCombattre(monde).get(i).getPos());
                     }
                     choix=s.next();
                     try{
-                        this.perso.combattre(this.perso.peutCombattre(monde).get(Integer.parseInt(choix)));
+                        ((Combattant)this.perso).combattre(((Combattant)this.perso).peutCombattre(monde).get(Integer.parseInt(choix)));
                     }catch(NumberFormatException exc){
                         this.tourDeJoueur(n,monde);
                     }
@@ -178,7 +178,7 @@ public class Joueur {
             }
             
         }
-        if(this.perso.peutCombattre(monde)==null && this.perso.estDeplacable(monde)!=null){
+        if(((Combattant)this.perso).peutCombattre(monde)==null && this.perso.estDeplacable(monde)!=null){
             System.out.println("Voulez-vous vous déplacer, utiliser un objet ou combattre ?"+"\n"+"Taper 1 pour vous déplacer"+"\n"+"Taper 2 pour utiliser un objet"+"\n"+"Taper 3 pour combattre");
             String choix=s.next();
             switch (choix){
@@ -200,7 +200,7 @@ public class Joueur {
                     Objet objet=inventaire.getContenu()[Integer.parseInt(choix)];
                     //suppression
                     if (objet instanceof PotionSoin){
-                        this.perso.soin((PotionSoin)objet);
+                        ((PotionSoin) objet).utilisation(this);
                     }
                     if (objet instanceof Epee){
                         if (this.perso instanceof Guerrier){
@@ -208,7 +208,7 @@ public class Joueur {
                         }
                     }
                     else{
-                     effets.add(objet);   
+                     effets.add((Utilisable)objet);   
                     }
                 }catch(NumberFormatException exc){
                         this.tourDeJoueur(n,monde);
@@ -220,18 +220,18 @@ public class Joueur {
                     break;
             }
         }
-        if (this.perso.peutCombattre(monde)!=null && this.perso.estDeplacable(monde)==null){
+        if (((Combattant)this.perso).peutCombattre(monde)!=null && this.perso.estDeplacable(monde)==null){
             System.out.println("Voulez-vous vous combattre ou utiliser un objet?"+"\n"+"Taper 1 pour combattre"+"\n"+"Taper 2 pour utiliser un objet"+"\n");
             String choix=s.next();
             switch (choix){
                 case "1" : 
-                    for (int i=0;i<this.perso.peutCombattre(monde).size();i++){
+                    for (int i=0;i<((Combattant)this.perso).peutCombattre(monde).size();i++){
                             
-                        System.out.println("Taper"+i+" pour frapper la créature à la position "+this.perso.peut_combattre.get(i).getPos());
+                        System.out.println("Taper"+i+" pour frapper la créature à la position "+((Combattant)this.perso).peutCombattre(monde).get(i).getPos());
                     }
                     choix=s.next();
                     try{
-                        this.perso.combattre(this.perso.peutCombattre(monde).get(Integer.parseInt(choix));
+                        ((Combattant)this.perso).combattre(((Combattant)this.perso).peutCombattre(monde).get(Integer.parseInt(choix)));
                     }catch(NumberFormatException exc){
                         this.tourDeJoueur(n,monde);
                     }
@@ -245,7 +245,7 @@ public class Joueur {
                     Objet objet=inventaire.getContenu()[Integer.parseInt(choix)];
                     //suppression
                     if (objet instanceof PotionSoin){
-                        this.perso.soin((PotionSoin)objet);
+                        ((PotionSoin) objet).utilisation(this);
                     }
                     if (objet instanceof Epee){
                         if (this.perso instanceof Guerrier){
@@ -266,7 +266,7 @@ public class Joueur {
             }
             
         }  
-        if (this.perso.peutCombattre(monde)==null && this.perso.estDeplacable(monde)==null){
+        if (((Combattant)this.perso).peutCombattre(monde)==null && this.perso.estDeplacable(monde)==null){
             if (inventaire.getContenu().size()!=0){
                 inventaire.affiche();
                 System.out.println("Quel objet choisissez-vous ?");
@@ -275,7 +275,7 @@ public class Joueur {
                     Objet objet=inventaire.getContenu()[Integer.parseInt(choix)];
                     //suppression
                     if (objet instanceof PotionSoin){
-                        this.perso.soin((PotionSoin)objet);
+                        ((PotionSoin) objet).utilisation(this);
                     }
                     if (objet instanceof Epee){
                         if (this.perso instanceof Guerrier){
@@ -283,7 +283,7 @@ public class Joueur {
                         }
                     }
                     else{
-                     effets.add(objet);   
+                     effets.add((Utilisable)objet);   
                     }
                 }catch(NumberFormatException exc){
                         this.tourDeJoueur(n,monde);

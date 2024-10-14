@@ -177,9 +177,7 @@ public class World {
             for (Entite[] ligne: listeEntite){
                 for (Entite ia:ligne){
                     if (ia instanceof Creature && ia!=this.joueur.getPerso()){
-                        Creature ai=(Creature)ia;
-                        ai.tourIA(this);
-                        
+                        ((IA)ia).tourIA((this));
                     }
                     if(ia instanceof NuageToxique){
                         ((NuageToxique) ia).combattre(((NuageToxique) ia).peutCombattre(this));

@@ -4,14 +4,13 @@
  */
 package org.centrale.objet.WoE.projettp;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
  *
  * @author clesp
  */
-public class Lapin extends Monstre{
+public class Lapin extends Monstre implements IA{
 
     /**
      *

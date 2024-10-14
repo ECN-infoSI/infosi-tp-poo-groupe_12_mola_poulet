@@ -1,7 +1,5 @@
 package org.centrale.objet.WoE.projettp;
 
-import java.util.ArrayList;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -103,14 +101,6 @@ public class Personnage extends Creature{
     public void affiche(){
         System.out.println("Nom "+this.nom+"\n"+"pv "+this.getPtVie()+"\n"+"att "+this.getDegAtt()+"\n"+"Par "+this.getPtPar()+"\n"+"PaAtt "+this.getPageAtt()+"\n"+"PaPar "+this.getPagePar()+"\n"+"Distance attaque max "+this.distAttMax);
         this.getPos().affiche();
-    }
-    public void combattre(Creature ennemi){
-        
-    }
-    public ArrayList<Creature> peutCombattre(World monde){
-        
-        return null;
-        
     }
 }
 

@@ -12,7 +12,7 @@ import java.util.Random;
  *
  * @author clesp
  */
-public class Loup extends Monstre implements Combattant{
+public class Loup extends Monstre implements Combattant,IA{
     //constructeurs
 
     /**
