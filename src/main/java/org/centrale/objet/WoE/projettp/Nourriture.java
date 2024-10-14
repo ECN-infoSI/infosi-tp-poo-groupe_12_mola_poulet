@@ -118,6 +118,8 @@ public class Nourriture extends Objet implements TempsAttente, Utilisable{
                 
         }
         consomme = true;
+        mainCharacter.getInventaire().remove(this);
+        mainCharacter.getEffets().add(this);
     }
     
     
