@@ -13,14 +13,16 @@ import static java.lang.Math.max;
  */
 public class Nourriture extends Objet implements TempsAttente, Utilisable, Ramassable{
     
+    private String nom;
     private int modif;
     private int toursRestants;
     private String statModifiee;
     private boolean consomme;
     
-    public Nourriture(int boost, int temps, String stat, boolean bouffe, Point2D pos){
+    public Nourriture(String name, int boost, int temps, String stat, boolean bouffe, Point2D pos){
         
         super(pos);
+        nom = name;
         modif = boost;
         toursRestants = temps;
         statModifiee = stat;
@@ -31,6 +33,7 @@ public class Nourriture extends Objet implements TempsAttente, Utilisable, Ramas
     public Nourriture(Nourriture food){
         
         super((Objet)food);
+        this.nom = food.nom;
         this.modif = food.modif;
         this.toursRestants = food.toursRestants;
         this.statModifiee = food.statModifiee;
@@ -39,9 +42,12 @@ public class Nourriture extends Objet implements TempsAttente, Utilisable, Ramas
     }
     
     public Nourriture(){
-        
-        super();
-        
+ 
+        super();  
+    }
+
+    public String getNom() {
+        return nom;
     }
 
     public int getModif() {
@@ -58,6 +64,10 @@ public class Nourriture extends Objet implements TempsAttente, Utilisable, Ramas
 
     public boolean isConsomme() {
         return consomme;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public void setModif(int modif) {
