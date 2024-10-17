@@ -15,7 +15,7 @@ public class Inventaire {
     private int capacite;
     private ArrayList<Objet> contenu;
     
-    private int defaultCapacite = 20;
+    private int defaultCapacite = 15;
     
     public Inventaire(int taille, ArrayList<Objet> inInventory){
         
@@ -23,17 +23,7 @@ public class Inventaire {
         contenu = inInventory;
         
     }
-
-    public int getCapacite() {
-        return capacite;
-    }
-
-    public ArrayList<Objet> getContenu() {
-        return contenu;
-    }
-    
-    
-    
+        
     public Inventaire(Inventaire inventory){
         
         this.capacite = inventory.capacite;
@@ -46,6 +36,24 @@ public class Inventaire {
         contenu = new ArrayList();
         
     }
+    
+    public int getCapacite() {
+        return capacite;
+    }
+
+    public ArrayList<Objet> getContenu() {
+        return contenu;
+    }
+
+    public void setCapacite(int capacite) {
+        this.capacite = capacite;
+    }
+
+    public void setContenu(ArrayList<Objet> contenu) {
+        this.contenu = contenu;
+    }
+    
+    
     
     public void ajout(Objet item){
         
