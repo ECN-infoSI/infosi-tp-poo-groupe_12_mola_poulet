@@ -8,7 +8,7 @@ package org.centrale.objet.WoE.projettp;
  *
  * @author clesp
  */
-public class Epee extends Objet implements Utilisable{
+public class Epee extends Objet implements Ramassable{
     private String name;
     private int bonus;
 
@@ -85,8 +85,7 @@ public class Epee extends Objet implements Utilisable{
         System.out.println("[Nom de l'arme : "+this.name+", Bonus de l'arme : "+this.bonus+"]");
     }
     
-    @Override
-    public void utilisation(Joueur player){
+    public void equiper(Joueur player){
         
         if (!(player.getPerso() instanceof Guerrier)){
             System.out.println("seul un guerrier peut equiper une epee");
@@ -98,14 +97,12 @@ public class Epee extends Objet implements Utilisable{
                 
                 rambo.setArme(this);
                 rambo.setDegAtt(rambo.getDegAtt() + bonus);
-                player.getInventaire().getContenu().add(this);
                 
             }
             else{
                 rambo.setDegAtt(rambo.getDegAtt()-rambo.getArme().getBonus() + this.bonus);
                 rambo.setArme(this);
-                player.getInventaire().getContenu().remove(rambo.getArme());
-                player.getInventaire().getContenu().add(this);
+
                 
             }
         }
