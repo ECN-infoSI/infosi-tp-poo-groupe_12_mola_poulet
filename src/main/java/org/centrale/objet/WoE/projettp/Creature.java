@@ -152,7 +152,7 @@ public class Creature extends Entite implements Deplacable {
         Random rand =new Random();
         int dx = rand.nextInt(21)-10;//permet de determiner la translation selon x entre -10 et 10
         int dy = rand.nextInt(21)-10;//fait la meme chose qu'avant mais selon y
-        if (this.getPos().getX()+dx<monde.getLongueur() && this.getPos().getY()+dy<monde.getLargeur() && (monde.getListeEntite()[this.getPos().getX()+dx][this.getPos().getY()+dy]!=null ||monde.getListeEntite()[this.getPos().getX()+dx][this.getPos().getY()+dy]instanceof Objet)){
+        if (this.getPos().getX()+dx>0 && this.getPos().getX()+dx<monde.getLongueur() && this.getPos().getY()+dy<monde.getLargeur() && this.getPos().getY()+dy>0 && monde.getListeEntite()[this.getPos().getX()+dx][this.getPos().getY()+dy]==null){
            monde.getListeEntite()[this.getPos().getX()][this.getPos().getY()]=null;
            this.getPos().translate(dx, dy);
            monde.getListeEntite()[this.getPos().getX()][this.getPos().getY()]=this;
@@ -170,7 +170,7 @@ public class Creature extends Entite implements Deplacable {
      * @param dy
      */
     public void deplace(int dx, int dy,World monde){
-        if (this.getPos().getX()+dx<monde.getLongueur() && this.getPos().getY()+dy<monde.getLargeur() && (monde.getListeEntite()[this.getPos().getX()+dx][this.getPos().getY()+dy]!=null ||monde.getListeEntite()[this.getPos().getX()+dx][this.getPos().getY()+dy]instanceof Objet)){
+        if (this.getPos().getX()+dx>0 && this.getPos().getX()+dx<monde.getLongueur() && this.getPos().getY()+dy<monde.getLargeur() && this.getPos().getY()+dy>0 && monde.getListeEntite()[this.getPos().getX()+dx][this.getPos().getY()+dy]==null){
            monde.getListeEntite()[this.getPos().getX()][this.getPos().getY()]=null;
            this.getPos().translate(dx, dy);
            monde.getListeEntite()[this.getPos().getX()][this.getPos().getY()]=this;
@@ -224,7 +224,7 @@ public class Creature extends Entite implements Deplacable {
         for (int i=-1;i<=1;i++){
             for (int j=-1;j<=1;j++){
                 if(j!=0 || i!=0){
-                    res[listeNb[nb]]=((i!=0 || j!=0) && this.getPos().getX()+i<monde.getLongueur() && this.getPos().getY()+j<monde.getLargeur() && (monde.getListeEntite()[this.getPos().getX()+i][this.getPos().getY()+j]!=null || monde.getListeEntite()[this.getPos().getX()+i][this.getPos().getY()+j] instanceof Objet));
+                    res[listeNb[nb]]=(this.getPos().getX()+i>0 && this.getPos().getX()+i<monde.getLongueur() && this.getPos().getY()+j<monde.getLargeur() && this.getPos().getY()+j>0 && monde.getListeEntite()[this.getPos().getX()+i][this.getPos().getY()+j]==null);
                     nb++;
                 }
             } 

@@ -33,7 +33,7 @@ public class Inventaire {
     public Inventaire(){
         
         capacite = defaultCapacite;
-        contenu = new ArrayList();
+        contenu = new ArrayList<>();
         
     }
     

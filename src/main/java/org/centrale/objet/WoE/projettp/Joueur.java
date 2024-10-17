@@ -148,7 +148,7 @@ public class Joueur {
             for (int j=-1;j<=1;j++){
                 
                 if(j!=0 || i!=0){
-                    if (mainCharacter.getPos().getX()+i<monde.getLongueur() && mainCharacter.getPos().getY()+j<monde.getLargeur()){
+                    if (mainCharacter.getPos().getX()>0+i && mainCharacter.getPos().getX()+i<monde.getLongueur() && mainCharacter.getPos().getY()+j>0 && mainCharacter.getPos().getY()+j<monde.getLargeur()){
                         Entite thing = monde.getListeEntite()[mainCharacter.getPos().getX()+i][mainCharacter.getPos().getY()+j];
                         if (thing instanceof Ramassable)
                         voisinage[listeNb[nb]]=(Objet)thing;
@@ -169,7 +169,7 @@ public class Joueur {
         
         Scanner s=new Scanner(System.in);
             
-        static String[] cardinalites={"Nord","Nord-Est","Est","Sud-Est","Sud","Sud-Ouest","Ouest","Nord-Ouest"};
+        String[] cardinalites={"Nord","Nord-Est","Est","Sud-Est","Sud","Sud-Ouest","Ouest","Nord-Ouest"};
         
         System.out.println("Voulez-vous vous déplacer, ramasser un objet, utiliser un objet, combattre ou ne rien faire ?"+"\n"+
                             "Tapez 1 pour vous déplacer"+"\n"+
@@ -178,7 +178,6 @@ public class Joueur {
                             "Tapez 4 pour attaquer une creature a portee"+"\n"+
                             "Tapez 0 pour ne rien faire");
         String choix=s.next();
-
         switch (choix){
 
             case "0" :
@@ -304,11 +303,11 @@ public class Joueur {
                 }
 
                 break;
-
             case "4": 
                 for (int i=0;i<((Combattant)this.perso).peutCombattre(monde).size();i++){
 
-                        System.out.println("Taper"+i+" pour frapper la créature à la position "+((Combattant)this.perso).peutCombattre(monde).get(i).getPos());
+                        System.out.println("Taper"+i+" pour frapper un "+((Combattant)this.perso).peutCombattre(monde).get(i).getClass().getSimpleName()+ " à la position ");
+                        ((Combattant)this.perso).peutCombattre(monde).get(i).getPos().affiche();
                 }
                 choix=s.next();
                 try{
@@ -318,7 +317,10 @@ public class Joueur {
                     ((Combattant)this.perso).combattre(ennemi);
                     if (ennemi.getPtVie()<=0){
                         monde.getListeEntite()[ennemi.getPos().getX()][ennemi.getPos().getY()]=null;
-                        System.out.println("Cible tuee");
+                        System.out.println("Cible vaincue");
+                    }
+                    else{
+                        System.out.println("La cible a survécue");
                     }
                 }catch(NumberFormatException exc){
                     this.tourDeJoueur(n,monde);

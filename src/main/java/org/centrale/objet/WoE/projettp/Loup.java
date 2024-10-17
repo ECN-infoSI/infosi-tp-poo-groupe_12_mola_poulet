@@ -90,6 +90,13 @@ public class Loup extends Monstre implements Combattant,IA{
         ArrayList<Creature> liste=this.peutCombattre(monde);
         if (liste.contains(monde.getJoueur().getPerso())){
             this.combattre(monde.getJoueur().getPerso());
+            System.out.println("On vous attaque !");
+            if (monde.getJoueur().getPerso().getPtVie()<=0){
+                System.out.println("Vous êtes mort");
+            }
+            else{
+                System.out.println("Vous avez survécu");
+            }
         }
         else{
             Random r=new Random();

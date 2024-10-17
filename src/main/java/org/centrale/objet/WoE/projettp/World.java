@@ -181,12 +181,18 @@ public class World {
                     }
                     if(ia instanceof NuageToxique){
                         ((NuageToxique) ia).combattre(((NuageToxique) ia).peutCombattre(this));
+                        if(((NuageToxique) ia).peutCombattre(this).contains(this.joueur.getPerso())){
+                            System.out.println("Fuyez pauvres fous");
+                            if (this.joueur.getPerso().getPtVie()<=0){
+                                System.out.println("Vous avez succombé au nuage toxique");
+                            }
+                        }
                     }
                 }
-            n++;
+            
             }
-        System.out.println("Game Over,"+"\n"+"Vous avez survécu "+n+" tours");
+            n++;
        }
-       
+       System.out.println("Game Over,"+"\n"+"Vous avez survécu "+n+" tours");
    }
 }

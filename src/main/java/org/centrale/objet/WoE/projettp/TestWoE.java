@@ -82,9 +82,6 @@ public class TestWoE {
             w.getJoueur().demande();
             Random r= new Random();
             w.creeMondeAlea(r.nextInt(21), r.nextInt(21), r.nextInt(21), r.nextInt(21), r.nextInt(21), r.nextInt(21), r.nextInt(21));
-            w.getListeEntite()[w.getJoueur().getPerso().getPos().getX()][w.getJoueur().getPerso().getPos().getY()]=null;
-            w.getJoueur().getPerso().setPos(new Point2D (0,0));
-            w.getListeEntite()[0][0]=w.getJoueur().getPerso();
             
             w.tourDeJeu();
         }
