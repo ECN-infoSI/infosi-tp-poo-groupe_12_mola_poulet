@@ -215,6 +215,8 @@ public class Creature extends Entite implements Deplacable {
 
         }
     }
+    
+    
     public boolean[] estDeplacable (World monde){
         boolean[]res=new boolean[8];
         int[] listeNb={5,6,7,4,0,3,2,1};
