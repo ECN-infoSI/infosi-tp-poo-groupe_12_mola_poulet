@@ -11,7 +11,7 @@ import static java.lang.Math.max;
  *
  * @author Amolz
  */
-public class Nourriture extends Objet implements TempsAttente, Utilisable{
+public class Nourriture extends Objet implements TempsAttente, Utilisable, Ramassable{
     
     private int modif;
     private int toursRestants;
