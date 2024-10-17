@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package org.centrale.objet.WoE.projettp;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 /**
@@ -43,21 +44,23 @@ public class TestWoE {
 //        System.out.println("Points de vie totaux : "+sum);
 //        long fin=System.nanoTime();
 //        System.out.println("Temps écoulé en ns : "+(fin-debut)); 
-        System.out.println("Bienvenue dans World of ECN !"+"\n"+"Etes-vous un nouveau joueur ?");
+        System.out.println("Bienvenue aventurier dans World of ECN ! Une grande quete vous attend."+"\n"+
+                            "Ma memoire me fait un peu defaut, etes-vous un nouveau joueur ?");
         System.out.println("1- Non");
         System.out.println("2- Oui");
         Scanner s=new Scanner(System.in);
         String choix=s.next();
         Joueur profil;
         switch (choix){
+            
             case "2":
                 System.out.println ("Choisissez un pseudo : ");
                 String nom=s.next();
-                System.out.println("Définissez un login :");
+                System.out.println("Definissez un login :");
                 String login=s.next();
-                System.out.println("Définissez un mot de passe : ");
+                System.out.println("Definissez un mot de passe : ");
                 String mdp=s.next();
-                profil=new Joueur(null,nom,login,mdp,null,null);
+                profil=new Joueur(null,nom,login,mdp,new ArrayList<Utilisable>(),new Inventaire());
                 break;
             case "1":
                 // faudrait une base de données
@@ -69,9 +72,9 @@ public class TestWoE {
                 break;
         }
         System.out.println("Creation d'une nouvelle partie : ");
-        System.out.println("Quelle longueur ?");
+        System.out.println("Choisissiez la longueur de votre monde");
         String longueur=s.next();
-        System.out.println("Quelle largeur ?");
+        System.out.println("Choisissez la largeur de votre monde");
         String largeur=s.next();
         World w=new World();
         try{

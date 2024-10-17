@@ -171,8 +171,8 @@ public class Joueur {
             
         String[] cardinalites={"Nord","Nord-Est","Est","Sud-Est","Sud","Sud-Ouest","Ouest","Nord-Ouest"};
         
-        System.out.println("Voulez-vous vous déplacer, ramasser un objet, utiliser un objet, combattre ou ne rien faire ?"+"\n"+
-                            "Tapez 1 pour vous déplacer"+"\n"+
+        System.out.println("Voulez-vous vous deplacer, ramasser un objet, utiliser un objet, combattre ou ne rien faire ?"+"\n"+
+                            "Tapez 1 pour vous deplacer"+"\n"+
                             "Tapez 2 pour ramasser un objet"+"\n"+
                             "Taper 3 pour utiliser un objet"+"\n"+
                             "Tapez 4 pour attaquer une creature a portee"+"\n"+
@@ -188,7 +188,7 @@ public class Joueur {
                     boolean[]liste=this.perso.estDeplacable(monde);
                     for (int i=0;i<liste.length;i++){
                             if (liste[i]){
-                                    System.out.println("Taper "+i+" pour vous déplacer dans la direction "+cardinalites[i]);
+                                    System.out.println("Tapez "+i+" pour vous deplacer dans la direction "+cardinalites[i]);
                             }
                     }
                     choix=s.next();
@@ -198,12 +198,12 @@ public class Joueur {
                             this.perso.deplace(ch,monde);
                         }
                         else{
-                                System.out.println("Il y a une erreur refaites un choix");
+                                System.out.println("Il y a une erreur, refaites un choix");
                                 this.tourDeJoueur(n,monde);
                             }
                     }
                     catch(NumberFormatException exc){
-                              System.out.println("Il y a une erreur refaites un choix");
+                              System.out.println("Il y a une erreur, refaites un choix");
                               this.tourDeJoueur(n,monde);
                     }
                 }
@@ -306,7 +306,7 @@ public class Joueur {
             case "4": 
                 for (int i=0;i<((Combattant)this.perso).peutCombattre(monde).size();i++){
 
-                        System.out.println("Taper"+i+" pour frapper un "+((Combattant)this.perso).peutCombattre(monde).get(i).getClass().getSimpleName()+ " à la position ");
+                        System.out.println("Tapez"+i+" pour frapper un "+((Combattant)this.perso).peutCombattre(monde).get(i).getClass().getSimpleName()+ " a la position ");
                         ((Combattant)this.perso).peutCombattre(monde).get(i).getPos().affiche();
                 }
                 choix=s.next();
@@ -320,7 +320,7 @@ public class Joueur {
                         System.out.println("Cible vaincue");
                     }
                     else{
-                        System.out.println("La cible a survécue");
+                        System.out.println("La cible a survecue");
                     }
                 }catch(NumberFormatException exc){
                     this.tourDeJoueur(n,monde);
