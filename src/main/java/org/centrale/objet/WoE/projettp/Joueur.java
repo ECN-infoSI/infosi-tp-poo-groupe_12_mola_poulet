@@ -138,7 +138,7 @@ public class Joueur {
     public Objet[] objetsVoisins(World monde){
         
         
-        boolean[] voisinage = new boolean[8];
+        Objet[] voisinage = new Objet[8];
         int[] listeNb={5,6,7,4,0,3,2,1};
         int nb=0;
         
@@ -149,14 +149,15 @@ public class Joueur {
                 
                 if(j!=0 || i!=0){
                     if (mainCharacter.getPos().getX()+i<monde.getLongueur() && mainCharacter.getPos().getY()+j<monde.getLargeur()){
-                        
-                        voisinage[listeNb[nb]]=(monde.getListeEntite()[mainCharacter.getPos().getX()+i][mainCharacter.getPos().getY()+j] instanceof );
+                        Entite thing = monde.getListeEntite()[mainCharacter.getPos().getX()+i][mainCharacter.getPos().getY()+j];
+                        if (thing instanceof Ramassable)
+                        voisinage[listeNb[nb]]=(Objet)thing;
                         nb++;
                     }
                 }
             } 
         }
-        if (voisinage == new boolean[]{false,false,false,false,false,false,false,false}){
+        if (voisinage == new Objet[]{null,null,null,null,null,null,null,null}){
             voisinage = null;
         }
         return voisinage;
@@ -167,236 +168,165 @@ public class Joueur {
     public void tourDeJoueur(int n,World monde){
         
         Scanner s=new Scanner(System.in);
-        
-        
-        if (((Combattant)this.perso).peutCombattre(monde)!=null && this.perso.estDeplacable(monde)!=null){
             
-            String[] cardinalites={"Nord","Nord-Est","Est","Sud-Est","Sud","Sud-Ouest","Ouest","Nord-Ouest"};
-            System.out.println("Voulez-vous vous déplacer, ramasser un objet, utiliser un objet, combattre ou ne rien faire ?"+"\n"+
-                                "Tapez 1 pour vous déplacer"+"\n"+
-                                "Tapez 2 pour ramasser un objet"+"\n"+
-                                "Taper 3 pour utiliser un objet"+"\n"+
-                                "Tapez 4 pour attaquer une creature a portee"+"\n"+
-                                "Tapez 0 pour ne rien faire");
-            String choix=s.next();
+        static String[] cardinalites={"Nord","Nord-Est","Est","Sud-Est","Sud","Sud-Ouest","Ouest","Nord-Ouest"};
+        
+        System.out.println("Voulez-vous vous déplacer, ramasser un objet, utiliser un objet, combattre ou ne rien faire ?"+"\n"+
+                            "Tapez 1 pour vous déplacer"+"\n"+
+                            "Tapez 2 pour ramasser un objet"+"\n"+
+                            "Taper 3 pour utiliser un objet"+"\n"+
+                            "Tapez 4 pour attaquer une creature a portee"+"\n"+
+                            "Tapez 0 pour ne rien faire");
+        String choix=s.next();
+
+        switch (choix){
+
+            case "0" :
+                break;
             
-            switch (choix){
-                
-                case "1" : 
-                    try{
-                        boolean[]liste=this.perso.estDeplacable(monde);
-                        for (int i=0;i<liste.length;i++){
-                                if (liste[i]){
-                                        System.out.println("Taper "+i+" pour vous déplacer dans la direction "+cardinalites[i]);
-                                }
-                        }
-                        choix=s.next();
-                        try{
-                            int ch=Integer.parseInt(choix);
-                            if (liste[ch]){
-                                this.perso.deplace(ch,monde);
+            case "1" : 
+                try{
+                    boolean[]liste=this.perso.estDeplacable(monde);
+                    for (int i=0;i<liste.length;i++){
+                            if (liste[i]){
+                                    System.out.println("Taper "+i+" pour vous déplacer dans la direction "+cardinalites[i]);
                             }
-                            else{
-                                    System.out.println("Il y a une erreur refaites un choix");
-                                    this.tourDeJoueur(n,monde);
-                                }
-                        }
-                        catch(NumberFormatException exc){
-                                  System.out.println("Il y a une erreur refaites un choix");
-                                  this.tourDeJoueur(n,monde);
-                        }
                     }
-                    catch(NullPointerException error){
-                        System.out.println("Vous ne pouvez pas vous deplacer, choisissez une autre action");
-                        tourDeJoueur(n,monde);
-                    }
-                    
-                    break;
-                    
-                case "2":
-                    ArrayList<Objet> possessions = this.inventaire.getContenu();
-                    
+                    choix=s.next();
                     try{
-                        for (int i = 0; i<possessions.size();i++){
-                            
-                            Objet item = possessions.get(i);
-                            
-                            if (item instanceof PotionSoin)
-                                System.out.println("Tapez "+i+" pour utliser "+item.toString()+"("+((PotionSoin)item).getPvRendus()+"pv rendus)");
-                            
-                            else if (item instanceof Nourriture){
-                                System.out.println("Tapez "+i+" pour utliser "+item.toString()+"("+((Nourriture)item).getModif()+((Nourriture)item).getStatModifiee()+")");
-                            }
-                        }
-                        
-                        choix = s.next();
-                        int item_used_num = Integer.parseInt(choix);
-                        
-                        if (item_used_num >= possessions.size()){
-                            System.out.println("Erreur, il n'y a pas un tel objet a utiliser");
-                            this.tourDeJoueur(n, monde);
+                        int ch=Integer.parseInt(choix);
+                        if (liste[ch]){
+                            this.perso.deplace(ch,monde);
                         }
                         else{
-                            Objet item_used = possessions.get(item_used_num);
-                            
-                            if (item_used instanceof PotionSoin){
-                                ((PotionSoin)item_used).utilisation(this);
-                                System.out.println("Votre personnage a maintenant "+this.getPerso().getPtVie()+" pv");
+                                System.out.println("Il y a une erreur refaites un choix");
+                                this.tourDeJoueur(n,monde);
                             }
-                            else if (item_used instanceof Nourriture){
-                                Nourriture plat = (Nourriture)item_used;
-                                plat.utilisation(this);
-                                System.out.println("Votre personnage a vu sa stat " +plat.getStatModifiee() + " changee de " + plat.getModif() + "points");
-                            }
-                        }
-                        
                     }
-                    catch(IllegalStateException error){
-                        System.out.println("il n'a pas d'objet dans votre inventaire");
+                    catch(NumberFormatException exc){
+                              System.out.println("Il y a une erreur refaites un choix");
+                              this.tourDeJoueur(n,monde);
+                    }
+                }
+                catch(NullPointerException error){
+                    System.out.println("Vous ne pouvez pas vous deplacer, choisissez une autre action");
+                    tourDeJoueur(n,monde);
+                }
+
+                break;
+                
+            case "2":
+                if (inventaire.getContenu().size()>=inventaire.getCapacite()){
+                        System.out.println("Inventaire plein, impossible de ramasser quoique ce soit");
+                        tourDeJoueur(n,monde);
+                    }
+                else{
+                    try{
+
+                        Objet[] objetsProx = objetsVoisins(monde);
+
+                        for (int i=0; i<objetsProx.length;i++){
+                            Objet item = objetsProx[i];
+                            if (item instanceof PotionSoin)
+                                System.out.println("Tapez "+i+" pour ramasser une potion de soin"+"("+((PotionSoin)item).getPvRendus()+"pv rendus)");
+
+                            else if (item instanceof Nourriture){
+                                System.out.println("Tapez "+i+" pour ramasser "+((Nourriture)item).getNom()+"("+((Nourriture)item).getModif()+((Nourriture)item).getStatModifiee()+")");
+                            }
+
+                        }
+
+                        choix = s.next();
+                        try{
+
+                            int itemGrabNum = Integer.parseInt(choix);
+                            Objet itemGrab = objetsProx[itemGrabNum];
+                            int itemX = itemGrab.getPos().getX();
+                            int itemY = itemGrab.getPos().getY();
+                            
+                            inventaire.getContenu().add(itemGrab);
+                            monde.getListeEntite()[itemX][itemY] = null;
+                        }
+                        catch(NumberFormatException error){
+                            System.out.println("Il y a une erreur, refaites un choix");
+                            tourDeJoueur(n,monde);
+                        }
+
+                    }
+                    catch(NullPointerException error){
+                        System.out.println("Aucun objet ramassable a proximite");
+                        tourDeJoueur(n,monde);
+                    }
+                }
+                break;
+
+            case "3":
+                ArrayList<Objet> possessions = this.inventaire.getContenu();
+
+                try{
+                    for (int i = 0; i<possessions.size();i++){
+
+                        Objet item = possessions.get(i);
+
+                        if (item instanceof PotionSoin)
+                            System.out.println("Tapez "+i+" pour utliser "+item.toString()+"("+((PotionSoin)item).getPvRendus()+"pv rendus)");
+
+                        else if (item instanceof Nourriture){
+                            System.out.println("Tapez "+i+" pour utliser "+item.toString()+"("+((Nourriture)item).getModif()+((Nourriture)item).getStatModifiee()+")");
+                        }
+                    }
+
+                    choix = s.next();
+                    int item_used_num = Integer.parseInt(choix);
+
+                    if (item_used_num >= possessions.size()){
+                        System.out.println("Erreur, il n'y a pas un tel objet a utiliser");
                         this.tourDeJoueur(n, monde);
                     }
-                    
-                    break;
-                    
-                case "3": 
-                    for (int i=0;i<((Combattant)this.perso).peutCombattre(monde).size();i++){
-                            
-                            System.out.println("Taper"+i+" pour frapper la créature à la position "+((Combattant)this.perso).peutCombattre(monde).get(i).getPos());
-                    }
-                    choix=s.next();
-                    try{
-                        
-                        Creature ennemi = ((Combattant)this.perso).peutCombattre(monde).get(Integer.parseInt(choix));
-                        
-                        ((Combattant)this.perso).combattre(ennemi);
-                        if (ennemi.getPtVie()<=0){
-                            monde.getListeEntite()[ennemi.getPos().getX()][ennemi.getPos().getY()]=null;
-                            System.out.println("Cible tuee");
-                        }
-                    }catch(NumberFormatException exc){
-                        this.tourDeJoueur(n,monde);
-                    }
-                    break;
-                default : 
-                    this.tourDeJoueur(n,monde);
-                    break;
-            }
-            
-        }
-        if(((Combattant)this.perso).peutCombattre(monde)==null && this.perso.estDeplacable(monde)!=null){
-            System.out.println("Voulez-vous vous déplacer, utiliser un objet ou combattre ?"+"\n"+"Taper 1 pour vous déplacer"+"\n"+"Taper 2 pour utiliser un objet"+"\n"+"Taper 3 pour combattre");
-            String choix=s.next();
-            switch (choix){
-                case "1" : 
-                    System.out.println("Taper 0 pour aller au nord rajouter 1 pour pivoter de 45°");
-                    choix=s.next();
-                    try{
-                        this.perso.deplace(Integer.parseInt(choix),monde);
-                    }catch(NumberFormatException exc){
-                        this.tourDeJoueur(n,monde);
-                    }
-                    break;
-                case "2": 
-                    if (!inventaire.getContenu().isEmpty()){
-                inventaire.affiche();
-                System.out.println("Quel objet choisissez-vous ?");
-                choix=s.next();
-                try{
-                    Objet objet=inventaire.getContenu().get(Integer.parseInt(choix));
-                    //suppression
-                    if (objet instanceof PotionSoin){
-                        ((PotionSoin) objet).utilisation(this);
-                    }
-                    if (objet instanceof Epee){
-                        if (this.perso instanceof Guerrier){
-                            ((Guerrier)perso).setArme((Epee)objet);
-                        }
-                    }
                     else{
-                     effets.add((Utilisable)objet);   
+                        Objet item_used = possessions.get(item_used_num);
+
+                        if (item_used instanceof PotionSoin){
+                            ((PotionSoin)item_used).utilisation(this);
+                            System.out.println("Votre personnage a maintenant "+this.getPerso().getPtVie()+" pv");
+                        }
+                        else if (item_used instanceof Nourriture){
+                            Nourriture plat = (Nourriture)item_used;
+                            plat.utilisation(this);
+                            System.out.println("Votre personnage a vu sa stat " +plat.getStatModifiee() + " changee de " + plat.getModif() + "points");
+                        }
                     }
-                }catch(NumberFormatException exc){
-                        this.tourDeJoueur(n,monde);
-                    }
-                    }
-                    break;
-                default : 
-                    this.tourDeJoueur(n,monde);
-                    break;
-            }
-        }
-        if (((Combattant)this.perso).peutCombattre(monde)!=null && this.perso.estDeplacable(monde)==null){
-            System.out.println("Voulez-vous vous combattre ou utiliser un objet?"+"\n"+"Taper 1 pour combattre"+"\n"+"Taper 2 pour utiliser un objet"+"\n");
-            String choix=s.next();
-            switch (choix){
-                case "1" : 
-                    for (int i=0;i<((Combattant)this.perso).peutCombattre(monde).size();i++){
-                            
+
+                }
+                catch(IllegalStateException error){
+                    System.out.println("il n'a pas d'objet dans votre inventaire");
+                    this.tourDeJoueur(n, monde);
+                }
+
+                break;
+
+            case "4": 
+                for (int i=0;i<((Combattant)this.perso).peutCombattre(monde).size();i++){
+
                         System.out.println("Taper"+i+" pour frapper la créature à la position "+((Combattant)this.perso).peutCombattre(monde).get(i).getPos());
-                    }
-                    choix=s.next();
-                    try{
-                        ((Combattant)this.perso).combattre(((Combattant)this.perso).peutCombattre(monde).get(Integer.parseInt(choix)));
-                    }catch(NumberFormatException exc){
-                        this.tourDeJoueur(n,monde);
-                    }
-                    break;
-                case "2":
-                    if (!inventaire.getContenu().isEmpty()){
-                inventaire.affiche();
-                System.out.println("Quel objet choisissez-vous ?");
+                }
                 choix=s.next();
                 try{
-                    Objet objet=inventaire.getContenu().get(Integer.parseInt(choix));
-                    //suppression
-                    if (objet instanceof PotionSoin){
-                        ((PotionSoin) objet).utilisation(this);
-                    }
-                    if (objet instanceof Epee){
-                        if (this.perso instanceof Guerrier){
-                            ((Guerrier)perso).setArme((Epee)objet);
-                        }
-                    }
-                    else{
-                     effets.add((Utilisable)objet);   
+
+                    Creature ennemi = ((Combattant)this.perso).peutCombattre(monde).get(Integer.parseInt(choix));
+
+                    ((Combattant)this.perso).combattre(ennemi);
+                    if (ennemi.getPtVie()<=0){
+                        monde.getListeEntite()[ennemi.getPos().getX()][ennemi.getPos().getY()]=null;
+                        System.out.println("Cible tuee");
                     }
                 }catch(NumberFormatException exc){
-                        this.tourDeJoueur(n,monde);
-                    }
-                    }
-                    break;
-                default : 
                     this.tourDeJoueur(n,monde);
-                    break;
-            }
-            
-        }  
-        if (((Combattant)this.perso).peutCombattre(monde)==null && this.perso.estDeplacable(monde)==null){
-            if (!inventaire.getContenu().isEmpty()){
-                inventaire.affiche();
-                System.out.println("Quel objet choisissez-vous ?");
-                String choix=s.next();
-                try{
-                    Objet objet=inventaire.getContenu().get(Integer.parseInt(choix));
-                    //suppression
-                    if (objet instanceof PotionSoin){
-                        ((PotionSoin) objet).utilisation(this);
-                    }
-                    if (objet instanceof Epee){
-                        if (this.perso instanceof Guerrier){
-                            ((Guerrier)perso).setArme((Epee)objet);
-                        }
-                    }
-                    else{
-                     effets.add((Utilisable)objet);   
-                    }
-                }catch(NumberFormatException exc){
-                        this.tourDeJoueur(n,monde);
-                    }
-                
-            }
+                }
+                break;
+            default : 
+                this.tourDeJoueur(n,monde);
+                break;
         }
     }
-        
-    
 }
