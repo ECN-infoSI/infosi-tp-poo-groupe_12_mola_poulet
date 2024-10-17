@@ -8,7 +8,7 @@ package org.centrale.objet.WoE.projettp;
  *
  * @author clesp
  */
-public class PotionSoin extends Objet implements Utilisable{
+public class PotionSoin extends Objet implements Utilisable, Ramassable{
     private int pvRendus;
     /**
      * @param pv Nombre de points de vie rendus
