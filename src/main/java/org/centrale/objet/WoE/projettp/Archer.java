@@ -113,12 +113,17 @@ public class Archer extends Personnage implements Combattant,IA{
             this.setNbFleches(Math.max(0,this.getNbFleches()-1));
         }
     }
+    
     @Override
     public ArrayList<Creature> peutCombattre(World monde){
+        
         ArrayList<Creature> tab=new ArrayList<>();
+        
         for (int i=0;i<monde.getLongueur();i++){
             for(int j=0;j<monde.getLargeur();j++){
+                
                 if (monde.getListeEntite()[i][j]!=null && monde.getListeEntite()[i][j] instanceof Creature){
+                    
                     if (this.getPos().distance(monde.getListeEntite()[i][j].getPos())<=this.getDistAttMax()){
                         tab.add((Creature)monde.getListeEntite()[i][j]);
                     }
@@ -130,6 +135,7 @@ public class Archer extends Personnage implements Combattant,IA{
         }
         return tab;
     }
+    
     @Override
     public void tourIA(World monde){
         ArrayList<Creature> liste=this.peutCombattre(monde);
