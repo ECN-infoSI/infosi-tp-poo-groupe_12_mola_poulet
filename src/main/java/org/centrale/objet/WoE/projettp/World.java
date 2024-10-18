@@ -79,7 +79,7 @@ public class World {
      * @param nbLapin Nombre de lapins
      * @param nbPotion Nombre de potions
      */
-   public void creeMondeAlea(int nbGuerrier,int nbPaysan,int nbArcher,int nbLoup, int nbLapin,int nbPotion,int nbEpee){
+   public void creeMondeAlea(int nbGuerrier,int nbPaysan,int nbArcher,int nbLoup, int nbLapin,int nbPotion,int nbEpee, int nbNourriture){
        Random r=new Random();
        //Joueur
        joueur.getPerso().setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
@@ -87,70 +87,50 @@ public class World {
        //Guerrier
        for (int i=1;i<=nbGuerrier;i++){
            Guerrier thing= new Guerrier();
-           thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
-           while (listeEntite[thing.getPos().getX()][thing.getPos().getY()]!=null){
-                thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
-           }
-           this.listeEntite[thing.getPos().getX()][thing.getPos().getY()]=thing;
+           definePos(thing);
        }
        //Paysan
        for (int i=1;i<=nbPaysan;i++){
            
            Paysan thing= new Paysan();
-           thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
-           while (listeEntite[thing.getPos().getX()][thing.getPos().getY()]!=null){
-                thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
-           }
-           this.listeEntite[thing.getPos().getX()][thing.getPos().getY()]=thing;
+           definePos(thing);
        }
        //Archer
        for (int i=1;i<=nbArcher;i++){
            
            Archer thing= new Archer();
-           thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
-           while (listeEntite[thing.getPos().getX()][thing.getPos().getY()]!=null){
-                thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
-           }
-           this.listeEntite[thing.getPos().getX()][thing.getPos().getY()]=thing;
+           definePos(thing);
        }
        //Loup
        for (int i=1;i<=nbLoup;i++){
            
            Loup thing= new Loup();
-           thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
-           while (listeEntite[thing.getPos().getX()][thing.getPos().getY()]!=null){
-                thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
-           }
-           this.listeEntite[thing.getPos().getX()][thing.getPos().getY()]=thing;
+           definePos(thing);
        }
        //Lapins
        for (int i=1;i<=nbLapin;i++){
            
            Lapin thing= new Lapin();
-           thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
-           while (listeEntite[thing.getPos().getX()][thing.getPos().getY()]!=null){
-                thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
-           }
-           this.listeEntite[thing.getPos().getX()][thing.getPos().getY()]=thing;
+           definePos(thing);
        }
        //Potions
        for (int i=1;i<=nbPotion;i++){
            PotionSoin thing= new PotionSoin();
-           thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
-           while (listeEntite[thing.getPos().getX()][thing.getPos().getY()]!=null){
-                thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
-           }
-           this.listeEntite[thing.getPos().getX()][thing.getPos().getY()]=thing;
+           definePos(thing);
        }
        //Epee
        for (int i=1;i<=nbEpee;i++){
            
            Epee thing= new Epee();
-           thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
-           while (listeEntite[thing.getPos().getX()][thing.getPos().getY()]!=null){
-                thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
-           }
-           this.listeEntite[thing.getPos().getX()][thing.getPos().getY()]=thing;
+           definePos(thing);
+       }
+       
+       //Nourriture
+       for (int i=1; i<=nbNourriture; i++){
+           
+           Nourriture thing = createFood();
+           definePos(thing);
+           
        }
    }
    /**
@@ -167,6 +147,73 @@ public class World {
            }
         }
     }
+   
+   public void definePos(Entite thing){
+       
+       Random r = new Random();
+       
+       thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
+           while (listeEntite[thing.getPos().getX()][thing.getPos().getY()]!=null){
+                thing.setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
+           }
+           this.listeEntite[thing.getPos().getX()][thing.getPos().getY()]=thing;
+   }
+   
+   public Nourriture createFood(){
+       
+       Random r = new Random();
+       
+       String[] listeStats = new String[]{"degAtt","ptPar","pageAtt","pagePar","distAttMax"};
+       String[] listeNomsBonus = new String[]{"Pomme", "Pasteque", "Pain", "Viande de boeuf cuite"};
+       String[] listeNomsMalus = new String[]{"Patate germee","Oeil d'araignee", "Viande putrifiee", "Poisson Globe"};
+       
+       String statNomModif = listeStats[r.nextInt(5)];
+       int plage = 7;
+       String nom;
+       int modifBase = r.nextInt(plage)-2;
+       int modifStat = 0;
+       int temps = r.nextInt(4)+1;
+      
+       
+       while ( 0 != modifBase){
+           modifBase = r.nextInt(plage)-2;
+       }
+       
+       switch (statNomModif){
+           case "degAtt":
+               modifStat = modifBase * 3;
+               break;
+            
+           case "ptPar":
+               modifStat = modifBase * 4;
+               break;
+            
+           case "pageAtt":
+               modifStat = modifBase * 5;
+               break;
+               
+           case "pagePar":
+               modifStat = modifBase * 5;
+               break;
+            
+           case "distAttMax":
+               modifStat = r.nextInt(5)-2;
+       }
+       
+       if (modifStat<0){
+           nom = listeNomsMalus[r.nextInt(listeNomsMalus.length)];
+       }
+       else{
+           nom = listeNomsBonus[r.nextInt(listeNomsBonus.length)];
+       }
+       
+       
+       return new Nourriture(nom,modifStat,temps,statNomModif, false, null);
+       
+       
+   }
+   
+   
    public boolean estTermine(int n){
        return (this.joueur.getPerso().getPtVie()<=0);
    }
