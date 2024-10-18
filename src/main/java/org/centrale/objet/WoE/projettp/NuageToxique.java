@@ -163,9 +163,11 @@ public class NuageToxique extends Objet implements Deplacable, Combattant{
        
     }
     public void combattre (ArrayList<Creature> ennemis){
-        for (Creature ennemi:ennemis){
-            
-            ennemi.setPtVie(max(0, ennemi.getPtVie() - this.getDeg()));
+        if (null!=ennemis){
+            for (Creature ennemi:ennemis){
+
+                ennemi.setPtVie(max(0, ennemi.getPtVie() - this.getDeg()));
+            }
         }
         
     }

@@ -81,9 +81,11 @@ public class World {
      */
    public void creeMondeAlea(int nbGuerrier,int nbPaysan,int nbArcher,int nbLoup, int nbLapin,int nbPotion,int nbEpee, int nbNourriture, int nbNuageToxique){
        Random r=new Random();
+       
        //Joueur
        joueur.getPerso().setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
        this.listeEntite[this.joueur.getPerso().getPos().getX()][this.joueur.getPerso().getPos().getY()]=joueur.getPerso();
+       
        //Guerrier
        for (int i=1;i<=nbGuerrier;i++){
            Guerrier thing= new Guerrier();
@@ -133,8 +135,8 @@ public class World {
         }
        
         //Nuage Toxique
-        for (int i=1; i < nbNuageToxique; i++){
-            NuageToxique thing = new NuageToxique(3,(int)Math.floor(Math.min(largeur, longueur)*0.2),r.nextInt(8),null);
+        for (int i=1; i <= nbNuageToxique; i++){
+            NuageToxique thing = new NuageToxique(3,(int)Math.floor(Math.min(largeur, longueur)*0.2),r.nextInt(8),new Point2D());
             definePos(thing);
         }       
    }
@@ -213,7 +215,7 @@ public class World {
        }
        
        
-       return new Nourriture(nom,modifStat,temps,statNomModif, false, null);
+       return new Nourriture(nom,modifStat,temps,statNomModif, false, new Point2D());
        
        
    }
@@ -267,38 +269,38 @@ public class World {
    }
    public void afficheMonde(World monde){
         Entite[][] map=monde.getListeEntite();
-        for (int i=0;i<=map.length;i++){
+        for (int i=0;i<map.length;i++){
             String afficheLigne="";
             for (Entite item : map[i]) {
                 if (item==monde.getJoueur().getPerso()){
-                    afficheLigne+="Vous ";
+                    afficheLigne+="X ";
                 }
                 if (item==null){
                     afficheLigne+="* ";
                 }
-                if (item instanceof Guerrier){
+                if (item instanceof Guerrier && item!=monde.getJoueur().getPerso()){
                     afficheLigne+="G ";
                 }
-                if (item instanceof Archer){
+                if (item instanceof Archer && item!=monde.getJoueur().getPerso()){
                    afficheLigne+="A "; 
                 }
                 if (item instanceof Loup){
-                    afficheLigne+="L";
+                    afficheLigne+="L ";
                 }
                 if (item instanceof Lapin){
-                    afficheLigne+="B";
+                    afficheLigne+="B ";
                 }
                 if (item instanceof Paysan){
-                    afficheLigne+="P";
+                    afficheLigne+="P ";
                 }
                 if (item instanceof PotionSoin){
-                    afficheLigne+="J";
+                    afficheLigne+="J ";
                 }
                 if(item instanceof Nourriture){
-                    afficheLigne+="N";
+                    afficheLigne+="N ";
                 }
                 if (item instanceof NuageToxique){
-                    afficheLigne+="Nuage "+String.valueOf((((NuageToxique) item)).getRayonAtt())+" ";
+                    afficheLigne+="Nuage "+(((NuageToxique) item).getRayonAtt())+" ";
                 }
                 if (item instanceof Epee){
                     afficheLigne+="E ";

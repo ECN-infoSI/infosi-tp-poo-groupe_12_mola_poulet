@@ -128,7 +128,7 @@ public class Guerrier extends Personnage implements Combattant,IA {
     @Override
     public void tourIA(World monde){
         ArrayList<Creature> liste=this.peutCombattre(monde);
-        if (liste.contains(monde.getJoueur().getPerso())){
+        if (null != liste && liste.contains(monde.getJoueur().getPerso())){
             System.out.println("On vous attaque !");
             this.combattre(monde.getJoueur().getPerso());
             if (monde.getJoueur().getPerso().getPtVie()<=0){
