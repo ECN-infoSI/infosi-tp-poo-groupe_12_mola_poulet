@@ -2,6 +2,7 @@ package org.centrale.objet.WoE.projettp;
 
 import static java.lang.Math.max;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.logging.Logger;
 
 
@@ -108,10 +109,14 @@ public class NuageToxique extends Objet implements Deplacable, Combattant{
     
     
     public void deplace(int dx, int dy,World monde){
-        if (this.getPos().getX()+dx<monde.getLongueur() && this.getPos().getY()+dy<monde.getLargeur() && monde.getListeEntite()[this.getPos().getX()+dx][this.getPos().getY()+dy]!=null){
+        if(this.getPos().getX()+dx>0 && this.getPos().getX()+dx<monde.getLongueur() && this.getPos().getY()+dy<monde.getLargeur() && this.getPos().getY()+dy>0 && monde.getListeEntite()[this.getPos().getX()+dx][this.getPos().getY()+dy]==null){
            monde.getListeEntite()[this.getPos().getX()][this.getPos().getY()]=null;
            this.getPos().translate(dx, dy);
            monde.getListeEntite()[this.getPos().getX()][this.getPos().getY()]=this;
+        }
+        else{
+            Random r=new Random();
+            this.direction=r.nextInt(8);
         }
     }
     @Override
@@ -119,8 +124,7 @@ public class NuageToxique extends Objet implements Deplacable, Combattant{
     public void deplace(World monde){
         
         int sens=this.getDirection()%8+1;/*permet d'assurer que n est ompris entre 1 et 8*/
-        
-                switch (sens){
+        switch (sens){
             case 1 :
                 this.deplace(0, 1,monde);//nord
                 break;

@@ -238,11 +238,16 @@ public class Joueur {
                                 int itemGrabNum = Integer.parseInt(choix);
                                 if(itemGrabNum<=objetsProx.size()){
                                     Objet itemGrab = objetsProx.get(itemGrabNum);
+                                    if(itemGrab instanceof Epee){
+                                        ((Epee) itemGrab).equiper(this);
+                                    }
+                                    else{
                                     int itemX = itemGrab.getPos().getX();
                                     int itemY = itemGrab.getPos().getY();
 
                                     inventaire.getContenu().add(itemGrab);
                                     monde.getListeEntite()[itemX][itemY] = null;
+                                    }
                                 }
                                 else{
                                     System.out.println("Il semble y avoir une erreur");

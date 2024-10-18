@@ -52,7 +52,6 @@ public class TestWoE {
         String choix=s.next();
         Joueur profil;
         switch (choix){
-            
             case "2":
                 System.out.println ("Choisissez un pseudo : ");
                 String nom=s.next();
@@ -64,6 +63,7 @@ public class TestWoE {
                 break;
             case "1":
                 // faudrait une base de données
+                System.out.println("Sauvegarde non disponible :( creez une nouvelle partie");
                 profil=new Joueur();
                 break;
             default: 
@@ -84,10 +84,54 @@ public class TestWoE {
         finally{
             w.getJoueur().demande();
             Random r= new Random();
-            w.creeMondeAlea(r.nextInt(21), r.nextInt(21), r.nextInt(21), r.nextInt(21), r.nextInt(21), r.nextInt(21), r.nextInt(21));
+            float n=w.getLongueur()*w.getLargeur();
+            w.creeMondeAlea(r.nextInt((int) Math.floor(n*0.15)), r.nextInt((int) Math.floor(n*0.10)), r.nextInt((int) Math.floor(n*0.05)), r.nextInt((int) Math.floor(n*0.1)), r.nextInt((int) Math.floor(n*0.05)), r.nextInt((int) Math.floor(n*0.07)), r.nextInt((int) Math.floor(n*0.03)));
             
             w.tourDeJeu();
         }
 
         }
+    public void afficheMonde(World monde){
+        Entite[][] map=monde.getListeEntite();
+        for (int i=0;i<=map.length;i++){
+            String afficheLigne="";
+            for (Entite item : map[i]) {
+                if (item==monde.getJoueur().getPerso()){
+                    afficheLigne+="Vous ";
+                }
+                if (item==null){
+                    afficheLigne+="* ";
+                }
+                if (item instanceof Guerrier){
+                    afficheLigne+="G ";
+                }
+                if (item instanceof Archer){
+                   afficheLigne+="A "; 
+                }
+                if (item instanceof Loup){
+                    afficheLigne+="Loup ";
+                }
+                if (item instanceof Lapin){
+                    afficheLigne+="Lapin ";
+                }
+                if (item instanceof Paysan){
+                    afficheLigne+="P ";
+                }
+                if (item instanceof PotionSoin){
+                    afficheLigne+="Potion ";
+                }
+                if(item instanceof Nourriture){
+                    afficheLigne+="Nourriture ";
+                }
+                if (item instanceof NuageToxique){
+                    afficheLigne+="Nuage "+String.valueOf((((NuageToxique) item)).getRayonAtt())+" ";
+                }
+                if (item instanceof Epee){
+                    afficheLigne+="Epee";
+                }
+                
+            }
+            System.out.println(afficheLigne);
+        }
+    }
 }

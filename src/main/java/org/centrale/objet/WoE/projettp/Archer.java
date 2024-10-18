@@ -118,7 +118,6 @@ public class Archer extends Personnage implements Combattant,IA{
     public ArrayList<Creature> peutCombattre(World monde){
         
         ArrayList<Creature> tab=new ArrayList<>();
-        
         for (int i=0;i<monde.getLongueur();i++){
             for(int j=0;j<monde.getLargeur();j++){
                 if (i!=this.getPos().getX() || j!=this.getPos().getY()){
@@ -127,6 +126,7 @@ public class Archer extends Personnage implements Combattant,IA{
                         if (this.getPos().distance(monde.getListeEntite()[i][j].getPos())<=this.getDistAttMax()){
                             tab.add((Creature)monde.getListeEntite()[i][j]);
                     }
+                }
                 }
             }
         }

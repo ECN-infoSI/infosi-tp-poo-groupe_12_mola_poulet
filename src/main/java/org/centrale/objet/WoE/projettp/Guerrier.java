@@ -111,10 +111,12 @@ public class Guerrier extends Personnage implements Combattant,IA {
         ArrayList<Creature> tab=new ArrayList<>();
         for (int i=0;i<monde.getLongueur();i++){
             for(int j=0;j<monde.getLargeur();j++){
+                if (i!=this.getPos().getX() || j!=this.getPos().getY()){
                 if (monde.getListeEntite()[i][j]!=null && monde.getListeEntite()[i][j] instanceof Creature){
                     if (this.getPos().distance(monde.getListeEntite()[i][j].getPos())<=this.getDistAttMax()){
                         tab.add((Creature)monde.getListeEntite()[i][j]);
                     }
+                }
                 }
             }
         }
