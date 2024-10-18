@@ -85,7 +85,7 @@ public class TestWoE {
             w.getJoueur().demande();
             Random r= new Random();
             float n=w.getLongueur()*w.getLargeur();
-            w.creeMondeAlea(r.nextInt((int) Math.floor(n*0.15)), r.nextInt((int) Math.floor(n*0.10)), r.nextInt((int) Math.floor(n*0.05)), r.nextInt((int) Math.floor(n*0.1)), r.nextInt((int) Math.floor(n*0.05)), r.nextInt((int) Math.floor(n*0.07)), r.nextInt((int) Math.floor(n*0.03)));
+            w.creeMondeAlea(r.nextInt((int) Math.floor(n*0.15)), r.nextInt((int) Math.floor(n*0.10)), r.nextInt((int) Math.floor(n*0.05)), r.nextInt((int) Math.floor(n*0.1)), r.nextInt((int) Math.floor(n*0.05)), r.nextInt((int) Math.floor(n*0.07)), r.nextInt((int) Math.floor(n*0.03)),r.nextInt((int) Math.floor(n*0.05)),1);
             
             w.tourDeJeu();
         }
