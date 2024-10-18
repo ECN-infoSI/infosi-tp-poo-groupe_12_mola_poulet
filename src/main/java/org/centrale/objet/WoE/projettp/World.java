@@ -79,7 +79,7 @@ public class World {
      * @param nbLapin Nombre de lapins
      * @param nbPotion Nombre de potions
      */
-   public void creeMondeAlea(int nbGuerrier,int nbPaysan,int nbArcher,int nbLoup, int nbLapin,int nbPotion,int nbEpee, int nbNourriture){
+   public void creeMondeAlea(int nbGuerrier,int nbPaysan,int nbArcher,int nbLoup, int nbLapin,int nbPotion,int nbEpee, int nbNourriture, int nbNuageToxique){
        Random r=new Random();
        //Joueur
        joueur.getPerso().setPos(new Point2D (r.nextInt(this.longueur),r.nextInt(this.largeur)));
@@ -130,8 +130,13 @@ public class World {
            
            Nourriture thing = createFood();
            definePos(thing);
-           
-       }
+        }
+       
+        //Nuage Toxique
+        for (int i=1; i < nbNuageToxique; i++){
+            NuageToxique thing = new NuageToxique(3,(int)Math.floor(Math.min(largeur, longueur)*0.2),r.nextInt(8),null);
+            definePos(thing);
+        }       
    }
    /**
     * Affiche les attributs du monde
@@ -220,25 +225,42 @@ public class World {
    public void tourDeJeu(){
        int n=0; //nombre de tours
        while (!estTermine(n)){
-            this.afficheMonde(this);
-            this.joueur.tourDeJoueur(n, this);
-            for (Entite[] ligne: listeEntite){
-                for (Entite ia:ligne){
-                    if (ia instanceof Creature && ia!=this.joueur.getPerso()){
-                        ((IA)ia).tourIA((this));
-                    }
-                    if(ia instanceof NuageToxique){
-                        ((NuageToxique) ia).combattre(((NuageToxique) ia).peutCombattre(this));
-                        if(((NuageToxique) ia).peutCombattre(this).contains(this.joueur.getPerso())){
-                            System.out.println("Fuyez pauvres fous");
-                            if (this.joueur.getPerso().getPtVie()<=0){
-                                System.out.println("Vous avez succombé au nuage toxique");
+           
+           
+           this.afficheMonde(this);
+           System.out.print("Voici les stats acutelles de votre personnage");
+           joueur.getPerso().affiche();
+
+           this.joueur.tourDeJoueur(n, this);
+
+           for (Entite[] ligne: listeEntite){
+               for (Entite ia:ligne){
+
+                   if (ia instanceof Creature && ia!=this.joueur.getPerso()){
+                       ((IA)ia).tourIA((this));
+                   }
+                   if(ia instanceof NuageToxique){
+                       ((NuageToxique) ia).combattre(((NuageToxique) ia).peutCombattre(this));
+                       if(((NuageToxique) ia).peutCombattre(this).contains(this.joueur.getPerso())){
+                           System.out.println("Fuyez pauvres fous");
+                           if (this.joueur.getPerso().getPtVie()<=0){
+                               System.out.println("Vous avez succombé au nuage toxique");
                             }
                         }
                     }
                 }
-            
+
             }
+            
+            for (Utilisable cooldown:joueur.getEffets()){
+                ((Nourriture)cooldown).expiration();
+                
+                if (((Nourriture)cooldown).getToursRestants()<=0){
+                    joueur.getEffets().remove(cooldown);
+                }
+                
+            }
+            
             n++;
        }
        System.out.println("Game Over,"+"\n"+"Vous avez survécu "+n+" tours");
@@ -261,28 +283,29 @@ public class World {
                    afficheLigne+="A "; 
                 }
                 if (item instanceof Loup){
-                    afficheLigne+="Loup ";
+                    afficheLigne+="L";
                 }
                 if (item instanceof Lapin){
-                    afficheLigne+="Lapin ";
+                    afficheLigne+="B";
                 }
                 if (item instanceof Paysan){
-                    afficheLigne+="P ";
+                    afficheLigne+="P";
                 }
                 if (item instanceof PotionSoin){
-                    afficheLigne+="Potion ";
+                    afficheLigne+="J";
                 }
                 if(item instanceof Nourriture){
-                    afficheLigne+="Nourriture ";
+                    afficheLigne+="N";
                 }
                 if (item instanceof NuageToxique){
                     afficheLigne+="Nuage "+String.valueOf((((NuageToxique) item)).getRayonAtt())+" ";
                 }
                 if (item instanceof Epee){
-                    afficheLigne+="Epee ";
+                    afficheLigne+="E ";
                 }
                 
             }
             System.out.println(afficheLigne);
         }
+    }
 }
