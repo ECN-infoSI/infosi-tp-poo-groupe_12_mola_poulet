@@ -89,49 +89,5 @@ public class TestWoE {
             
             w.tourDeJeu();
         }
-
-        }
-    public void afficheMonde(World monde){
-        Entite[][] map=monde.getListeEntite();
-        for (int i=0;i<=map.length;i++){
-            String afficheLigne="";
-            for (Entite item : map[i]) {
-                if (item==monde.getJoueur().getPerso()){
-                    afficheLigne+="Vous ";
-                }
-                if (item==null){
-                    afficheLigne+="* ";
-                }
-                if (item instanceof Guerrier){
-                    afficheLigne+="G ";
-                }
-                if (item instanceof Archer){
-                   afficheLigne+="A "; 
-                }
-                if (item instanceof Loup){
-                    afficheLigne+="Loup ";
-                }
-                if (item instanceof Lapin){
-                    afficheLigne+="Lapin ";
-                }
-                if (item instanceof Paysan){
-                    afficheLigne+="P ";
-                }
-                if (item instanceof PotionSoin){
-                    afficheLigne+="Potion ";
-                }
-                if(item instanceof Nourriture){
-                    afficheLigne+="Nourriture ";
-                }
-                if (item instanceof NuageToxique){
-                    afficheLigne+="Nuage "+String.valueOf((((NuageToxique) item)).getRayonAtt())+" ";
-                }
-                if (item instanceof Epee){
-                    afficheLigne+="Epee";
-                }
-                
-            }
-            System.out.println(afficheLigne);
-        }
     }
 }

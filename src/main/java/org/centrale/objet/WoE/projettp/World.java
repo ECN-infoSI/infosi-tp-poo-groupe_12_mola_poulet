@@ -220,6 +220,7 @@ public class World {
    public void tourDeJeu(){
        int n=0; //nombre de tours
        while (!estTermine(n)){
+            this.afficheMonde(this);
             this.joueur.tourDeJoueur(n, this);
             for (Entite[] ligne: listeEntite){
                 for (Entite ia:ligne){
@@ -242,4 +243,46 @@ public class World {
        }
        System.out.println("Game Over,"+"\n"+"Vous avez survécu "+n+" tours");
    }
+   public void afficheMonde(World monde){
+        Entite[][] map=monde.getListeEntite();
+        for (int i=0;i<=map.length;i++){
+            String afficheLigne="";
+            for (Entite item : map[i]) {
+                if (item==monde.getJoueur().getPerso()){
+                    afficheLigne+="Vous ";
+                }
+                if (item==null){
+                    afficheLigne+="* ";
+                }
+                if (item instanceof Guerrier){
+                    afficheLigne+="G ";
+                }
+                if (item instanceof Archer){
+                   afficheLigne+="A "; 
+                }
+                if (item instanceof Loup){
+                    afficheLigne+="Loup ";
+                }
+                if (item instanceof Lapin){
+                    afficheLigne+="Lapin ";
+                }
+                if (item instanceof Paysan){
+                    afficheLigne+="P ";
+                }
+                if (item instanceof PotionSoin){
+                    afficheLigne+="Potion ";
+                }
+                if(item instanceof Nourriture){
+                    afficheLigne+="Nourriture ";
+                }
+                if (item instanceof NuageToxique){
+                    afficheLigne+="Nuage "+String.valueOf((((NuageToxique) item)).getRayonAtt())+" ";
+                }
+                if (item instanceof Epee){
+                    afficheLigne+="Epee ";
+                }
+                
+            }
+            System.out.println(afficheLigne);
+        }
 }
