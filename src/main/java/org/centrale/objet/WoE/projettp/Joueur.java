@@ -181,6 +181,7 @@ public class Joueur {
             case "1" : 
                 try{
                     boolean[]liste=this.perso.estDeplacable(monde);
+                    boolean u=liste[0];
                     for (int i=0;i<liste.length;i++){
                             if (liste[i]){
                                     System.out.println("Tapez "+i+" pour vous deplacer dans la direction "+cardinalites[i]);

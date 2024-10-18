@@ -39,7 +39,7 @@ public class Epee extends Objet implements Ramassable{
     public Epee (){
         super();
         this.name="Epee lambda";
-        this.bonus=5;
+        this.bonus=2;
     }
     //Getter
 

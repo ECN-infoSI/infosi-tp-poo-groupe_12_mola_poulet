@@ -89,8 +89,8 @@ public class Loup extends Monstre implements Combattant,IA{
     public void tourIA(World monde){
         ArrayList<Creature> liste=this.peutCombattre(monde);
         if (liste.contains(monde.getJoueur().getPerso())){
-            this.combattre(monde.getJoueur().getPerso());
             System.out.println("On vous attaque !");
+            this.combattre(monde.getJoueur().getPerso());
             if (monde.getJoueur().getPerso().getPtVie()<=0){
                 System.out.println("Vous êtes mort");
             }

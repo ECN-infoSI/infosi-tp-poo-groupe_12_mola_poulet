@@ -168,7 +168,7 @@ public class World {
         }
     }
    public boolean estTermine(int n){
-       return this.joueur.getPerso().getPtVie()<=0;
+       return (this.joueur.getPerso().getPtVie()<=0);
    }
    public void tourDeJeu(){
        int n=0; //nombre de tours

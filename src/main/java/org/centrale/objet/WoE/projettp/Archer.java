@@ -45,7 +45,7 @@ public class Archer extends Personnage implements Combattant,IA{
      */
     public Archer() {
         super();
-        this.nbFleches=30;
+        this.nbFleches=40;
     }
 
     /**
@@ -121,11 +121,11 @@ public class Archer extends Personnage implements Combattant,IA{
         
         for (int i=0;i<monde.getLongueur();i++){
             for(int j=0;j<monde.getLargeur();j++){
-                
-                if (monde.getListeEntite()[i][j]!=null && monde.getListeEntite()[i][j] instanceof Creature){
+                if (i!=this.getPos().getX() || j!=this.getPos().getY()){
+                    if (monde.getListeEntite()[i][j]!=null && monde.getListeEntite()[i][j] instanceof Creature){
                     
-                    if (this.getPos().distance(monde.getListeEntite()[i][j].getPos())<=this.getDistAttMax()){
-                        tab.add((Creature)monde.getListeEntite()[i][j]);
+                        if (this.getPos().distance(monde.getListeEntite()[i][j].getPos())<=this.getDistAttMax()){
+                            tab.add((Creature)monde.getListeEntite()[i][j]);
                     }
                 }
             }
@@ -140,8 +140,8 @@ public class Archer extends Personnage implements Combattant,IA{
     public void tourIA(World monde){
         ArrayList<Creature> liste=this.peutCombattre(monde);
         if (liste.contains(monde.getJoueur().getPerso())){
-            this.combattre(monde.getJoueur().getPerso());
             System.out.println("On vous attaque !");
+            this.combattre(monde.getJoueur().getPerso());
             if (monde.getJoueur().getPerso().getPtVie()<=0){
                 System.out.println("Vous êtes mort");
             }

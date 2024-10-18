@@ -58,11 +58,11 @@ public class Creature extends Entite implements Deplacable {
     public Creature(){
         super();
         
-        this.ptVie = 50;
-        this.degAtt = 50;
-        this.ptPar = 20;
-        this.pageAtt = 80;
-        this.pagePar = 30;
+        this.ptVie = 25;
+        this.degAtt = 10;
+        this.ptPar = 5;
+        this.pageAtt = 70;
+        this.pagePar = 25;
     }
 
     /**
