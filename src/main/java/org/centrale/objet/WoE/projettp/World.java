@@ -289,6 +289,7 @@ public class World {
                             System.out.println("Fuyez pauvres fous, vous etes dans le nuage toxique !");
                             if (this.joueur.getPerso().getPtVie() <= 0) {
                                 System.out.println("Vous avez succombé au nuage toxique");
+                                this.getListeEntite()[this.getJoueur().getPerso().getPos().getX()][this.getJoueur().getPerso().getPos().getY()]=null;
                             }
                         }
                     }

@@ -189,6 +189,7 @@ public class Archer extends Personnage implements Combattant,IA,Sauvegarde{
             this.combattre(monde.getJoueur().getPerso());
             if (monde.getJoueur().getPerso().getPtVie()<=0){
                 System.out.println("Vous êtes mort");
+                monde.getListeEntite()[monde.getJoueur().getPerso().getPos().getX()][monde.getJoueur().getPerso().getPos().getY()]=null;
             }
             else{
                 System.out.println("Vous avez survécu");
