@@ -11,6 +11,9 @@ package org.centrale.objet.WoE.projettp;
  */
 public interface TempsAttente {
     
-    public void expiration();
+    /**
+     *
+     */
+    public void expiration(Joueur player);
     
 }

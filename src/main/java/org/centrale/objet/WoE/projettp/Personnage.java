@@ -48,7 +48,7 @@ public class Personnage extends Creature{
      */
     public Personnage(){
         super();
-        this.nom="Personnage lambda";
+        this.nom="Lambda";
         this.distAttMax=1;
         
     }

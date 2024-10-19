@@ -14,7 +14,18 @@ import java.util.ArrayList;
  */
 public interface Combattant {
     
+    /**
+     *
+     * @param adversaire adversaire à combattre
+     */
     public void combattre(Creature adversaire);
+
+    /**
+     *
+     * @param monde
+     * @return
+     * renvoie la liste des entités combattables
+     */
     public ArrayList<Creature> peutCombattre(World monde);
     
 }

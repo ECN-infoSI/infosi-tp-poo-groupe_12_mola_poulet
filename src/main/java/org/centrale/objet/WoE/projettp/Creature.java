@@ -146,13 +146,14 @@ public class Creature extends Entite implements Deplacable {
     }
     /**
      * deplace sans argument utilise la fonction nextInt pour teleporter le personnage a une position aleatoire dans un rayon de 10 cases
+     * @param monde
      */
     @Override
     public void deplace(World monde){
         Random rand =new Random();
         int dx = rand.nextInt(21)-10;//permet de determiner la translation selon x entre -10 et 10
         int dy = rand.nextInt(21)-10;//fait la meme chose qu'avant mais selon y
-        if (this.getPos().getX()+dx>0 && this.getPos().getX()+dx<monde.getLongueur() && this.getPos().getY()+dy<monde.getLargeur() && this.getPos().getY()+dy>0 && monde.getListeEntite()[this.getPos().getX()+dx][this.getPos().getY()+dy]==null){
+        if (this.getPos().getX()+dx>=0 && this.getPos().getX()+dx<monde.getLongueur() && this.getPos().getY()+dy<monde.getLargeur() && this.getPos().getY()+dy>=0 && monde.getListeEntite()[this.getPos().getX()+dx][this.getPos().getY()+dy]==null){
            monde.getListeEntite()[this.getPos().getX()][this.getPos().getY()]=null;
            this.getPos().translate(dx, dy);
            monde.getListeEntite()[this.getPos().getX()][this.getPos().getY()]=this;
@@ -168,9 +169,10 @@ public class Creature extends Entite implements Deplacable {
      * dx correspond a la translation horizontale et dy y a la translation verticale
      * @param dx
      * @param dy
+     * @param monde
      */
     public void deplace(int dx, int dy,World monde){
-        if (this.getPos().getX()+dx>0 && this.getPos().getX()+dx<monde.getLongueur() && this.getPos().getY()+dy<monde.getLargeur() && this.getPos().getY()+dy>0 && monde.getListeEntite()[this.getPos().getX()+dx][this.getPos().getY()+dy]==null){
+        if (this.getPos().getX()+dx>=0 && this.getPos().getX()+dx<monde.getLongueur() && this.getPos().getY()+dy<monde.getLargeur() && this.getPos().getY()+dy>=0 && monde.getListeEntite()[this.getPos().getX()+dx][this.getPos().getY()+dy]==null){
            monde.getListeEntite()[this.getPos().getX()][this.getPos().getY()]=null;
            this.getPos().translate(dx, dy);
            monde.getListeEntite()[this.getPos().getX()][this.getPos().getY()]=this;
@@ -181,6 +183,7 @@ public class Creature extends Entite implements Deplacable {
      * n est un entier compris entre 0 et 7 et permet de decider dans quelle direction deplacer le personnage d'une case dans cette direction
      * 7 correspond au nord et on tourne dans le sens horaire
      * @param n
+     * @param monde
      */
 
     public void deplace(int n,World monde){
@@ -189,46 +192,53 @@ public class Creature extends Entite implements Deplacable {
         
         switch (sens){
             case 1 :
-                this.deplace(0, 1,monde);//nord
+                this.deplace(-1, 0,monde);//nord
                 break;
             case 2 :
-                this.deplace(1, 1,monde);//nord-estS
+                this.deplace(-1, 1,monde);//nord-est
                 break;
             case 3 : 
-                this.deplace(1,0,monde);//est
+                this.deplace(0,1,monde);//est
                 break;
             case 4 :
-                this.deplace(1, -1,monde);//sud-est
+                this.deplace(1, 1,monde);//sud-est
                 break;
             case 5 : 
-                this.deplace(0, -1,monde);//sud
+                this.deplace(1, 0,monde);//sud
                 break;
             case 6 :
-                this.deplace(-1, -1,monde);//sud-ouest
+                this.deplace(1, -1,monde);//sud-ouest
                 break;
             case 7 : 
-                this.deplace(-1,0,monde);//ouest
+                this.deplace(0,-1,monde);//ouest
                 break;
             case 8 :
-                this.deplace(-1,1,monde);//nord-ouest
+                this.deplace(-1,-1,monde);//nord-ouest
                 break;
 
         }
     }
     
-    
+    /**
+     *
+     * @param monde
+     * @return
+     * renvoie la liste des cases où l'on peut se déplacer
+     */
     public boolean[] estDeplacable (World monde){
         boolean[]res=new boolean[8];
-        int[] listeNb={5,6,7,4,0,3,2,1};
+        int[] listeNb={7,0,1,6,2,5,4,3};
         int nb=0;
         for (int i=-1;i<=1;i++){
             for (int j=-1;j<=1;j++){
                 if(j!=0 || i!=0){
-                    res[listeNb[nb]]=(this.getPos().getX()+i>0 && this.getPos().getX()+i<monde.getLongueur() && this.getPos().getY()+j<monde.getLargeur() && this.getPos().getY()+j>0 && monde.getListeEntite()[this.getPos().getX()+i][this.getPos().getY()+j]==null);
+                    //vérification du déplacement possible
+                    res[listeNb[nb]]=(this.getPos().getX()+i>=0 && this.getPos().getX()+i<monde.getLongueur() && this.getPos().getY()+j<monde.getLargeur() && this.getPos().getY()+j>=0 && monde.getListeEntite()[this.getPos().getX()+i][this.getPos().getY()+j]==null);
                     nb++;
                 }
             } 
         }
+        //Permet de savoir si on peut se déplacer nulle part
         if (res==new boolean[]{false,false,false,false,false,false,false,false}){
             res=null;
         }

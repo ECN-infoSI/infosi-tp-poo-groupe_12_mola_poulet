@@ -5,12 +5,13 @@
 package org.centrale.objet.WoE.projettp;
 
 import java.util.Random;
+import java.util.StringTokenizer;
 
 /**
  *
  * @author clesp
  */
-public class Lapin extends Monstre implements IA{
+public class Lapin extends Monstre implements IA,Sauvegarde{
 
     /**
      *
@@ -39,10 +40,53 @@ public class Lapin extends Monstre implements IA{
     public Lapin() {
         super();
     }
+
+    /**
+     *
+     * @param ligne
+     * Génération d'un lapin sauvegardé
+     */
+    public Lapin(String ligne){
+        super();
+        StringTokenizer tokenizer=new StringTokenizer(ligne," ");
+        String s=tokenizer.nextToken();
+        s=tokenizer.nextToken();
+        this.setPtVie(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.setDegAtt(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.setPtPar(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.setPageAtt(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.setPagePar(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.getPos().setX(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.getPos().setY(Integer.parseInt(s));
+    }
+    
+    /**
+     *
+     * @param monde
+     * Tour d'un lapin IA
+     */
     @Override
     public void tourIA(World monde){
+        //déplacement aléatoire
             Random r=new Random();
             int n=r.nextInt(8);
             this.deplace(n,monde);
     }   
+
+    /**
+     *
+     * @return
+     * sauvegarde d'un lapin
+     */
+    @Override
+    public String sauvegardeElement() {
+        String s=((String)("Lapin "+this.getPtVie()+" "+this.getDegAtt()+" "+this.getPtPar()+" "+this.getPageAtt()+" "+this.getPagePar()+" "+this.getPos().getX()+" "+this.getPos().getY()));
+        return s;
+    }
 }

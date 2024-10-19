@@ -4,11 +4,13 @@
  */
 package org.centrale.objet.WoE.projettp;
 
+import java.util.StringTokenizer;
+
 /**
  *
  * @author clesp
  */
-public class Epee extends Objet implements Ramassable{
+public class Epee extends Objet implements Ramassable,Sauvegarde{
     private String name;
     private int bonus;
 
@@ -38,8 +40,30 @@ public class Epee extends Objet implements Ramassable{
      */
     public Epee (){
         super();
-        this.name="Epee lambda";
+        this.name="Epeelambda";
         this.bonus=2;
+    }
+
+    /**
+     *
+     * @param ligne informations
+     * charge l'épée d'une sauvegarde
+     */
+    public Epee(String ligne){
+        super();
+        StringTokenizer tokenizer=new StringTokenizer(ligne," ");
+        String s=tokenizer.nextToken();
+        s=tokenizer.nextToken();
+        this.name=s;
+        s=tokenizer.nextToken();
+        //chargement de la position si l'épée n'est pas équipée
+        this.bonus=Integer.parseInt(s);
+        if (tokenizer.hasMoreTokens()){
+            s=tokenizer.nextToken();
+            this.getPos().setX(Integer.parseInt(s));
+            s=tokenizer.nextToken();
+            this.getPos().setY(Integer.parseInt(s));
+        }
     }
     //Getter
 
@@ -85,6 +109,10 @@ public class Epee extends Objet implements Ramassable{
         System.out.println("[Nom de l'arme : "+this.name+", Bonus de l'arme : "+this.bonus+"]");
     }
     
+    /**
+     *
+     * @param player joueur qui équipe l'épée
+     */
     public void equiper(Joueur player){
         
         if (!(player.getPerso() instanceof Guerrier)){
@@ -108,5 +136,16 @@ public class Epee extends Objet implements Ramassable{
         }
         
     }
-    
+
+    /**
+     *
+     * @return
+     * Sauvegarde l'épée
+     */
+    @Override
+    public String sauvegardeElement() {
+        String s=((String)("Epee "+this.name+" "+this.bonus+" "+this.getPos().getX()+" "+this.getPos().getY()));
+        return s;
+    }
 }
+    

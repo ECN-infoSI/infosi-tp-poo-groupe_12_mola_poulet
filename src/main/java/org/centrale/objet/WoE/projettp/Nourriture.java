@@ -1,6 +1,7 @@
 package org.centrale.objet.WoE.projettp;
 
 import static java.lang.Math.max;
+import java.util.StringTokenizer;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -11,7 +12,7 @@ import static java.lang.Math.max;
  *
  * @author Amolz
  */
-public class Nourriture extends Objet implements TempsAttente, Utilisable, Ramassable{
+public class Nourriture extends Objet implements TempsAttente, Utilisable, Ramassable,Sauvegarde{
     
     private String nom;
     private int modif;
@@ -19,6 +20,15 @@ public class Nourriture extends Objet implements TempsAttente, Utilisable, Ramas
     private String statModifiee;
     private boolean consomme;
     
+    /**
+     *
+     * @param name Nom du plat
+     * @param boost Bonus ou malus du plat
+     * @param temps Nombre de tours d'effet
+     * @param stat Stat affectée
+     * @param bouffe Est consommée ou pas
+     * @param pos Position
+     */
     public Nourriture(String name, int boost, int temps, String stat, boolean bouffe, Point2D pos){
         
         super(pos);
@@ -30,6 +40,11 @@ public class Nourriture extends Objet implements TempsAttente, Utilisable, Ramas
         
     }
     
+    /**
+     *
+     * @param food
+     * Copie de nourriture
+     */
     public Nourriture(Nourriture food){
         
         super((Objet)food);
@@ -41,64 +56,141 @@ public class Nourriture extends Objet implements TempsAttente, Utilisable, Ramas
         
     }
     
+    /**
+     *
+     */
     public Nourriture(){
  
         super();  
     }
+    
+    /**
+     *
+     * @param ligne
+     * Génération de nourriture sauvegardée
+     */
+    public Nourriture (String ligne){
+        super();
+        StringTokenizer tokenizer=new StringTokenizer(ligne," ");
+        String s=tokenizer.nextToken();
+        s=tokenizer.nextToken();
+        this.nom=s;
+        s=tokenizer.nextToken();
+        this.modif=Integer.parseInt(s);
+        s=tokenizer.nextToken();
+        this.toursRestants=Integer.parseInt(s);
+        s=tokenizer.nextToken();
+        this.statModifiee=s;
+        s=tokenizer.nextToken();
+        this.consomme=Boolean.parseBoolean(s);
+        s=tokenizer.nextToken();
+        this.getPos().setX(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.getPos().setY(Integer.parseInt(s));
 
+    }
+    //getters
+    /**
+     *
+     * @return
+     */
     public String getNom() {
         return nom;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getModif() {
         return modif;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getToursRestants() {
         return toursRestants;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getStatModifiee() {
         return statModifiee;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isConsomme() {
         return consomme;
     }
-
+    //setters
+    /**
+     *
+     * @param nom
+     */
     public void setNom(String nom) {
         this.nom = nom;
     }
 
+    /**
+     *
+     * @param modif
+     */
     public void setModif(int modif) {
         this.modif = modif;
     }
 
+    /**
+     *
+     * @param toursRestants
+     */
     public void setToursRestants(int toursRestants) {
         this.toursRestants = toursRestants;
     }
 
+    /**
+     *
+     * @param statModifiee
+     */
     public void setStatModifiee(String statModifiee) {
         this.statModifiee = statModifiee;
     }
 
+    /**
+     *
+     * @param consomme
+     */
     public void setConsomme(boolean consomme) {
         this.consomme = consomme;
     }
-
-    
+    //méthodes
+    /**
+     *Diminue le temps d'effet et le fait disparaitre
+     */
     @Override
-    public void expiration() {
+    public void expiration(Joueur player) {
         
         if (toursRestants <= 0 & consomme==true){
-            this.setModif(0);
+            this.setModif(-this.getModif());
+            this.utilisation(player);
+            System.out.println("Fin de l'effet de "+this.nom);
         }
         else if (consomme==true){
             this.setToursRestants(this.getToursRestants()-1);
         }
     }
     
-
+    /**
+     *
+     * @param player
+     * Utilisation d'un objet
+     */
     @Override
     public void utilisation(Joueur player){
         
@@ -111,7 +203,7 @@ public class Nourriture extends Objet implements TempsAttente, Utilisable, Ramas
                 break;
                 
             case "ptPar":
-                mainCharacter.setPtPar(mainCharacter.getPtPar() + modif);
+                mainCharacter.setPtPar(max(0,mainCharacter.getPtPar() + modif));
                 break;
                 
             case "pageAtt":
@@ -131,10 +223,24 @@ public class Nourriture extends Objet implements TempsAttente, Utilisable, Ramas
         player.getInventaire().getContenu().remove(this);
         player.getEffets().add(this);
     }
+
+    /**
+     *
+     */
     @Override
     public void affiche(){
         System.out.println("Nourriture : "+"\n"+modif+" sur "+this.statModifiee+" pendant "+this.toursRestants);
     }
-    
+
+    /**
+     *
+     * @return
+     * Sauvegarde de nourriture
+     */
+    @Override
+    public String sauvegardeElement() {
+        String s=((String)("Nourriture "+this.nom+" "+this.modif+" "+this.toursRestants+" "+this.statModifiee+" "+this.consomme+" "+this.getPos().getX()+" "+this.getPos().getY()));
+        return s;
+    }
     
 }

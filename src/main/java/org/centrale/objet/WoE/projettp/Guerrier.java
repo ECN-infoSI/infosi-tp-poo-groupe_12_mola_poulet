@@ -1,6 +1,7 @@
 package org.centrale.objet.WoE.projettp;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.StringTokenizer;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -11,7 +12,7 @@ import java.util.Random;
  *
  * @author clesp
  */
-public class Guerrier extends Personnage implements Combattant,IA {
+public class Guerrier extends Personnage implements Combattant,IA,Sauvegarde {
     private Epee arme;
     
     //Constructeurs
@@ -48,6 +49,44 @@ public class Guerrier extends Personnage implements Combattant,IA {
     public Guerrier(Guerrier g){
         super((Personnage) g);
         this.arme=new Epee(g.arme);
+    }
+    
+    /**
+     *
+     * @param ligne
+     * Chargement d'un guerrier sauvegardé
+     */
+    public Guerrier(String ligne){
+        super();
+        StringTokenizer tokenizer=new StringTokenizer(ligne," ");
+        String s=tokenizer.nextToken();
+        if (s.equals("Joueur")){
+            s=tokenizer.nextToken();
+        }
+        s=tokenizer.nextToken();
+        this.setNom(s);
+        s=tokenizer.nextToken();
+        this.setPtVie(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.setDegAtt(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.setPtPar(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.setPageAtt(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.setPagePar(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.setDistAttMax(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.getPos().setX(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.getPos().setY(Integer.parseInt(s));
+        //chargement de l'épée équipée
+        s=tokenizer.nextToken()+" ";
+        while (tokenizer.hasMoreTokens()){
+            s+=tokenizer.nextToken()+" ";
+        }
+        this.arme=new Epee(s);
     }
     //getters
 
@@ -87,9 +126,10 @@ public class Guerrier extends Personnage implements Combattant,IA {
      * @param c Créature à combattre
      */
     
+    @Override
     public void combattre(Creature c){
         Random r=new Random();
-        if (this.getPos().distance(c.getPos())<Math.sqrt(2)){
+        if (this.getPos().distance(c.getPos())<=Math.sqrt(2)){
             //Case adjacente (distance inférieure à sqrt(2)
             int n=r.nextInt(101);
             if (n<=this.getPageAtt()){
@@ -106,6 +146,13 @@ public class Guerrier extends Personnage implements Combattant,IA {
             }
         }
     }
+
+    /**
+     *
+     * @param monde
+     * @return
+     * renvoie la liste des entités combattables
+     */
     @Override
     public ArrayList<Creature> peutCombattre(World monde){
         ArrayList<Creature> tab=new ArrayList<>();
@@ -113,7 +160,7 @@ public class Guerrier extends Personnage implements Combattant,IA {
             for(int j=0;j<monde.getLargeur();j++){
                 if (i!=this.getPos().getX() || j!=this.getPos().getY()){
                 if (monde.getListeEntite()[i][j]!=null && monde.getListeEntite()[i][j] instanceof Creature){
-                    if (this.getPos().distance(monde.getListeEntite()[i][j].getPos())<=this.getDistAttMax()){
+                    if (this.getPos().distance(monde.getListeEntite()[i][j].getPos())<=Math.sqrt(2)*this.getDistAttMax()){
                         tab.add((Creature)monde.getListeEntite()[i][j]);
                     }
                 }
@@ -125,11 +172,18 @@ public class Guerrier extends Personnage implements Combattant,IA {
         }
         return tab;
     }
+
+    /**
+     *
+     * @param monde
+     * Tour d'un guerrier IA
+     */
     @Override
     public void tourIA(World monde){
         ArrayList<Creature> liste=this.peutCombattre(monde);
+        //Combat si le joueur est à portée
         if (null != liste && liste.contains(monde.getJoueur().getPerso())){
-            System.out.println("On vous attaque !");
+            System.out.println("Un guerrier vous attaque !");
             this.combattre(monde.getJoueur().getPerso());
             if (monde.getJoueur().getPerso().getPtVie()<=0){
                 System.out.println("Vous êtes mort");
@@ -143,5 +197,16 @@ public class Guerrier extends Personnage implements Combattant,IA {
             int n=r.nextInt(8);
             this.deplace(n,monde);
         }
+    }
+
+    /**
+     *
+     * @return
+     * Sauvegarde un guerrier
+     */
+    @Override
+    public String sauvegardeElement() {
+        String s=((String)("Guerrier "+this.getNom()+" "+this.getPtVie()+" "+this.getDegAtt()+" "+this.getPtPar()+" "+this.getPageAtt()+" "+this.getPagePar()+" "+this.getDistAttMax()+" "+this.getPos().getX()+" "+this.getPos().getY()+" "+" "+"Epee "+this.arme.getName()+" "+this.arme.getBonus()));
+        return s;
     }
 }

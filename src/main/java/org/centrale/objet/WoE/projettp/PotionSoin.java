@@ -4,12 +4,14 @@
  */
 package org.centrale.objet.WoE.projettp;
 
+import java.util.StringTokenizer;
+
 
 /**
  *
  * @author clesp
  */
-public class PotionSoin extends Objet implements Utilisable, Ramassable{
+public class PotionSoin extends Objet implements Utilisable, Ramassable,Sauvegarde{
     private int pvRendus;
     /**
      * @param pv Nombre de points de vie rendus
@@ -27,6 +29,23 @@ public class PotionSoin extends Objet implements Utilisable, Ramassable{
     public PotionSoin(){
         super();
         this.pvRendus=20;
+    }
+
+    /**
+     *
+     * @param ligne
+     * Génération d'une potion sauvegardée
+     */
+    public PotionSoin(String ligne){
+        super();
+        StringTokenizer tokenizer=new StringTokenizer(ligne," ");
+        String s=tokenizer.nextToken();
+        s=tokenizer.nextToken();
+        this.pvRendus=Integer.parseInt(s);
+        s=tokenizer.nextToken();
+        this.getPos().setX(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.getPos().setY(Integer.parseInt(s));
     }
 
     /**
@@ -54,6 +73,11 @@ public class PotionSoin extends Objet implements Utilisable, Ramassable{
         System.out.println("Potion : "+"\n"+"Nombre de points de vie rendus "+this.pvRendus);
     }
     
+    /**
+     *
+     * @param player
+     * utilisation d'une potion
+     */
     @Override
     public void utilisation(Joueur player){
         
@@ -62,5 +86,16 @@ public class PotionSoin extends Objet implements Utilisable, Ramassable{
         mainCharacter.setPtVie(mainCharacter.getPtVie() + this.pvRendus);
         player.getInventaire().getContenu().remove(this);
         
+    }
+
+    /**
+     *
+     * @return
+     * sauvegarde d'une potion
+     */
+    @Override
+    public String sauvegardeElement() {
+        String s=((String)("PotionSoin "+this.pvRendus+" "+this.getPos().getX()+" "+this.getPos().getY()));
+        return s;
     }
 }

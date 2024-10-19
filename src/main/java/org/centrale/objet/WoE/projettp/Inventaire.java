@@ -17,6 +17,11 @@ public class Inventaire {
     
     private int defaultCapacite = 15;
     
+    /**
+     *
+     * @param taille Taille inventaire
+     * @param inInventory Contenu
+     */
     public Inventaire(int taille, ArrayList<Objet> inInventory){
         
         capacite = taille;
@@ -24,37 +29,64 @@ public class Inventaire {
         
     }
         
+    /**
+     *
+     * @param inventory
+     * Copie superficielle d'un inventaire
+     */
     public Inventaire(Inventaire inventory){
         
         this.capacite = inventory.capacite;
         this.contenu = inventory.contenu;
     }
     
+    /**
+     *
+     */
     public Inventaire(){
         
         capacite = defaultCapacite;
         contenu = new ArrayList<>();
         
     }
-    
+    //Getters
+    /**
+     *
+     * @return
+     */
     public int getCapacite() {
         return capacite;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Objet> getContenu() {
         return contenu;
     }
-
+    //setters
+    /**
+     *
+     * @param capacite
+     */
     public void setCapacite(int capacite) {
         this.capacite = capacite;
     }
 
+    /**
+     *
+     * @param contenu
+     */
     public void setContenu(ArrayList<Objet> contenu) {
         this.contenu = contenu;
     }
-    
-    
-    
+    //Méthodes
+    /**
+     *
+     * @param item
+     * ajoute un objet dans l'inventaire
+     */
     public void ajout(Objet item){
         
         if (item instanceof NuageToxique){
@@ -65,6 +97,10 @@ public class Inventaire {
         }
         
     }
+
+    /**
+     * affiche l'inventaire
+     */
     public void affiche(){
         for(int i=0;i<this.contenu.size();i++){
             System.out.println("i- ");

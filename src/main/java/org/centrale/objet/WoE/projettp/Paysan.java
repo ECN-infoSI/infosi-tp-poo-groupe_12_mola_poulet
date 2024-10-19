@@ -4,14 +4,14 @@
  */
 package org.centrale.objet.WoE.projettp;
 
-import java.util.ArrayList;
 import java.util.Random;
+import java.util.StringTokenizer;
 
 /**
  *
  * @author Amolz
  */
-public class Paysan extends Personnage implements IA {
+public class Paysan extends Personnage implements IA,Sauvegarde {
     
     /**
      *
@@ -42,10 +42,57 @@ public class Paysan extends Personnage implements IA {
     public Paysan(){
         super();
     }  
+
+    /**
+     *
+     * @param ligne
+     * Génère un paysan sauvegardé
+     */
+    public Paysan(String ligne){
+        super();
+        StringTokenizer tokenizer=new StringTokenizer(ligne," ");
+        String s=tokenizer.nextToken();
+        s=tokenizer.nextToken();
+        this.setNom(s);
+        s=tokenizer.nextToken();
+        this.setPtVie(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.setDegAtt(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.setPtPar(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.setPageAtt(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.setPagePar(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.setDistAttMax(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.getPos().setX(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.getPos().setY(Integer.parseInt(s));
+        
+    }
+
+    /**
+     *
+     * @param monde
+     * Tour d'un paysan
+     */
     @Override
     public void tourIA(World monde){
             Random r=new Random();
             int n=r.nextInt(8);
             this.deplace(n,monde);
     }  
+
+    /**
+     *
+     * @return
+     * Sauvegarde d'un paysan
+     */
+    @Override
+    public String sauvegardeElement() {
+        String s=((String)("Paysan "+this.getNom()+" "+this.getPtVie()+" "+this.getDegAtt()+" "+this.getPtPar()+" "+this.getPageAtt()+" "+this.getPagePar()+" "+this.getDistAttMax()+" "+this.getPos().getX()+" "+this.getPos().getY()));
+        return s;
+    }
 }

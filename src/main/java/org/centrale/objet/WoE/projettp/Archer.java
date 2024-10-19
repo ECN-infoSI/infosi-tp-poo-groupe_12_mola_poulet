@@ -5,13 +5,14 @@
 package org.centrale.objet.WoE.projettp;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.StringTokenizer;
 
 
 /**
  *
  * @author clesp
  */
-public class Archer extends Personnage implements Combattant,IA{
+public class Archer extends Personnage implements Combattant,IA,Sauvegarde{
     private int nbFleches;
 
     /**
@@ -50,6 +51,39 @@ public class Archer extends Personnage implements Combattant,IA{
 
     /**
      *
+     * @param ligne
+     * Permet la génération à partir d'une sauvegarde
+     */
+    public Archer(String ligne){
+        super();
+        StringTokenizer tokenizer=new StringTokenizer(ligne," ");
+        String s=tokenizer.nextToken();
+        if (s.equals("Joueur")){
+            s=tokenizer.nextToken();
+        }
+        s=tokenizer.nextToken();
+        this.setNom(s);
+        s=tokenizer.nextToken();
+        this.setPtVie(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.setDegAtt(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.setPtPar(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.setPageAtt(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.setPagePar(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.setDistAttMax(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.getPos().setX(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.getPos().setY(Integer.parseInt(s));
+        s=tokenizer.nextToken();
+        this.nbFleches=Integer.parseInt(s);
+    }
+    /**
+     *
      * @return
      */
     public int getNbFleches() {
@@ -85,7 +119,7 @@ public class Archer extends Personnage implements Combattant,IA{
         int jetAtt = rand.nextInt(101);
         int jetPar = rand.nextInt(101);
         
-        if (this.getPos().distance(adversaire.getPos())<2){
+        if (this.getPos().distance(adversaire.getPos())<=Math.sqrt(2)){
             
             if (jetAtt>=this.getPageAtt()){
                 
@@ -103,7 +137,7 @@ public class Archer extends Personnage implements Combattant,IA{
             }
             
         }
-        else if (this.getPos().distance(adversaire.getPos())<=this.getDistAttMax()&&this.getNbFleches()>0){
+        else if (this.getPos().distance(adversaire.getPos())<=Math.sqrt(2)*this.getDistAttMax()&& this.getNbFleches()>0){
             
             if (jetAtt>=this.getPageAtt()){
                 
@@ -114,6 +148,11 @@ public class Archer extends Personnage implements Combattant,IA{
         }
     }
     
+    /**
+     *
+     * @param monde
+     * @return
+     */
     @Override
     public ArrayList<Creature> peutCombattre(World monde){
         
@@ -123,7 +162,7 @@ public class Archer extends Personnage implements Combattant,IA{
                 if (i!=this.getPos().getX() || j!=this.getPos().getY()){
                     if (monde.getListeEntite()[i][j]!=null && monde.getListeEntite()[i][j] instanceof Creature){
                     
-                        if (this.getPos().distance(monde.getListeEntite()[i][j].getPos())<=this.getDistAttMax()){
+                        if (this.getPos().distance(monde.getListeEntite()[i][j].getPos())<=Math.sqrt(2)*this.getDistAttMax()){
                             tab.add((Creature)monde.getListeEntite()[i][j]);
                     }
                 }
@@ -136,11 +175,17 @@ public class Archer extends Personnage implements Combattant,IA{
         return tab;
     }
     
+    /**
+     *
+     * @param monde
+     * Tour d'un archer IA
+     */
     @Override
     public void tourIA(World monde){
         ArrayList<Creature> liste=this.peutCombattre(monde);
+        //Attaque si possibilité il y a
         if (null != liste && liste.contains(monde.getJoueur().getPerso())){
-            System.out.println("On vous attaque !");
+            System.out.println("Un Archer vous attaque !");
             this.combattre(monde.getJoueur().getPerso());
             if (monde.getJoueur().getPerso().getPtVie()<=0){
                 System.out.println("Vous êtes mort");
@@ -149,12 +194,23 @@ public class Archer extends Personnage implements Combattant,IA{
                 System.out.println("Vous avez survécu");
             }
         }
+        //Sinon déplacement possible aléatoire
         else{
             Random r=new Random();
             int n=r.nextInt(8);
             this.deplace(n,monde);
         }
     }
-    
+
+    /**
+     *
+     * @return
+     * Sauvegarde un archer
+     */
+    @Override
+    public String sauvegardeElement() {
+        String s=((String)("Archer "+this.getNom()+" "+this.getPtVie()+" "+this.getDegAtt()+" "+this.getPtPar()+" "+this.getPageAtt()+" "+this.getPagePar()+" "+this.getDistAttMax()+" "+this.getPos().getX()+" "+this.getPos().getY()+" "+this.nbFleches));
+        return s;
+    }
 }
 
