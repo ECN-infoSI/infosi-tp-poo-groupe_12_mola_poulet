@@ -73,6 +73,9 @@ public class Nourriture extends Objet implements TempsAttente, Utilisable, Ramas
         super();
         StringTokenizer tokenizer=new StringTokenizer(ligne," ");
         String s=tokenizer.nextToken();
+        if(s.equals("Inventaire")){
+            s=tokenizer.nextToken();
+        }
         s=tokenizer.nextToken();
         this.nom=s;
         s=tokenizer.nextToken();

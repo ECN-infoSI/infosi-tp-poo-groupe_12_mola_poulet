@@ -318,7 +318,7 @@ public class World {
      */
     public void afficheMonde(World monde) {
         //légende
-        System.out.println("X : vous, *=rien, G=Guerrier, A=Archer, J=Potion, N=Nourriture, P=Paysan, L=Loup, B=Lapin, Nombre=Nuage toxique et son rayon");
+        System.out.println("X : vous, *=rien, G=Guerrier, A=Archer, E=Epee, J=Potion, N=Nourriture, P=Paysan, L=Loup, B=Lapin, Nombre=Nuage toxique et son rayon");
         Entite[][] map = monde.getListeEntite();
         for (Entite[] map1 : map) {
             String afficheLigne = "";

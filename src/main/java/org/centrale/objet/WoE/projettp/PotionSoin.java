@@ -40,6 +40,9 @@ public class PotionSoin extends Objet implements Utilisable, Ramassable,Sauvegar
         super();
         StringTokenizer tokenizer=new StringTokenizer(ligne," ");
         String s=tokenizer.nextToken();
+        if(s.equals("Inventaire")){
+            s=tokenizer.nextToken();
+        }
         s=tokenizer.nextToken();
         this.pvRendus=Integer.parseInt(s);
         s=tokenizer.nextToken();
