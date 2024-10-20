@@ -22,12 +22,13 @@ public class Jeu {
     public static void initialisationJeu() {
         //début
         System.out.println("Bienvenue aventurier dans World of ECN ! Une grande quete vous attend." + "\n"
-                + "Ma memoire me fait un peu defaut, etes-vous un nouveau joueur ?");
+                + "Ma memoire me fait un peu defaut, etes-vous un nouveau joueur ?"+"\n");
         System.out.println("1- Non");
         System.out.println("2- Oui");
         Scanner s = new Scanner(System.in);
         String choix = s.next();
         Joueur profil;
+        System.out.println("\n");
         switch (choix) {
             case "2":
                 //nouveau joueur
@@ -68,7 +69,8 @@ public class Jeu {
      * Permet le choix d'une sauvegarde
      */
     public static World choixSauvegarde(Joueur profil) throws FileNotFoundException, IOException {
-        System.out.println("Entrez le nom de la sauvegarde");
+        
+        System.out.println("\n"+"Entrez le nom de la sauvegarde");
         Scanner s = new Scanner(System.in);
         String nomSauvegarde = s.next()+".txt";
         //chargement de la partie
