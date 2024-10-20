@@ -310,7 +310,7 @@ public class Joueur {
                                 System.out.println("Tapez " + i + " pour ramasser une potion de soin" + "(" + ((PotionSoin) item).getPvRendus() + "pv rendus)");
                             }
                             if (item instanceof Nourriture) {
-                                System.out.println("Tapez " + i + " pour ramasser " + ((Nourriture) item).getNom() + "(" + ((Nourriture) item).getModif() + ((Nourriture) item).getStatModifiee() + ")");
+                                System.out.println("Tapez " + i + " pour ramasser " + ((Nourriture) item).getNom() + "(" +((Nourriture) item).getModif()+" "+ ((Nourriture) item).getStatModifiee() + ")");
                             }
                             if (item instanceof Epee) {
                                 System.out.println("Tapez " + i + " pour ramasser" + ((Epee) item).getName() + "(" + ((Epee) item).getBonus() + ")");
@@ -325,13 +325,12 @@ public class Joueur {
                                 Objet itemGrab = objetsProx.get(itemGrabNum);
                                 if (itemGrab instanceof Epee) {
                                     ((Epee) itemGrab).equiper(this);
-                                } else {
+                                }else{
+                                    inventaire.getContenu().add(itemGrab);
+                                }
                                     int itemX = itemGrab.getPos().getX();
                                     int itemY = itemGrab.getPos().getY();
-
-                                    inventaire.getContenu().add(itemGrab);
                                     monde.getListeEntite()[itemX][itemY] = null;
-                                }
                             } else {
                                 System.out.println("Il semble y avoir une erreur");
                                 this.tourDeJoueur(n, monde);

@@ -39,6 +39,7 @@ public class Jeu {
                 float n = w.getLongueur() * w.getLargeur();
                 w.creeMondeAlea(r.nextInt((int) Math.floor(n * 0.15) + 1), r.nextInt((int) Math.floor(n * 0.10) + 1), r.nextInt((int) Math.floor(n * 0.05) + 1), r.nextInt((int) Math.floor(n * 0.1) + 1), r.nextInt((int) Math.floor(n * 0.05) + 1), r.nextInt((int) Math.floor(n * 0.07) + 1), r.nextInt((int) Math.floor(n * 0.03) + 1), r.nextInt((int) Math.floor(n * 0.05) + 1), 1);
                 w.tourDeJeu();
+                break;
             case "1":
                 //ancien joueur
                 System.out.println("Entrez votre pseudo : ");

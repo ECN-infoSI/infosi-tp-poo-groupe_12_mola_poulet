@@ -106,6 +106,7 @@ public class Guerrier extends Personnage implements Combattant,IA,Sauvegarde {
      */
 
     public void setArme(Epee arme) {
+        this.arme.setName(arme.getName());
         this.arme.setBonus(arme.getBonus());
     }
     

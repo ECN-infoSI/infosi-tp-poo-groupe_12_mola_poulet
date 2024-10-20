@@ -12,6 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -149,9 +150,15 @@ public class World {
         }
         //Epee
         for (int i = 1; i <= nbEpee; i++) {
-
-            Epee thing = new Epee();
-            definePos(thing);
+            int n=r.nextInt(3);
+            if (n==0){
+                Epee thing = new Epee("Master_Sword",10,new Point2D());
+                definePos(thing);  
+            }
+            else{
+                Epee thing=new Epee("Epee_Moyenne",5,new Point2D());
+                definePos(thing);
+            }
         }
 
         //Nourriture
@@ -218,7 +225,7 @@ public class World {
         int modifStat = 0;
         int temps = r.nextInt(4) + 1;
 
-        while (0 != modifBase) {
+        while (0 == modifBase) {
             modifBase = (int) (r.nextInt(plage) - Math.floor(plage / 2));
         }
 
@@ -288,7 +295,7 @@ public class World {
                         if (((NuageToxique) ia).peutCombattre(this).contains(this.joueur.getPerso())) {
                             System.out.println("Fuyez pauvres fous, vous etes dans le nuage toxique !");
                             if (this.joueur.getPerso().getPtVie() <= 0) {
-                                System.out.println("Vous avez succombé au nuage toxique");
+                                System.out.println("Vous avez succombe au nuage toxique");
                                 this.getListeEntite()[this.getJoueur().getPerso().getPos().getX()][this.getJoueur().getPerso().getPos().getY()]=null;
                             }
                         }
@@ -297,18 +304,18 @@ public class World {
 
             }
             //actualisation des effets
+            ArrayList<Utilisable> expires=new ArrayList<>();
             for (Utilisable cooldown : joueur.getEffets()) {
                 ((Nourriture) cooldown).expiration(joueur);
-
                 if (((Nourriture) cooldown).getToursRestants() <= 0) {
-                    joueur.getEffets().remove(cooldown);
-                }
-
+                    System.out.println(((Nourriture)cooldown).getNom()+" n'est plus actif");
+                    expires.add(cooldown);
+                }    
             }
-
+            joueur.getEffets().removeAll(expires);
             n++;
         }
-        System.out.println("Game Over," + "\n" + "Vous avez survécu " + n + " tours");
+        System.out.println("Game Over," + "\n" + "Vous avez survecu " + n + " tours");
     }
 
     /**
